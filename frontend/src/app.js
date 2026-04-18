@@ -10,6 +10,7 @@ import {
   setOverlayVisibility,
 } from "./lib/overlays.js";
 import { applyMapTheme } from "./lib/mapTheme.js";
+import { loadFlagImage } from "./lib/flagImage.js";
 
 /* global maplibregl */
 
@@ -135,6 +136,17 @@ function initMap() {
   map.on("load", () => {
     applyMapTheme(map);
     setupSources();
+
+    // Register flag image handler BEFORE layers that reference flag-* images
+    map.on("styleimagemissing", (e) => {
+      if (e.id.startsWith("flag-")) {
+        const countryCode = e.id.replace("flag-", "");
+        loadFlagImage(map, countryCode).then(() => {
+          map.triggerRepaint();
+        });
+      }
+    });
+
     setupOverlayLayers();
     setupLayers();
     setupInteractivity();

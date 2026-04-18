@@ -35,7 +35,8 @@ export function getVisibleScores() {
 }
 
 export function getSelectedScore(visibleScores) {
-  return visibleScores.find((s) => s.id === selection.locationId) ?? visibleScores[0] ?? null;
+  if (!selection.locationId) return null;
+  return visibleScores.find((s) => s.id === selection.locationId) ?? null;
 }
 
 export function ensureValidSelection(visibleScores) {

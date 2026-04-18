@@ -1,0 +1,226 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [56.2500, 26.5667]
+      },
+      "properties": {
+        "name": "Strait of Hormuz",
+        "region": "Middle East",
+        "significance": "Controls access to the Persian Gulf; roughly one-third of global seaborne oil transits here",
+        "dailyVessels": "~2,000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [101.0000, 2.5000]
+      },
+      "properties": {
+        "name": "Strait of Malacca",
+        "region": "Southeast Asia",
+        "significance": "Shortest sea route between the Indian and Pacific Oceans; critical for East Asian energy imports",
+        "dailyVessels": "~2,500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [43.3333, 12.5833]
+      },
+      "properties": {
+        "name": "Bab el-Mandeb",
+        "region": "Middle East",
+        "significance": "Links the Red Sea to the Gulf of Aden; key corridor for Europe-Asia trade via the Suez Canal",
+        "dailyVessels": "~300"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.3500, 30.4500]
+      },
+      "properties": {
+        "name": "Suez Canal",
+        "region": "Middle East",
+        "significance": "Artificial waterway connecting the Mediterranean and Red Sea; avoids routing around Africa",
+        "dailyVessels": "~150"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.6800, 9.0800]
+      },
+      "properties": {
+        "name": "Panama Canal",
+        "region": "Americas",
+        "significance": "Links the Atlantic and Pacific Oceans; vital for US intercoastal and global container trade",
+        "dailyVessels": "~100"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-12.0000, 63.0000]
+      },
+      "properties": {
+        "name": "GIUK Gap",
+        "region": "Europe",
+        "significance": "Greenland-Iceland-UK passage; strategic NATO chokepoint for monitoring Russian naval movements",
+        "dailyVessels": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [119.0000, 24.0000]
+      },
+      "properties": {
+        "name": "Taiwan Strait",
+        "region": "East Asia",
+        "significance": "Separates Taiwan from mainland China; one of the most heavily trafficked shipping lanes globally",
+        "dailyVessels": "~1,200"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-5.5000, 35.9600]
+      },
+      "properties": {
+        "name": "Strait of Gibraltar",
+        "region": "Europe",
+        "significance": "Only natural passage between the Atlantic Ocean and the Mediterranean Sea",
+        "dailyVessels": "~800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [29.0500, 41.1200]
+      },
+      "properties": {
+        "name": "Turkish Straits / Bosphorus",
+        "region": "Europe",
+        "significance": "Connects the Black Sea to the Mediterranean via the Sea of Marmara; controls Russian warm-water access",
+        "dailyVessels": "~300"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.6500, 55.9500]
+      },
+      "properties": {
+        "name": "Danish Straits / Øresund",
+        "region": "Europe",
+        "significance": "Primary access between the Baltic Sea and the North Sea; critical for Northern European trade",
+        "dailyVessels": "~600"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.7000, -8.4000]
+      },
+      "properties": {
+        "name": "Strait of Lombok",
+        "region": "Southeast Asia",
+        "significance": "Alternative to Malacca for deep-draft vessels transiting between the Indian and Pacific Oceans",
+        "dailyVessels": "~300"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [41.0000, -17.0000]
+      },
+      "properties": {
+        "name": "Mozambique Channel",
+        "region": "Africa",
+        "significance": "Separates Madagascar from mainland Africa; key route for oil tankers rounding the Cape",
+        "dailyVessels": "~150"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [18.4741, -34.3568]
+      },
+      "properties": {
+        "name": "Cape of Good Hope",
+        "region": "Africa",
+        "significance": "Southern tip of Africa; fallback route when Suez Canal is disrupted and major oil tanker corridor",
+        "dailyVessels": "~200"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.5000, -53.5000]
+      },
+      "properties": {
+        "name": "Strait of Magellan",
+        "region": "Americas",
+        "significance": "Natural passage between the Atlantic and Pacific at South America's southern tip; alternative to Cape Horn",
+        "dailyVessels": "~30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.0000, 50.5000]
+      },
+      "properties": {
+        "name": "English Channel",
+        "region": "Europe",
+        "significance": "Busiest international shipping lane in the world; connects the North Sea to the Atlantic",
+        "dailyVessels": "~1,500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [129.0000, 34.0000]
+      },
+      "properties": {
+        "name": "Korean Strait",
+        "region": "East Asia",
+        "significance": "Separates Japan from the Korean Peninsula; primary route for trade between the East China Sea and Sea of Japan",
+        "dailyVessels": "~400"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.8500, -6.1000]
+      },
+      "properties": {
+        "name": "Sunda Strait",
+        "region": "Southeast Asia",
+        "significance": "Separates Java and Sumatra; secondary route between the Indian Ocean and Java Sea",
+        "dailyVessels": "~200"
+      }
+    }
+  ]
+}

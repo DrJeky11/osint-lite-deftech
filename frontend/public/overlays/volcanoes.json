@@ -1,0 +1,505 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [14.426, 40.821] },
+      "properties": { "name": "Vesuvius", "country": "Italy", "elevation": 1281, "type": "Stratovolcano", "status": "Active", "region": "Mediterranean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.004, 37.748] },
+      "properties": { "name": "Etna", "country": "Italy", "elevation": 3357, "type": "Stratovolcano", "status": "Active", "region": "Mediterranean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.213, 38.789] },
+      "properties": { "name": "Stromboli", "country": "Italy", "elevation": 924, "type": "Stratovolcano", "status": "Active", "region": "Mediterranean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [14.139, 40.827] },
+      "properties": { "name": "Campi Flegrei", "country": "Italy", "elevation": 458, "type": "Caldera", "status": "Active", "region": "Mediterranean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [14.962, 38.404] },
+      "properties": { "name": "Pantelleria", "country": "Italy", "elevation": 836, "type": "Shield", "status": "Historical", "region": "Mediterranean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.396, 36.404] },
+      "properties": { "name": "Santorini", "country": "Greece", "elevation": 567, "type": "Caldera", "status": "Historical", "region": "Mediterranean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [138.727, 35.361] },
+      "properties": { "name": "Fuji", "country": "Japan", "elevation": 3776, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [130.657, 31.593] },
+      "properties": { "name": "Sakurajima", "country": "Japan", "elevation": 1117, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [140.88, 31.945] },
+      "properties": { "name": "Nishinoshima", "country": "Japan", "elevation": 25, "type": "Submarine", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [144.076, 42.063] },
+      "properties": { "name": "Usu", "country": "Japan", "elevation": 737, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [139.526, 42.064] },
+      "properties": { "name": "Yotei", "country": "Japan", "elevation": 1898, "type": "Stratovolcano", "status": "Holocene", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [130.293, 33.083] },
+      "properties": { "name": "Unzen", "country": "Japan", "elevation": 1500, "type": "Complex", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [131.601, 34.079] },
+      "properties": { "name": "Aso", "country": "Japan", "elevation": 1592, "type": "Caldera", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [130.762, 30.484] },
+      "properties": { "name": "Suwanosejima", "country": "Japan", "elevation": 796, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [110.446, -7.54] },
+      "properties": { "name": "Merapi", "country": "Indonesia", "elevation": 2910, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [105.423, -6.102] },
+      "properties": { "name": "Krakatau", "country": "Indonesia", "elevation": 813, "type": "Caldera", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [116.047, -8.342] },
+      "properties": { "name": "Rinjani", "country": "Indonesia", "elevation": 3726, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [118.0, -8.25] },
+      "properties": { "name": "Tambora", "country": "Indonesia", "elevation": 2850, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [98.392, 2.46] },
+      "properties": { "name": "Sinabung", "country": "Indonesia", "elevation": 2460, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [98.83, 2.614] },
+      "properties": { "name": "Toba", "country": "Indonesia", "elevation": 2157, "type": "Caldera", "status": "Holocene", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [112.445, -7.932] },
+      "properties": { "name": "Kelud", "country": "Indonesia", "elevation": 1731, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [115.508, -8.242] },
+      "properties": { "name": "Agung", "country": "Indonesia", "elevation": 3142, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [112.92, -7.942] },
+      "properties": { "name": "Semeru", "country": "Indonesia", "elevation": 3676, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.35, 15.13] },
+      "properties": { "name": "Pinatubo", "country": "Philippines", "elevation": 1486, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.998, 14.009] },
+      "properties": { "name": "Taal", "country": "Philippines", "elevation": 311, "type": "Caldera", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [124.5, 11.749] },
+      "properties": { "name": "Mayon", "country": "Philippines", "elevation": 2462, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [125.271, 7.38] },
+      "properties": { "name": "Apo", "country": "Philippines", "elevation": 2954, "type": "Stratovolcano", "status": "Holocene", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [124.55, 12.77] },
+      "properties": { "name": "Bulusan", "country": "Philippines", "elevation": 1565, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.508, -39.277] },
+      "properties": { "name": "Ruapehu", "country": "New Zealand", "elevation": 2797, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [177.18, -37.52] },
+      "properties": { "name": "White Island", "country": "New Zealand", "elevation": 321, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [176.07, -38.687] },
+      "properties": { "name": "Taupo", "country": "New Zealand", "elevation": 760, "type": "Caldera", "status": "Holocene", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.632, -39.157] },
+      "properties": { "name": "Tongariro", "country": "New Zealand", "elevation": 1978, "type": "Complex", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-155.286, 19.421] },
+      "properties": { "name": "Kilauea", "country": "United States", "elevation": 1222, "type": "Shield", "status": "Active", "region": "Pacific" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-155.608, 19.475] },
+      "properties": { "name": "Mauna Loa", "country": "United States", "elevation": 4170, "type": "Shield", "status": "Active", "region": "Pacific" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-121.758, 46.853] },
+      "properties": { "name": "Rainier", "country": "United States", "elevation": 4392, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-122.18, 46.2] },
+      "properties": { "name": "St. Helens", "country": "United States", "elevation": 2549, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-110.67, 44.43] },
+      "properties": { "name": "Yellowstone", "country": "United States", "elevation": 2805, "type": "Caldera", "status": "Holocene", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-121.508, 41.409] },
+      "properties": { "name": "Shasta", "country": "United States", "elevation": 4317, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-121.767, 44.103] },
+      "properties": { "name": "South Sister", "country": "United States", "elevation": 3157, "type": "Stratovolcano", "status": "Holocene", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-122.194, 48.777] },
+      "properties": { "name": "Baker", "country": "United States", "elevation": 3286, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-152.745, 58.263] },
+      "properties": { "name": "Katmai", "country": "United States", "elevation": 2047, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-153.104, 58.355] },
+      "properties": { "name": "Novarupta", "country": "United States", "elevation": 841, "type": "Caldera", "status": "Historical", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-166.936, 53.88] },
+      "properties": { "name": "Shishaldin", "country": "United States", "elevation": 2857, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-176.13, 51.923] },
+      "properties": { "name": "Great Sitkin", "country": "United States", "elevation": 1740, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-98.622, 19.023] },
+      "properties": { "name": "Popocatepetl", "country": "Mexico", "elevation": 5426, "type": "Stratovolcano", "status": "Active", "region": "Central America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-96.77, 19.03] },
+      "properties": { "name": "Pico de Orizaba", "country": "Mexico", "elevation": 5675, "type": "Stratovolcano", "status": "Historical", "region": "Central America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-103.62, 19.514] },
+      "properties": { "name": "Colima", "country": "Mexico", "elevation": 3850, "type": "Stratovolcano", "status": "Active", "region": "Central America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-90.88, 14.756] },
+      "properties": { "name": "Santa Maria", "country": "Guatemala", "elevation": 3772, "type": "Stratovolcano", "status": "Active", "region": "Central America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-90.601, 14.473] },
+      "properties": { "name": "Fuego", "country": "Guatemala", "elevation": 3763, "type": "Stratovolcano", "status": "Active", "region": "Central America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-90.551, 14.382] },
+      "properties": { "name": "Pacaya", "country": "Guatemala", "elevation": 2552, "type": "Complex", "status": "Active", "region": "Central America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-84.703, 10.025] },
+      "properties": { "name": "Arenal", "country": "Costa Rica", "elevation": 1670, "type": "Stratovolcano", "status": "Active", "region": "Central America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-71.93, -2.109] },
+      "properties": { "name": "Sangay", "country": "Ecuador", "elevation": 5230, "type": "Stratovolcano", "status": "Active", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-78.436, -0.077] },
+      "properties": { "name": "Cayambe", "country": "Ecuador", "elevation": 5790, "type": "Stratovolcano", "status": "Historical", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-78.437, -0.677] },
+      "properties": { "name": "Cotopaxi", "country": "Ecuador", "elevation": 5911, "type": "Stratovolcano", "status": "Active", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-77.656, 2.93] },
+      "properties": { "name": "Galeras", "country": "Colombia", "elevation": 4276, "type": "Complex", "status": "Active", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-75.322, 4.895] },
+      "properties": { "name": "Nevado del Ruiz", "country": "Colombia", "elevation": 5321, "type": "Stratovolcano", "status": "Active", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-71.85, -16.294] },
+      "properties": { "name": "Ubinas", "country": "Peru", "elevation": 5672, "type": "Stratovolcano", "status": "Active", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-71.058, -15.515] },
+      "properties": { "name": "Misti", "country": "Peru", "elevation": 5822, "type": "Stratovolcano", "status": "Historical", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-72.646, -36.179] },
+      "properties": { "name": "Llaima", "country": "Chile", "elevation": 3125, "type": "Stratovolcano", "status": "Active", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-71.93, -39.42] },
+      "properties": { "name": "Villarrica", "country": "Chile", "elevation": 2847, "type": "Stratovolcano", "status": "Active", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-72.117, -41.326] },
+      "properties": { "name": "Calbuco", "country": "Chile", "elevation": 2003, "type": "Stratovolcano", "status": "Active", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-17.333, 64.633] },
+      "properties": { "name": "Grimsvotn", "country": "Iceland", "elevation": 1719, "type": "Caldera", "status": "Active", "region": "Iceland" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-19.613, 63.633] },
+      "properties": { "name": "Eyjafjallajokull", "country": "Iceland", "elevation": 1651, "type": "Stratovolcano", "status": "Active", "region": "Iceland" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-19.05, 63.633] },
+      "properties": { "name": "Katla", "country": "Iceland", "elevation": 1512, "type": "Caldera", "status": "Active", "region": "Iceland" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-17.726, 64.642] },
+      "properties": { "name": "Bardarbunga", "country": "Iceland", "elevation": 2009, "type": "Caldera", "status": "Active", "region": "Iceland" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-16.65, 64.8] },
+      "properties": { "name": "Askja", "country": "Iceland", "elevation": 1516, "type": "Caldera", "status": "Historical", "region": "Iceland" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-23.37, 63.98] },
+      "properties": { "name": "Surtsey", "country": "Iceland", "elevation": 155, "type": "Submarine", "status": "Historical", "region": "Iceland" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-22.786, 63.878] },
+      "properties": { "name": "Reykjanes", "country": "Iceland", "elevation": 230, "type": "Shield", "status": "Active", "region": "Iceland" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-17.316, 28.72] },
+      "properties": { "name": "Cumbre Vieja", "country": "Spain", "elevation": 1949, "type": "Stratovolcano", "status": "Active", "region": "Atlantic" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-16.641, 28.271] },
+      "properties": { "name": "Teide", "country": "Spain", "elevation": 3715, "type": "Stratovolcano", "status": "Historical", "region": "Atlantic" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.245, -1.52] },
+      "properties": { "name": "Nyiragongo", "country": "DR Congo", "elevation": 3470, "type": "Stratovolcano", "status": "Active", "region": "East Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.208, -1.408] },
+      "properties": { "name": "Nyamuragira", "country": "DR Congo", "elevation": 3058, "type": "Shield", "status": "Active", "region": "East Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.292, -2.764] },
+      "properties": { "name": "Ol Doinyo Lengai", "country": "Tanzania", "elevation": 2962, "type": "Stratovolcano", "status": "Active", "region": "East Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [37.356, -3.076] },
+      "properties": { "name": "Kilimanjaro", "country": "Tanzania", "elevation": 5895, "type": "Stratovolcano", "status": "Holocene", "region": "East Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.75, -1.17] },
+      "properties": { "name": "Longonot", "country": "Kenya", "elevation": 2776, "type": "Stratovolcano", "status": "Holocene", "region": "East Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [40.67, 12.292] },
+      "properties": { "name": "Erta Ale", "country": "Ethiopia", "elevation": 613, "type": "Shield", "status": "Active", "region": "East Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [160.587, 56.057] },
+      "properties": { "name": "Klyuchevskoy", "country": "Russia", "elevation": 4835, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [160.326, 54.756] },
+      "properties": { "name": "Karymsky", "country": "Russia", "elevation": 1536, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [160.638, 56.653] },
+      "properties": { "name": "Shiveluch", "country": "Russia", "elevation": 3283, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [160.594, 53.924] },
+      "properties": { "name": "Bezymianny", "country": "Russia", "elevation": 2882, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [150.773, 46.539] },
+      "properties": { "name": "Ebeko", "country": "Russia", "elevation": 1156, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.459, 42.439] },
+      "properties": { "name": "Elbrus", "country": "Russia", "elevation": 5642, "type": "Stratovolcano", "status": "Holocene", "region": "Caucasus" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [168.34, -14.27] },
+      "properties": { "name": "Yasur", "country": "Vanuatu", "elevation": 361, "type": "Stratovolcano", "status": "Active", "region": "Pacific" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [168.12, -16.35] },
+      "properties": { "name": "Ambae", "country": "Vanuatu", "elevation": 1496, "type": "Shield", "status": "Active", "region": "Pacific" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [155.195, -6.094] },
+      "properties": { "name": "Ulawun", "country": "Papua New Guinea", "elevation": 2334, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [152.201, -4.271] },
+      "properties": { "name": "Rabaul", "country": "Papua New Guinea", "elevation": 688, "type": "Caldera", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [148.076, -5.045] },
+      "properties": { "name": "Manam", "country": "Papua New Guinea", "elevation": 1807, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [127.324, 0.8] },
+      "properties": { "name": "Dukono", "country": "Indonesia", "elevation": 1229, "type": "Complex", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [124.792, 1.358] },
+      "properties": { "name": "Lokon-Empung", "country": "Indonesia", "elevation": 1580, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [121.711, -8.108] },
+      "properties": { "name": "Lewotolo", "country": "Indonesia", "elevation": 1423, "type": "Stratovolcano", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.15, 15.042] },
+      "properties": { "name": "Jabal al-Tair", "country": "Yemen", "elevation": 244, "type": "Stratovolcano", "status": "Active", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [52.078, 32.636] },
+      "properties": { "name": "Damavand", "country": "Iran", "elevation": 5671, "type": "Stratovolcano", "status": "Holocene", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [43.35, 39.7] },
+      "properties": { "name": "Ararat", "country": "Turkey", "elevation": 5137, "type": "Stratovolcano", "status": "Holocene", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.417, 38.133] },
+      "properties": { "name": "Erciyes Dagi", "country": "Turkey", "elevation": 3916, "type": "Stratovolcano", "status": "Holocene", "region": "Mediterranean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-61.166, 16.044] },
+      "properties": { "name": "Soufriere Hills", "country": "United Kingdom", "elevation": 915, "type": "Stratovolcano", "status": "Active", "region": "Caribbean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-61.18, 14.812] },
+      "properties": { "name": "Pelee", "country": "France", "elevation": 1397, "type": "Stratovolcano", "status": "Active", "region": "Caribbean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-61.048, 13.337] },
+      "properties": { "name": "Kick 'em Jenny", "country": "Grenada", "elevation": -185, "type": "Submarine", "status": "Active", "region": "Caribbean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [150.52, -4.076] },
+      "properties": { "name": "Langila", "country": "Papua New Guinea", "elevation": 1330, "type": "Complex", "status": "Active", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-121.813, 46.118] },
+      "properties": { "name": "Adams", "country": "United States", "elevation": 3742, "type": "Stratovolcano", "status": "Holocene", "region": "Pacific Ring of Fire" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-121.77, 41.695] },
+      "properties": { "name": "Medicine Lake", "country": "United States", "elevation": 2412, "type": "Shield", "status": "Holocene", "region": "Pacific Ring of Fire" }
+    }
+  ]
+}

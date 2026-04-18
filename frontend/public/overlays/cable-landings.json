@@ -1,0 +1,385 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-73.96, 40.77] },
+      "properties": { "name": "New York (Manhattan)", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-73.55, 40.59] },
+      "properties": { "name": "Long Island, NY", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-74.00, 40.47] },
+      "properties": { "name": "Wall Township, NJ", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-75.97, 36.85] },
+      "properties": { "name": "Virginia Beach, VA", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.13, 25.77] },
+      "properties": { "name": "Miami, FL", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.06, 26.69] },
+      "properties": { "name": "Boca Raton, FL", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-81.10, 32.08] },
+      "properties": { "name": "Tybee Island, GA", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-79.93, 32.78] },
+      "properties": { "name": "Charleston, SC", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-118.41, 33.94] },
+      "properties": { "name": "Los Angeles / El Segundo, CA", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-117.93, 33.62] },
+      "properties": { "name": "Huntington Beach, CA", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-122.49, 37.77] },
+      "properties": { "name": "San Francisco, CA", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-122.38, 36.97] },
+      "properties": { "name": "Santa Cruz, CA", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-124.06, 44.62] },
+      "properties": { "name": "Pacific City, OR", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-124.21, 43.37] },
+      "properties": { "name": "Bandon, OR", "country": "United States", "region": "North America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.07, 50.05] },
+      "properties": { "name": "Porthcurno, Cornwall", "country": "United Kingdom", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.04, 50.07] },
+      "properties": { "name": "Bude, Cornwall", "country": "United Kingdom", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.41, 51.15] },
+      "properties": { "name": "Dover / Folkestone", "country": "United Kingdom", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-0.13, 51.51] },
+      "properties": { "name": "London (Docklands)", "country": "United Kingdom", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.60, 50.95] },
+      "properties": { "name": "Calais", "country": "France", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [5.37, 43.30] },
+      "properties": { "name": "Marseille", "country": "France", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-4.50, 48.38] },
+      "properties": { "name": "Brest", "country": "France", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-2.76, 48.63] },
+      "properties": { "name": "Saint-Brieuc", "country": "France", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [4.29, 52.08] },
+      "properties": { "name": "Katwijk", "country": "Netherlands", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [3.22, 51.32] },
+      "properties": { "name": "Zeebrugge", "country": "Belgium", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.14, 53.54] },
+      "properties": { "name": "Norden / Hilgenriedersiel", "country": "Germany", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.10, 54.18] },
+      "properties": { "name": "Rostock", "country": "Germany", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [11.97, 57.70] },
+      "properties": { "name": "Gothenburg", "country": "Sweden", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [9.98, 57.05] },
+      "properties": { "name": "Blaabjerg", "country": "Denmark", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-8.63, 41.15] },
+      "properties": { "name": "Porto / Carcavelos", "country": "Portugal", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [16.37, 38.91] },
+      "properties": { "name": "Catanzaro", "country": "Italy", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.73, 37.97] },
+      "properties": { "name": "Athens / Chania", "country": "Greece", "region": "Europe" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [103.85, 1.29] },
+      "properties": { "name": "Singapore (Changi)", "country": "Singapore", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [103.71, 1.32] },
+      "properties": { "name": "Singapore (Tuas)", "country": "Singapore", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [114.17, 22.30] },
+      "properties": { "name": "Hong Kong (Chung Hom Kok)", "country": "China (Hong Kong SAR)", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [114.27, 22.28] },
+      "properties": { "name": "Hong Kong (Deep Water Bay)", "country": "China (Hong Kong SAR)", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [139.75, 35.34] },
+      "properties": { "name": "Tokyo / Chikura", "country": "Japan", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [136.91, 35.08] },
+      "properties": { "name": "Shima /志摩", "country": "Japan", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [135.19, 34.23] },
+      "properties": { "name": "Kitanada / Maruyama", "country": "Japan", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [129.04, 35.10] },
+      "properties": { "name": "Busan", "country": "South Korea", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [121.47, 25.16] },
+      "properties": { "name": "Tamsui / Taipei", "country": "Taiwan", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.31, 22.57] },
+      "properties": { "name": "Fangshan / Pingtung", "country": "Taiwan", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [151.21, -33.86] },
+      "properties": { "name": "Sydney", "country": "Australia", "region": "Oceania" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [115.76, -31.79] },
+      "properties": { "name": "Perth", "country": "Australia", "region": "Oceania" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [174.78, -41.29] },
+      "properties": { "name": "Wellington", "country": "New Zealand", "region": "Oceania" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [72.88, 19.08] },
+      "properties": { "name": "Mumbai", "country": "India", "region": "South Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [80.28, 13.08] },
+      "properties": { "name": "Chennai", "country": "India", "region": "South Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [76.27, 9.94] },
+      "properties": { "name": "Kochi / Cochin", "country": "India", "region": "South Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [55.27, 25.20] },
+      "properties": { "name": "Dubai / Fujairah", "country": "United Arab Emirates", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [56.27, 25.41] },
+      "properties": { "name": "Fujairah", "country": "United Arab Emirates", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [57.09, 24.47] },
+      "properties": { "name": "Muscat / Barka", "country": "Oman", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [38.51, 21.49] },
+      "properties": { "name": "Jeddah", "country": "Saudi Arabia", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [32.30, 31.26] },
+      "properties": { "name": "Port Said / Suez", "country": "Egypt", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.78, 32.07] },
+      "properties": { "name": "Tel Aviv", "country": "Israel", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [43.15, 11.59] },
+      "properties": { "name": "Djibouti", "country": "Djibouti", "region": "Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [39.67, -4.04] },
+      "properties": { "name": "Mombasa", "country": "Kenya", "region": "Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [39.28, -6.79] },
+      "properties": { "name": "Dar es Salaam", "country": "Tanzania", "region": "Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [3.39, 6.45] },
+      "properties": { "name": "Lagos", "country": "Nigeria", "region": "Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-1.60, 4.76] },
+      "properties": { "name": "Accra / Takoradi", "country": "Ghana", "region": "Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [18.42, -33.92] },
+      "properties": { "name": "Cape Town (Melkbosstrand)", "country": "South Africa", "region": "Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.04, -29.87] },
+      "properties": { "name": "Durban / Mtunzini", "country": "South Africa", "region": "Africa" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [47.98, 29.37] },
+      "properties": { "name": "Kuwait City", "country": "Kuwait", "region": "Middle East" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-46.63, -23.55] },
+      "properties": { "name": "São Paulo / Santos", "country": "Brazil", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-38.52, -3.72] },
+      "properties": { "name": "Fortaleza", "country": "Brazil", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-43.17, -22.91] },
+      "properties": { "name": "Rio de Janeiro", "country": "Brazil", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-70.65, -33.44] },
+      "properties": { "name": "Valparaíso / Santiago", "country": "Chile", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-58.38, -34.60] },
+      "properties": { "name": "Buenos Aires / Las Toninas", "country": "Argentina", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-77.12, 3.90] },
+      "properties": { "name": "Buenaventura", "country": "Colombia", "region": "South America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-79.90, 9.36] },
+      "properties": { "name": "Panama City / Colón", "country": "Panama", "region": "Central America" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-66.11, 18.47] },
+      "properties": { "name": "San Juan, Puerto Rico", "country": "United States", "region": "Caribbean" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [100.52, 13.75] },
+      "properties": { "name": "Bangkok / Songkhla", "country": "Thailand", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [106.84, -6.12] },
+      "properties": { "name": "Jakarta / Ancol", "country": "Indonesia", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.98, 14.52] },
+      "properties": { "name": "Manila / Nasugbu", "country": "Philippines", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [108.22, 16.06] },
+      "properties": { "name": "Da Nang", "country": "Vietnam", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [106.66, 10.80] },
+      "properties": { "name": "Ho Chi Minh City / Vung Tau", "country": "Vietnam", "region": "Asia" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-156.47, 20.80] },
+      "properties": { "name": "Hawaii (Maui)", "country": "United States", "region": "Pacific" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [144.75, 13.44] },
+      "properties": { "name": "Guam (Piti)", "country": "United States", "region": "Pacific" }
+    }
+  ]
+}

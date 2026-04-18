@@ -8,18 +8,28 @@
     loadOverlayPreferences,
     addOverlayLayers,
     setOverlayVisibility,
+    buildOverlayTooltip,
+    getOverlayInteractiveLayerId,
   } from "../lib/overlays.js";
   import { applyMapTheme } from "../lib/mapTheme.js";
-  import OverlayPanel from "./OverlayPanel.svelte";
+  import { loadFlagImage } from "../lib/flagImage.js";
 
-  let { onDataUpdate = () => {} } = $props();
+
+  let { onDataUpdate = () => {}, fullBleed = false } = $props();
 
   let container;
   let map;
   let loaded = false;
   let overlayPrefs = loadOverlayPreferences();
+  let hoverPopup = null;
 
   onMount(() => {
+    if (!container) {
+      console.error("[MapStage] container ref is null — bind:this failed");
+      return;
+    }
+    console.log("[MapStage] init, container size:", container.clientWidth, "x", container.clientHeight);
+
     map = new maplibregl.Map({
       container,
       style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
@@ -32,18 +42,39 @@
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
 
+    hoverPopup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+      className: "sa-popup",
+      maxWidth: "280px",
+      offset: 12
+    });
+
+    map.on("error", (e) => {
+      console.error("[MapStage] map error:", e.error?.message || e);
+    });
+
     map.on("load", () => {
+      console.log("[MapStage] map loaded successfully");
       map.setProjection({ type: filters.projection === "globe" ? "globe" : "mercator" });
       setupSources();
+
+      // Register flag image handler BEFORE layers that reference flag-* icons
+      map.on("styleimagemissing", (e) => {
+        if (e.id.startsWith("flag-")) {
+          const countryCode = e.id.replace("flag-", "");
+          loadFlagImage(map, countryCode).then(() => {
+            map.triggerRepaint();
+          });
+        }
+      });
+
+      setupOverlaySources();
+      setupOverlayLayers();
+      setupOverlayInteractivity();
+
       setupLayers();
       setupInteractivity();
-
-      try {
-        setupOverlaySources();
-        setupOverlayLayers();
-      } catch (err) {
-        console.warn("Overlay setup failed:", err);
-      }
 
       applyMapTheme(map);
       loaded = true;
@@ -53,8 +84,9 @@
     window.addEventListener("resize", handleResize);
 
     return () => {
+      hoverPopup?.remove();
       map.off("click", "hotspot-circles", handleHotspotClick);
-      map.off("mouseenter", "hotspot-circles", handleHotspotEnter);
+      map.off("mousemove", "hotspot-circles", handleHotspotHover);
       map.off("mouseleave", "hotspot-circles", handleHotspotLeave);
       window.removeEventListener("resize", handleResize);
       map.remove();
@@ -92,7 +124,7 @@
     }
   }
 
-  function handleOverlayToggle(id, visible) {
+  export function handleOverlayToggle(id, visible) {
     overlayPrefs[id] = visible;
     if (map && loaded) {
       setOverlayVisibility(map, id, visible);
@@ -187,17 +219,87 @@
     }
   }
 
-  function handleHotspotEnter() {
+  function buildHotspotTooltip(props) {
+    const trendColor = props.trend === "warming" ? "#ff7557" : props.trend === "cooling" ? "#49d4ba" : "#d3dde8";
+    const deltaSign = props.delta > 0 ? "+" : "";
+    const dominant = props.militaryComponent > props.civilComponent + 8
+      ? "Military-led"
+      : props.civilComponent > props.militaryComponent + 8
+        ? "Civil-led"
+        : "Mixed signal";
+
+    return `<div style="font-family:'SF Mono','IBM Plex Mono',monospace;font-size:11px;line-height:1.5;min-width:180px">` +
+      `<div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#ffb25f;margin-bottom:4px">Priority theater</div>` +
+      `<div style="font-size:13px;font-weight:700;color:#f0f4fb;margin-bottom:8px">${props.name}</div>` +
+      `<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px">` +
+        `<div><span style="color:#8a9db5">Heat</span></div><div style="text-align:right;font-weight:600">${Math.round(props.heat)}</div>` +
+        `<div><span style="color:#8a9db5">Delta</span></div><div style="text-align:right;font-weight:600">${deltaSign}${Math.round(props.delta)}</div>` +
+        `<div><span style="color:#8a9db5">Trend</span></div><div style="text-align:right;font-weight:600;color:${trendColor}">${props.trend}</div>` +
+        `<div><span style="color:#8a9db5">Confidence</span></div><div style="text-align:right">${Math.round(props.confidence * 100)}%</div>` +
+      `</div>` +
+      `<div style="margin-top:8px;padding-top:6px;border-top:1px solid rgba(138,166,196,0.14)">` +
+        `<div style="display:flex;justify-content:space-between"><span style="color:#49d4ba">Civil</span><span>${Math.round(props.civilComponent)}</span></div>` +
+        `<div style="display:flex;justify-content:space-between"><span style="color:#ff7557">Military</span><span>${Math.round(props.militaryComponent)}</span></div>` +
+        `<div style="margin-top:4px;font-size:10px;color:#8a9db5">${dominant} pressure profile</div>` +
+      `</div>` +
+    `</div>`;
+  }
+
+  function handleHotspotHover(event) {
+    const feature = event.features[0];
+    if (!feature) return;
     map.getCanvas().style.cursor = "pointer";
+    hoverPopup
+      .setLngLat(feature.geometry.coordinates)
+      .setHTML(buildHotspotTooltip(feature.properties))
+      .addTo(map);
   }
 
   function handleHotspotLeave() {
     map.getCanvas().style.cursor = "";
+    hoverPopup.remove();
+  }
+
+  function setupOverlayInteractivity() {
+    for (const overlay of OVERLAY_REGISTRY) {
+      const layerId = getOverlayInteractiveLayerId(overlay.id);
+      if (!layerId || !map.getLayer(layerId)) continue;
+
+      map.on("mouseenter", layerId, (event) => {
+        const feature = event.features[0];
+        if (!feature) return;
+        map.getCanvas().style.cursor = "pointer";
+
+        const coords = feature.geometry.type === "Point"
+          ? feature.geometry.coordinates.slice()
+          : [event.lngLat.lng, event.lngLat.lat];
+
+        hoverPopup
+          .setLngLat(coords)
+          .setHTML(buildOverlayTooltip(overlay.id, feature.properties))
+          .addTo(map);
+      });
+
+      map.on("mouseleave", layerId, () => {
+        map.getCanvas().style.cursor = "";
+        hoverPopup.remove();
+      });
+    }
   }
 
   function setupInteractivity() {
-    map.on("click", "hotspot-circles", handleHotspotClick);
-    map.on("mouseenter", "hotspot-circles", handleHotspotEnter);
+    // General click with bbox tolerance for mobile touch
+    map.on("click", (e) => {
+      const pad = 20;
+      const bbox = [[e.point.x - pad, e.point.y - pad], [e.point.x + pad, e.point.y + pad]];
+      const features = map.queryRenderedFeatures(bbox, {
+        layers: ["hotspot-circles", "hotspot-glow", "hotspot-center"]
+      });
+      if (features.length > 0) {
+        selectHotspot(features[0].properties.id);
+      }
+    });
+    map.on("mousemove", "hotspot-circles", handleHotspotHover);
     map.on("mouseleave", "hotspot-circles", handleHotspotLeave);
   }
 
@@ -255,7 +357,7 @@
   }
 </script>
 
-<div class="relative min-h-[620px] overflow-hidden border border-line max-[820px]:min-h-[460px]"
+<div class={fullBleed ? "relative h-full w-full overflow-hidden" : "relative h-[620px] overflow-hidden border border-line max-[820px]:h-[460px]"}
   style="background: linear-gradient(180deg, rgba(8, 16, 27, 0.98), rgba(2, 6, 12, 0.98))"
 >
   <!-- Scan-line overlay -->
@@ -283,6 +385,4 @@
   <!-- MapLibre container -->
   <div bind:this={container} id="map-container" class="absolute inset-0 z-0" aria-label="Interactive map showing instability hotspots"></div>
 
-  <!-- Overlay panel -->
-  <OverlayPanel onToggle={handleOverlayToggle} />
 </div>

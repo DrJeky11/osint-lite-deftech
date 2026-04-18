@@ -1,0 +1,350 @@
+{
+  "type": "FeatureCollection",
+  "name": "Disputed Territories",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kashmir",
+        "claimants": "India / Pakistan / China",
+        "status": "Divided among three claimants with Line of Control and Line of Actual Control",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [73.0, 33.0], [74.5, 33.0], [76.0, 33.5], [78.0, 34.0],
+          [80.0, 35.5], [80.0, 37.0], [78.5, 37.0], [77.0, 36.5],
+          [75.0, 36.0], [73.5, 35.0], [73.0, 34.0], [73.0, 33.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Crimea",
+        "claimants": "Ukraine / Russia",
+        "status": "Annexed by Russia in 2014; internationally recognized as Ukrainian territory",
+        "type": "Occupied"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [32.5, 44.4], [33.5, 44.4], [34.0, 44.6], [35.2, 44.8],
+          [36.5, 45.0], [36.6, 45.4], [36.2, 45.6], [35.5, 45.8],
+          [34.5, 45.9], [33.5, 46.0], [33.0, 45.8], [32.5, 45.3],
+          [32.5, 44.4]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Western Sahara",
+        "claimants": "Morocco / Sahrawi Arab Democratic Republic (Polisario Front)",
+        "status": "Mostly controlled by Morocco; UN-listed non-self-governing territory",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-17.0, 21.4], [-13.0, 21.4], [-13.0, 23.0], [-12.0, 24.0],
+          [-12.0, 25.0], [-13.0, 26.0], [-14.5, 27.0], [-15.0, 27.7],
+          [-17.1, 27.7], [-17.1, 25.0], [-16.0, 23.5], [-16.0, 22.0],
+          [-17.0, 21.4]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Golan Heights",
+        "claimants": "Israel / Syria",
+        "status": "Occupied by Israel since 1967; annexed in 1981; internationally considered occupied Syrian territory",
+        "type": "Occupied"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [35.73, 32.71], [35.90, 32.71], [36.00, 32.85],
+          [36.00, 33.10], [35.95, 33.30], [35.85, 33.40],
+          [35.73, 33.30], [35.70, 33.05], [35.73, 32.71]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South China Sea (Nine-Dash Line Area)",
+        "claimants": "China / Vietnam / Philippines / Malaysia / Brunei / Taiwan",
+        "status": "Multiple overlapping maritime claims; China claims most of the sea via nine-dash line",
+        "type": "Claimed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [109.5, 5.0], [112.0, 3.5], [115.0, 4.5], [117.5, 7.0],
+          [119.0, 10.0], [120.0, 13.0], [119.5, 16.0], [117.0, 19.0],
+          [114.0, 21.0], [111.0, 20.5], [109.0, 18.0], [108.0, 15.5],
+          [106.5, 12.0], [105.5, 8.0], [107.0, 5.5], [109.5, 5.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kuril Islands",
+        "claimants": "Japan / Russia",
+        "status": "Administered by Russia; claimed by Japan as Northern Territories",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [145.0, 43.5], [146.5, 43.5], [149.0, 45.0], [152.0, 47.0],
+          [155.0, 49.0], [157.0, 50.5], [156.5, 51.0], [154.0, 49.5],
+          [151.0, 47.5], [148.0, 45.5], [146.0, 44.0], [145.0, 43.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Abyei Area",
+        "claimants": "Sudan / South Sudan",
+        "status": "Special administrative status under UN peacekeeping; final status unresolved",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [28.0, 9.0], [29.5, 9.0], [29.5, 10.5], [28.0, 10.5], [28.0, 9.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aksai Chin",
+        "claimants": "India / China",
+        "status": "Administered by China; claimed by India as part of Ladakh",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [77.0, 34.0], [78.5, 34.0], [80.0, 34.8], [80.0, 36.0],
+          [79.0, 36.2], [77.5, 35.5], [77.0, 35.0], [77.0, 34.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Senkaku / Diaoyu Islands",
+        "claimants": "Japan / China / Taiwan",
+        "status": "Administered by Japan; claimed by China and Taiwan",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [123.0, 25.5], [124.0, 25.5], [124.0, 26.0], [123.0, 26.0], [123.0, 25.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dokdo / Takeshima",
+        "claimants": "South Korea / Japan",
+        "status": "Administered by South Korea; claimed by Japan",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [131.8, 37.2], [132.0, 37.2], [132.0, 37.3], [131.8, 37.3], [131.8, 37.2]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Taiwan",
+        "claimants": "Republic of China (Taiwan) / People's Republic of China",
+        "status": "Self-governing democracy; PRC claims sovereignty; most states maintain unofficial relations",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [120.0, 22.0], [120.5, 22.0], [121.0, 22.5], [121.8, 23.5],
+          [122.0, 24.5], [121.8, 25.3], [121.5, 25.5], [121.0, 25.3],
+          [120.5, 24.5], [120.2, 23.5], [120.0, 22.5], [120.0, 22.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Transnistria",
+        "claimants": "Moldova / Transnistria (unrecognized)",
+        "status": "De facto independent since 1990; internationally recognized as part of Moldova",
+        "type": "Breakaway"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [28.5, 46.4], [30.0, 46.4], [30.5, 47.0], [30.2, 47.8],
+          [29.5, 48.0], [28.8, 47.5], [28.5, 47.0], [28.5, 46.4]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nagorno-Karabakh",
+        "claimants": "Azerbaijan / Armenia",
+        "status": "Recaptured by Azerbaijan in 2023; formerly a self-declared Armenian republic",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [46.0, 39.0], [47.0, 39.0], [47.5, 39.5], [47.3, 40.0],
+          [46.5, 40.2], [46.0, 39.8], [46.0, 39.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Northern Cyprus",
+        "claimants": "Republic of Cyprus / Turkey (Turkish Republic of Northern Cyprus)",
+        "status": "Occupied by Turkey since 1974; recognized only by Turkey as independent state",
+        "type": "Occupied"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [32.5, 35.1], [33.5, 35.0], [34.2, 35.1], [34.5, 35.3],
+          [34.3, 35.7], [33.5, 35.7], [33.0, 35.6], [32.6, 35.4],
+          [32.5, 35.1]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Somaliland",
+        "claimants": "Somalia / Somaliland (unrecognized)",
+        "status": "Self-declared independent state since 1991; not internationally recognized",
+        "type": "Breakaway"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [42.5, 8.0], [45.0, 8.0], [47.0, 8.5], [49.0, 9.5],
+          [49.0, 11.0], [48.0, 11.5], [45.5, 11.5], [43.5, 11.0],
+          [42.5, 10.0], [42.5, 8.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Donbas (Donetsk and Luhansk)",
+        "claimants": "Ukraine / Russia",
+        "status": "Partially occupied by Russia since 2014; illegally annexed by Russia in 2022",
+        "type": "Occupied"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [37.0, 47.5], [40.0, 47.5], [40.0, 49.5], [38.5, 49.5],
+          [37.0, 49.0], [37.0, 47.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Zaporizhzhia and Kherson Oblasts",
+        "claimants": "Ukraine / Russia",
+        "status": "Partially occupied by Russia; illegally annexed in 2022",
+        "type": "Occupied"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [33.0, 46.0], [36.5, 46.0], [37.0, 47.0], [36.5, 47.5],
+          [34.5, 47.5], [33.5, 47.0], [33.0, 46.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paracel Islands",
+        "claimants": "China / Vietnam / Taiwan",
+        "status": "Occupied by China since 1974; claimed by Vietnam and Taiwan",
+        "type": "Occupied"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [111.0, 15.5], [113.0, 15.5], [113.0, 17.0], [111.0, 17.0], [111.0, 15.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Spratly Islands",
+        "claimants": "China / Vietnam / Philippines / Malaysia / Taiwan / Brunei",
+        "status": "Features occupied by multiple claimants; extensive artificial island construction by China",
+        "type": "Disputed"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [111.0, 6.0], [115.0, 6.0], [117.0, 8.0], [117.0, 12.0],
+          [114.0, 12.0], [111.0, 10.0], [111.0, 6.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Abkhazia",
+        "claimants": "Georgia / Abkhazia (unrecognized)",
+        "status": "De facto independent with Russian military presence; recognized by few states",
+        "type": "Breakaway"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [40.0, 42.5], [41.5, 42.5], [42.0, 43.0], [41.8, 43.5],
+          [40.5, 43.5], [40.0, 43.0], [40.0, 42.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Ossetia",
+        "claimants": "Georgia / South Ossetia (unrecognized)",
+        "status": "De facto independent with Russian military presence since 2008 war",
+        "type": "Breakaway"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [43.4, 42.0], [44.5, 42.0], [44.5, 42.7], [43.8, 42.7],
+          [43.4, 42.4], [43.4, 42.0]
+        ]]
+      }
+    }
+  ]
+}

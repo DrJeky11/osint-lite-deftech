@@ -1,0 +1,21 @@
+{
+  "hash": "664823da",
+  "configHash": "d75fd744",
+  "lockfileHash": "e3b0c442",
+  "browserHash": "1cc374d5",
+  "optimized": {
+    "maplibre-gl": {
+      "src": "../../frontend/node_modules/maplibre-gl/dist/maplibre-gl.js",
+      "file": "maplibre-gl.js",
+      "fileHash": "0e0a2621",
+      "needsInterop": true
+    },
+    "svelte": {
+      "src": "../../frontend/node_modules/svelte/src/index-client.js",
+      "file": "svelte.js",
+      "fileHash": "38615a4a",
+      "needsInterop": false
+    }
+  },
+  "chunks": {}
+}

@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #06090f;
+  --color-bg-deep: #020509;
+  --color-panel: rgba(10, 17, 29, 0.82);
+  --color-panel-strong: rgba(8, 14, 24, 0.94);
+  --color-panel-soft: rgba(12, 21, 34, 0.68);
+  --color-line: rgba(138, 166, 196, 0.14);
+  --color-line-strong: rgba(132, 208, 255, 0.28);
+  --color-rule: rgba(180, 200, 220, 0.22);
+  --color-rule-heavy: rgba(200, 218, 235, 0.38);
+  --color-text: #f0f4fb;
+  --color-muted: #8a9db5;
+  --color-blue: #78d6ff;
+  --color-blue-strong: #2d95c7;
+  --color-amber: #ffb25f;
+  --color-civil: #49d4ba;
+  --color-military: #ff7557;
+  --color-eyebrow: #aac0d6;
+  --color-body-light: #d8e3f0;
+  --color-detail-light: #d6e0ec;
+  --color-chip-delta: #dde8f4;
+  --color-split-label: #c9d6e4;
+  --color-evidence-body: #dce6f2;
+  --color-tag-text: #dbe5f1;
+  --color-control-label: #d4e1ee;
+  --color-output-text: #e7eef8;
+  --color-steady: #d3dde8;
+  --color-edition: rgba(255, 210, 140, 0.7);
+  --font-mono: "SF Mono", "IBM Plex Mono", "JetBrains Mono", "Cascadia Code", monospace;
+  --font-sans: "Avenir Next", "Suisse Intl", "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-editorial: "Georgia", "Times New Roman", "Noto Serif", serif;
+  --shadow-panel: 0 30px 80px rgba(0, 0, 0, 0.42);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  color-scheme: dark;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle scan-line texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(120, 214, 255, 0.012) 2px,
+      rgba(120, 214, 255, 0.012) 4px
+    );
+  z-index: 9999;
+}
+
+a {
+  color: inherit;
+}
+
+/* ------------------------------------------------------------------ */
+/* Newspaper rules & dividers                                          */
+/* ------------------------------------------------------------------ */
+
+.rule-thin {
+  border: none;
+  border-top: 1px solid var(--color-rule);
+  margin: 0;
+}
+
+.rule-heavy {
+  border: none;
+  border-top: 3px solid var(--color-rule-heavy);
+  margin: 0;
+}
+
+.rule-double {
+  border: none;
+  border-top: 3px double var(--color-rule-heavy);
+  margin: 0;
+}
+
+.col-divider {
+  border-left: 1px solid var(--color-rule);
+}
+
+/* ------------------------------------------------------------------ */
+/* Newspaper section labels                                            */
+/* ------------------------------------------------------------------ */
+
+.section-flag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(120, 214, 255, 0.1);
+  border: 1px solid rgba(120, 214, 255, 0.2);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+
+/* ------------------------------------------------------------------ */
+/* Editorial typography                                                */
+/* ------------------------------------------------------------------ */
+
+.headline-editorial {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--color-body-light);
+}
+
+/* ------------------------------------------------------------------ */
+/* MapLibre overrides                                                  */
+/* ------------------------------------------------------------------ */
+
+#map-container {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  inset: 0;
+}
+
+#map-container .maplibregl-canvas {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+.maplibregl-map {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+}
+
+.maplibregl-canvas-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.maplibregl-ctrl-attrib {
+  display: none !important;
+}
+
+.maplibregl-ctrl-group {
+  background: rgba(3, 8, 15, 0.8) !important;
+  border: 1px solid rgba(120, 214, 255, 0.16) !important;
+}
+
+.maplibregl-ctrl-group button {
+  filter: invert(1) brightness(1.4);
+}
+
+/* ------------------------------------------------------------------ */
+/* Keyframe animations                                                 */
+/* ------------------------------------------------------------------ */
+
+@keyframes shell-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes ticker-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Component-level utilities                                           */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  .glass-panel {
+    @apply border border-line bg-panel backdrop-blur-[18px] shadow-panel relative overflow-hidden;
+  }
+
+  .glass-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(120, 214, 255, 0.04), transparent 20%, transparent 80%, rgba(255, 178, 95, 0.03));
+    opacity: 0.7;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs tracking-[0.14em] uppercase text-eyebrow;
+  }
+
+  .muted-label {
+    @apply font-mono text-xs tracking-[0.1em] uppercase text-muted;
+  }
+
+  .metric-label {
+    @apply font-mono text-xs tracking-[0.14em] uppercase text-eyebrow;
+  }
+
+  .section-heading {
+    @apply flex justify-between gap-3 mb-3.5;
+  }
+
+  .section-heading p {
+    margin: 0;
+  }
+}

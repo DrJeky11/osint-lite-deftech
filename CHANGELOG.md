@@ -4,6 +4,7 @@ This file tracks notable project changes with concrete dates.
 
 ## 2026-04-18
 
+- Added a new `scrapers/rss_feed` FastAPI service for fetching a user-specified RSS/Atom feed, returning raw entries, and generating Groq summaries over those entries
 - Replaced the placeholder repo state with the `Signal Atlas` hackathon demo structure
 - Built the browser-based OSINT watchfloor UI with globe and flat-map views, hotspot selection, score splits, evidence bundles, and analyst follow-on actions
 - Added core data models and logic for geolocation, signal classification, and location scoring

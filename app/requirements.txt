@@ -1,0 +1,4 @@
+# Install all app components
+-e .
+-r api/requirements.txt
+-r worker/requirements.txt

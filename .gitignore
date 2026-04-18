@@ -2,4 +2,7 @@
 dist/
 node_modules/
 .vite/
+__pycache__
 .DS_Store
+credentials.json
+.env

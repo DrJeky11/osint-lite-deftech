@@ -1,16 +1,48 @@
 services:
-  scraper:
-    build: ./scrapers/news
+  api:
+    build:
+      context: .
+      dockerfile: app/api/Dockerfile
     ports:
       - "8000:8000"
     environment:
       - DATASET_DIR=/app/data
       - GROQ_API_KEY=${GROQ_API_KEY}
+      - X_BEARER_TOKEN=${X_BEARER_TOKEN:-}
+      - BLUESKY_IDENTIFIER=${BLUESKY_IDENTIFIER:-}
+      - BLUESKY_APP_PASSWORD=${BLUESKY_APP_PASSWORD:-}
+      - BLUESKY_PDS_URL=${BLUESKY_PDS_URL:-}
     volumes:
-      - scraper-data:/app/data
+      - api-data:/app/data
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  worker:
+    build:
+      context: .
+      dockerfile: app/worker/Dockerfile
+    environment:
+      - API_BASE_URL=http://api:8000
+      - BLUESKY_IDENTIFIER=${BLUESKY_IDENTIFIER:-}
+      - BLUESKY_APP_PASSWORD=${BLUESKY_APP_PASSWORD:-}
+      - BLUESKY_PDS_URL=${BLUESKY_PDS_URL:-}
+      - X_BEARER_TOKEN=${X_BEARER_TOKEN:-}
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  wgi:
+    build: ./scrapers/wgi
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -20,9 +52,9 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      scraper:
+      api:
         condition: service_healthy
     restart: unless-stopped
 
 volumes:
-  scraper-data:
+  api-data:

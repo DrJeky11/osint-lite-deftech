@@ -92,8 +92,12 @@
       class="appearance-none border border-line bg-panel-strong text-text font-mono text-[0.75rem] px-2 py-1.5 w-full focus:outline-1 focus:outline-blue/30 focus:outline-offset-1"
     >
       <option value="blend">Blended</option>
-      <option value="civil">Civil</option>
+      <option value="war">War</option>
       <option value="military">Military</option>
+      <option value="civil">Civil</option>
+      <option value="terrorism">Terrorism</option>
+      <option value="humanitarian">Humanitarian</option>
+      <option value="infowar">Info Warfare</option>
     </select>
   </label>
 

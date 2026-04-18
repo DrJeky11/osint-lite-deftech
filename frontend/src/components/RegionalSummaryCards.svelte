@@ -80,10 +80,13 @@
       : null;
     const topHotspot = matchingScores[0] ?? null; // already sorted by heat desc
 
-    // Aggregate trend: majority vote
-    const trendCounts = { warming: 0, cooling: 0, steady: 0 };
-    matchingScores.forEach(s => trendCounts[s.trend]++);
-    const dominantTrend = Object.entries(trendCounts).sort((a,b) => b[1] - a[1])[0]?.[0] ?? "steady";
+    // Aggregate trend: majority vote — suppress when data is too thin
+    let dominantTrend = "steady";
+    if (matchingScores.length && avgHeat >= 1) {
+      const trendCounts = { warming: 0, cooling: 0, steady: 0 };
+      matchingScores.forEach(s => trendCounts[s.trend]++);
+      dominantTrend = Object.entries(trendCounts).sort((a,b) => b[1] - a[1])[0]?.[0] ?? "steady";
+    }
 
     // Build aggregate history from matching scores
     const aggHistory = matchingScores.length

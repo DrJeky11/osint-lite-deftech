@@ -34,7 +34,7 @@ async def fetch_news(
     query: str,
     country: str = "US",
     language: str = "en",
-    max_articles: int = 20,
+    max_articles: int = 100,
 ) -> list[dict]:
     params = {
         "q": query,

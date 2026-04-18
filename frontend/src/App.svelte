@@ -9,6 +9,10 @@
   import Inspector from "./components/Inspector.svelte";
   import OverlayPanel from "./components/OverlayPanel.svelte";
   import MobileShell from "./components/MobileShell.svelte";
+  import RegionalSummaryCards from "./components/RegionalSummaryCards.svelte";
+  import AdminPage from "./components/AdminPage.svelte";
+
+  let currentView = $state("watchfloor");
 
   let innerWidth = $state(0);
   let isMobile = $derived(innerWidth < 768);
@@ -49,13 +53,43 @@
 <svelte:window bind:innerWidth />
 
 {#if !isMobile}
+<!-- ═══ TOP NAV ═══ -->
+<nav class="sa-nav">
+  <div class="w-[min(1560px,calc(100vw-32px))] mx-auto flex items-center justify-between">
+    <span class="sa-nav-brand">Signal Atlas</span>
+    <div class="sa-nav-links">
+      <button
+        type="button"
+        class="sa-nav-link"
+        class:sa-nav-active={currentView === "watchfloor"}
+        onclick={() => currentView = "watchfloor"}
+      >
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Watchfloor
+      </button>
+      <button
+        type="button"
+        class="sa-nav-link"
+        class:sa-nav-active={currentView === "admin"}
+        onclick={() => currentView = "admin"}
+      >
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        Admin
+      </button>
+    </div>
+  </div>
+</nav>
+
+{#if currentView === "admin"}
+<AdminPage onBack={() => currentView = "watchfloor"} />
+{:else}
 <div class="w-[min(1560px,calc(100vw-32px))] mx-auto py-5 pb-8 animate-[shell-in_720ms_ease_both]">
 
   <!-- ═══ NAMEPLATE ═══ -->
   <Masthead />
 
   <!-- ═══ METRICS RIBBON ═══ -->
-  <div class="border-x border-b border-line bg-panel-soft">
+  <div class="border-x border-b border-line bg-panel-soft mb-4">
     <MetricsGrid
       hotspots={visibleScores.length}
       signals={filteredEvents.length}
@@ -99,6 +133,9 @@
         </div>
         <HotspotList {visibleScores} onSelect={handleHotspotSelect} />
       </div>
+
+      <!-- Regional Summary Cards -->
+      <RegionalSummaryCards {visibleScores} {filteredEvents} onHotspotSelect={handleHotspotSelect} />
     </section>
 
     <!-- Right column: Intelligence Brief -->
@@ -117,6 +154,7 @@
     Signal Atlas &middot; Open-source intelligence watchfloor &middot; All data derived from public sources
   </p>
 </div>
+{/if}
 {:else}
 <MobileShell />
 {/if}

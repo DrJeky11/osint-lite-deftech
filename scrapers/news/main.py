@@ -5,6 +5,7 @@ env_path = Path(__file__).parent / ".env"
 load_dotenv(env_path)
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import httpx
 
 from models import NewsRequest, NewsResponse, ArticlesResponse, Article
@@ -12,6 +13,14 @@ from news_fetcher import build_query, fetch_news
 from summarizer import summarize
 
 app = FastAPI(title="News Summary API", version="0.1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def _build_description(req: NewsRequest) -> str:
     bits = [f"topics={req.topics}"]

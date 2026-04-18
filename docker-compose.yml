@@ -8,6 +8,10 @@ services:
     environment:
       - DATASET_DIR=/app/data
       - GROQ_API_KEY=${GROQ_API_KEY}
+      - X_BEARER_TOKEN=${X_BEARER_TOKEN:-}
+      - BLUESKY_IDENTIFIER=${BLUESKY_IDENTIFIER:-}
+      - BLUESKY_APP_PASSWORD=${BLUESKY_APP_PASSWORD:-}
+      - BLUESKY_PDS_URL=${BLUESKY_PDS_URL:-}
     volumes:
       - api-data:/app/data
     restart: unless-stopped
@@ -31,6 +35,17 @@ services:
       api:
         condition: service_healthy
     restart: unless-stopped
+
+  wgi:
+    build: ./scrapers/wgi
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   frontend:
     build: ./frontend

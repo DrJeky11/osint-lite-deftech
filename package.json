@@ -1,0 +1,16 @@
+{
+  "name": "osint-lite-deftech",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "refresh:rss": "node ./scripts/refresh-rss.mjs",
+    "refresh:bluesky": "node ./scripts/refresh-bluesky.mjs",
+    "refresh:live": "npm run refresh:rss && npm run refresh:bluesky",
+    "generate:data": "node ./scripts/generate-data.mjs",
+    "build": "npm run generate:data && node ./scripts/build.mjs",
+    "build:live": "npm run refresh:live && npm run build",
+    "test": "node --test",
+    "dev": "python3 -m http.server 4173"
+  }
+}

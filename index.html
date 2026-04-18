@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Signal Atlas</title>
+    <meta
+      name="description"
+      content="Global OSINT instability watchfloor blending civil unrest and military risk into an interactive heatmap."
+    />
+    <link rel="icon" href="./src/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">OSINT Watchfloor</p>
+          <h1>Signal Atlas</h1>
+        </div>
+        <div class="topbar-meta">
+          <p id="last-updated">Refreshing…</p>
+          <p class="muted">Live RSS catalog</p>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="map-column">
+          <div class="map-stage">
+            <div class="map-overlay">
+              <div>
+                <p class="eyebrow">Global Instability Heatmap</p>
+                <h2>Where open-source signals are heating up fastest</h2>
+              </div>
+              <div class="legend">
+                <span class="legend-label">Low</span>
+                <div class="legend-ramp"></div>
+                <span class="legend-label">High</span>
+              </div>
+            </div>
+            <canvas id="map-canvas" aria-label="Instability heatmap globe"></canvas>
+          </div>
+
+          <section class="control-strip">
+            <label>
+              View
+              <select id="projection-select">
+                <option value="globe">Globe</option>
+                <option value="flat">Flat map</option>
+              </select>
+            </label>
+            <label>
+              Time window
+              <select id="time-window-select">
+                <option value="6">Last 6h</option>
+                <option value="12">Last 12h</option>
+                <option value="24" selected>Last 24h</option>
+                <option value="36">Last 36h</option>
+              </select>
+            </label>
+            <label>
+              Source type
+              <select id="source-family-select">
+                <option value="all">All sources</option>
+              </select>
+            </label>
+            <label>
+              Signal emphasis
+              <select id="emphasis-select">
+                <option value="blend">Blended</option>
+                <option value="civil">Civil unrest</option>
+                <option value="military">Military instability</option>
+              </select>
+            </label>
+            <label>
+              Confidence floor
+              <input id="confidence-range" type="range" min="35" max="90" value="50" />
+            </label>
+          </section>
+
+          <section class="hotspot-bar">
+            <div class="section-heading">
+              <p class="eyebrow">Emerging Hotspots</p>
+              <p class="muted">Click any region on the map or from this list.</p>
+            </div>
+            <div id="hotspot-list" class="hotspot-list"></div>
+          </section>
+        </section>
+
+        <aside class="detail-column">
+          <section class="detail-summary">
+            <p class="eyebrow">Selected Location</p>
+            <div class="detail-headline">
+              <h3 id="detail-name">Loading…</h3>
+              <span id="trend-pill" class="trend-pill">steady</span>
+            </div>
+            <div class="score-row">
+              <div>
+                <span class="metric-label">Heat</span>
+                <strong id="detail-heat">0</strong>
+              </div>
+              <div>
+                <span class="metric-label">Delta</span>
+                <strong id="detail-delta">0</strong>
+              </div>
+              <div>
+                <span class="metric-label">Confidence</span>
+                <strong id="detail-confidence">0%</strong>
+              </div>
+            </div>
+            <div class="split-meters">
+              <div>
+                <div class="split-labels">
+                  <span>Civil unrest</span>
+                  <span id="civil-score">0</span>
+                </div>
+                <div class="meter"><span id="civil-meter"></span></div>
+              </div>
+              <div>
+                <div class="split-labels">
+                  <span>Military instability</span>
+                  <span id="military-score">0</span>
+                </div>
+                <div class="meter"><span id="military-meter"></span></div>
+              </div>
+            </div>
+            <div class="sparkline-block">
+              <p class="metric-label">Trend</p>
+              <svg id="sparkline" viewBox="0 0 240 72" aria-hidden="true"></svg>
+            </div>
+          </section>
+
+          <section class="drivers-section">
+            <div class="section-heading">
+              <p class="eyebrow">Top Drivers</p>
+              <p class="muted">Signals contributing most to the current heat.</p>
+            </div>
+            <ul id="driver-list" class="tag-list"></ul>
+          </section>
+
+          <section class="evidence-section">
+            <div class="section-heading">
+              <p class="eyebrow">Evidence Bundle</p>
+              <p class="muted">Cross-source corroboration and primary context.</p>
+            </div>
+            <div id="evidence-list" class="evidence-list"></div>
+          </section>
+
+          <section class="actions-section">
+            <div class="section-heading">
+              <p class="eyebrow">Next-Step OSINT Actions</p>
+              <p class="muted">Suggested analyst follow-on based on the active signal mix.</p>
+            </div>
+            <ul id="action-list" class="action-list"></ul>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,3071 @@
+[
+  {
+    "id": "tripoli",
+    "name": "Tripoli",
+    "heat": 8.4,
+    "delta": 40,
+    "confidence": 0.77,
+    "civilComponent": 13.1,
+    "militaryComponent": 0,
+    "trend": "warming",
+    "history": [
+      17.65,
+      17.65,
+      17.65,
+      17.65,
+      17.65,
+      17.65
+    ],
+    "sourceBreakdown": [
+      "bluesky"
+    ],
+    "topDrivers": [
+      "protest activity"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-bluesky-ea89f6054a",
+        "sourceId": "bluesky-ea89f6054a",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "And the Tripoli left port 36 days ago (March 11). Have they had an UNREP since? Who knows?",
+        "excerpt": "And the Tripoli left port 36 days ago (March 11). Have they had an UNREP since? Who knows?",
+        "url": "https://bsky.app/profile/cmraman.geek.org/post/3mjqjvjbffc2n",
+        "author": {
+          "name": "Marc Reeve",
+          "handle": "cmraman.geek.org",
+          "did": "did:plc:5oy2xcpdflrexpgdw5wysnjd",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Tripoli Watch",
+        "engagement": {
+          "likes": 1,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T03:50:21.170Z",
+        "geo": {
+          "locationId": "tripoli-ly",
+          "name": "Tripoli",
+          "lat": 32.8872,
+          "lon": 13.1913,
+          "country": "Libya",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 3.2,
+          "civilWeight": 2.2,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "protest activity"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Tripoli"
+      },
+      {
+        "id": "signal-bluesky-43fb391213",
+        "sourceId": "bluesky-43fb391213",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Gaddafi agreed to this and was sodomized to death and now you can buy slaves in Tripoli",
+        "excerpt": "Gaddafi agreed to this and was sodomized to death and now you can buy slaves in Tripoli",
+        "url": "https://bsky.app/profile/forzaalex.tifosi.social/post/3mjqlyi2chs2e",
+        "author": {
+          "name": "Alex the iRacer (iCrasher) 🏁💥",
+          "handle": "forzaalex.tifosi.social",
+          "did": "did:plc:e2fgcasutluuxn4k3fjp6cqv",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Tripoli Watch",
+        "engagement": {
+          "likes": 2,
+          "reposts": 2,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T04:27:48.036Z",
+        "geo": {
+          "locationId": "tripoli-ly",
+          "name": "Tripoli",
+          "lat": 32.8872,
+          "lon": 13.1913,
+          "country": "Libya",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Tripoli"
+      },
+      {
+        "id": "signal-bluesky-0d50102d47",
+        "sourceId": "bluesky-0d50102d47",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "The images of poor-quality food served on the USS Abraham Lincoln and USS Tripoli are real photos of food…",
+        "excerpt": "The images of poor-quality food served on the USS Abraham Lincoln and USS Tripoli are real photos of food served. These pictures show meager rations, including small portions of shredded meat, a single tortilla, and \"unidentifiable gray\" food. www.usatoday.com/story/news/p...",
+        "url": "https://bsky.app/profile/tfosteroaks.bsky.social/post/3mjqie7gx2k2b",
+        "author": {
+          "name": "Tod Jones",
+          "handle": "tfosteroaks.bsky.social",
+          "did": "did:plc:sucyglfwbbkhkupcv6rkiefu",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Tripoli Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T03:22:46.698Z",
+        "geo": {
+          "locationId": "tripoli-ly",
+          "name": "Tripoli",
+          "lat": 32.8872,
+          "lon": 13.1913,
+          "country": "Libya",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Tripoli"
+      },
+      {
+        "id": "signal-bluesky-f7fe5e0464",
+        "sourceId": "bluesky-f7fe5e0464",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "of food shortages and poor conditions onboard the USS Abraham Lincoln (CVN-72) and USS Tripoli (LHA-7)…",
+        "excerpt": "of food shortages and poor conditions onboard the USS Abraham Lincoln (CVN-72) and USS Tripoli (LHA-7) deployed to the Arabian Sea.",
+        "url": "https://bsky.app/profile/sentdefender-mirr.selfhosted.social/post/3mjqgx5fyfv2b",
+        "author": {
+          "name": "OSINTdefender [UNOFFICIAL]",
+          "handle": "sentdefender-mirr.selfhosted.social",
+          "did": "did:plc:6sfanwmqr6yr4kavngda4dre",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Tripoli Watch",
+        "engagement": {
+          "likes": 2,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T02:52:53.000Z",
+        "geo": {
+          "locationId": "tripoli-ly",
+          "name": "Tripoli",
+          "lat": 32.8872,
+          "lon": 13.1913,
+          "country": "Libya",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Tripoli"
+      }
+    ],
+    "center": {
+      "lat": 32.8872,
+      "lon": 13.1913
+    },
+    "resolution": "city"
+  },
+  {
+    "id": "unknown",
+    "name": "Unknown",
+    "heat": 7.8,
+    "delta": 40,
+    "confidence": 0.16,
+    "civilComponent": 5.3,
+    "militaryComponent": 7,
+    "trend": "warming",
+    "history": [
+      0,
+      0.48,
+      0.48,
+      0.48,
+      0.48,
+      0.48
+    ],
+    "sourceBreakdown": [
+      "news",
+      "official"
+    ],
+    "topDrivers": [
+      "non-instability chatter",
+      "military actor involvement",
+      "security-force presence",
+      "protest activity",
+      "state response escalation",
+      "force cohesion stress"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-guardian-world-7a5c8edeb1",
+        "sourceId": "guardian-world-7a5c8edeb1",
+        "sourceFamily": "news",
+        "sourceName": "The Guardian",
+        "title": "US launches fifth strike on alleged Pacific drug boat in a week, killing three",
+        "excerpt": "Wednesday’s strike brings the total of those killed in US military strikes on alleged drug boats to at least 177 Three people were killed in a US strike on another alleged drug-trafficking boat, the fifth such deadly attack in as many days, military officials have announced. US southern command said it conducted “a lethal kinetic strike on a vessel operated by Designated Terrorist Organizations” in the eastern Pacific, without naming the alleged group, in an X post. Continue reading...",
+        "url": "https://www.theguardian.com/us-news/2026/apr/16/us-launches-fifth-strike-on-alleged-pacific-drug-boat-in-a-week-killing-three",
+        "author": {
+          "name": "Guardian staff and agencies",
+          "profileLocation": ""
+        },
+        "provenance": "live rss feed: Guardian World",
+        "engagement": {},
+        "timestamp": "2026-04-16T03:56:32.000Z",
+        "geo": {
+          "locationId": "unknown",
+          "name": "Unknown",
+          "lat": 0,
+          "lon": 0,
+          "resolution": "country",
+          "confidence": 0.18,
+          "justification": "No reliable place evidence found."
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 5,
+          "civilWeight": 4.4,
+          "militaryWeight": 1.4,
+          "narrativeWeight": 0,
+          "drivers": [
+            "protest activity",
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 1,
+        "displayLocationName": "Unknown"
+      },
+      {
+        "id": "signal-pbs-headlines-593a3e5180",
+        "sourceId": "pbs-headlines-593a3e5180",
+        "sourceFamily": "news",
+        "sourceName": "PBS NewsHour",
+        "title": "London police investigate discarded items near Israeli Embassy",
+        "excerpt": "The Metropolitan Police said the embassy was not attacked but that its officers, including some in protective clothing, were combing the area around the plush neighborhood of Kensington Gardens.",
+        "url": "https://www.pbs.org/newshour/world/london-police-investigate-discarded-items-near-israeli-embassy",
+        "author": {
+          "name": "Associated Press",
+          "profileLocation": ""
+        },
+        "provenance": "live rss feed: PBS NewsHour Headlines",
+        "engagement": {},
+        "timestamp": "2026-04-17T19:56:52.000Z",
+        "geo": {
+          "locationId": "unknown",
+          "name": "Unknown",
+          "lat": 0,
+          "lon": 0,
+          "resolution": "country",
+          "confidence": 0.18,
+          "justification": "No reliable place evidence found."
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 2,
+          "civilWeight": 1,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "security-force presence"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 1,
+        "displayLocationName": "Unknown"
+      },
+      {
+        "id": "signal-pbs-headlines-e2ad9edc83",
+        "sourceId": "pbs-headlines-e2ad9edc83",
+        "sourceFamily": "news",
+        "sourceName": "PBS NewsHour",
+        "title": "News Wrap: Senate approves short-term renewal of FISA surveillance program",
+        "excerpt": "In our news wrap Friday, the Senate approved a short-term renewal of a controversial surveillance program used by U.S. spy agencies, millions across the Midwest are facing the risk of severe storms and French officials say an 85-year-old widow of an American military veteran has returned home after being held in U.S. immigration custody for more than two weeks.",
+        "url": "https://www.pbs.org/newshour/show/news-wrap-senate-approves-short-term-renewal-of-fisa-surveillance-programnews-wrap-48",
+        "author": {
+          "name": "PBS NewsHour",
+          "profileLocation": ""
+        },
+        "provenance": "live rss feed: PBS NewsHour Headlines",
+        "engagement": {},
+        "timestamp": "2026-04-17T22:45:50.000Z",
+        "geo": {
+          "locationId": "unknown",
+          "name": "Unknown",
+          "lat": 0,
+          "lon": 0,
+          "resolution": "country",
+          "confidence": 0.18,
+          "justification": "No reliable place evidence found."
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 1,
+        "displayLocationName": "Unknown"
+      },
+      {
+        "id": "signal-pbs-headlines-cf221626d1",
+        "sourceId": "pbs-headlines-cf221626d1",
+        "sourceFamily": "news",
+        "sourceName": "PBS NewsHour",
+        "title": "Coast Guard searches for 6 after losing contact with boat disabled by Typhoon Sinlaku",
+        "excerpt": "Super Typhoon Sinlaku began battering the Northern Mariana Islands earlier this week, causing damage on the islands of Tinian and Saipan and flash flooding in Guam, the site of several American military bases.",
+        "url": "https://www.pbs.org/newshour/world/coast-guard-searches-for-6-after-losing-contact-with-boat-disabled-by-typhoon-sinlaku",
+        "author": {
+          "name": "Associated Press",
+          "profileLocation": ""
+        },
+        "provenance": "live rss feed: PBS NewsHour Headlines",
+        "engagement": {},
+        "timestamp": "2026-04-17T20:57:33.000Z",
+        "geo": {
+          "locationId": "unknown",
+          "name": "Unknown",
+          "lat": 0,
+          "lon": 0,
+          "resolution": "country",
+          "confidence": 0.18,
+          "justification": "No reliable place evidence found."
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 1,
+        "displayLocationName": "Unknown"
+      }
+    ],
+    "center": {
+      "lat": 0,
+      "lon": 0
+    },
+    "resolution": "country"
+  },
+  {
+    "id": "abuja",
+    "name": "Abuja",
+    "heat": 7.6,
+    "delta": 40,
+    "confidence": 0.83,
+    "civilComponent": 10.7,
+    "militaryComponent": 0,
+    "trend": "warming",
+    "history": [
+      0,
+      25.87,
+      25.87,
+      25.87,
+      25.87,
+      25.87
+    ],
+    "sourceBreakdown": [
+      "bluesky",
+      "official"
+    ],
+    "topDrivers": [
+      "protest activity",
+      "security-force presence"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-bluesky-d58a54946f",
+        "sourceId": "bluesky-d58a54946f",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "United Nigeria Grounds Flight After Third Bird Strike In 48 Hours: United Nigeria Airlines has grounded a…",
+        "excerpt": "United Nigeria Grounds Flight After Third Bird Strike In 48 Hours: United Nigeria Airlines has grounded a third aircraft within 48 hours following a bird strike incident on Thursday, April 16, 2026, during the takeoff of Flight UN0561 from Benin City to Abuja. This in… https://ranked.news/665781?u=b",
+        "url": "https://bsky.app/profile/rankednews.bsky.social/post/3mjpixvqbp424",
+        "author": {
+          "name": "Ranked News",
+          "handle": "rankednews.bsky.social",
+          "did": "did:plc:42han5exrxyrgdsbwosrp7sy",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Abuja Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-17T18:01:06.608Z",
+        "geo": {
+          "locationId": "abuja",
+          "name": "Abuja",
+          "lat": 9.0765,
+          "lon": 7.3986,
+          "country": "Nigeria",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 4.300000000000001,
+          "civilWeight": 3.3,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "protest activity"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 24,
+        "displayLocationName": "Abuja"
+      },
+      {
+        "id": "signal-state-travel-advisories-9e70eb25a0",
+        "sourceId": "state-travel-advisories-9e70eb25a0",
+        "sourceFamily": "official",
+        "sourceName": "U.S. State Department",
+        "title": "Nigeria - Level 3: Reconsider Travel",
+        "excerpt": "There were no changes to the Travel Advisory Level or risk indicators. Advisory summary was updated to reflect changes to U.S. embassy operations. Do not travel to Plateau, Jigawa, Kwara, Niger, Taraba states were added. Reconsider travel to Nigeria due to crime , terrorism , unrest , kidnapping , and inconsistent availability of health care services . Some areas have increased risk. Read the entire Travel Advisory. Do Not Travel to : Borno, Jigawa, Kogi, Kwara, Niger, Plateau, Taraba, Yobe, northern Adamawa states due to terrorism, crime, and kidnapping Bauchi, Gombe, Kaduna, Kano, Katsina, Sokoto, and Zamfara states due to unrest , crime , and kidnapping Abia, Anambra, Bayelsa, Delta, Enugu, Imo, and Rivers states (with the exception of Port Harcourt) due to crime , kidnapping , and unrest. Advisory summary : On April 8, 2026, the Department of State authorized non-emergency U.S. government employees and U.S. government employee family members to leave U.S. Embassy Abuja due to the deteriorating security situation. Crime and Kidnapping Violent crime is common throughout Nigeria. This includes armed robbery, assault, carjacking, kidnapping, hostage-taking, roadside banditry, and rape. Kidnappings for ransom happen often. They primarily target dual national citizens visiting Nigeria. Americans are perceived as wealthy and are often targets of crime and kidnapping. Kidnapping gangs have stopped drivers on interstate roads in order to rob and kidnap victims. Terrorism There is risk of terrorist violence, including terrorist attacks and other activity in Nigeria. Terrorists continue plotting and carrying out attacks in Nigeria. Terrorists collaborate with local gangs to expand their reach. They may attack with little or no warning, including: Shopping centers and malls Markets Hotels Places of worship Restaurants and bars Schools Government buildings Transportation hubs Public places where crowds gather Visit the U.S. Department of State's country reports on terrorism to learn more. Unrest Civil unrest and armed gangs are active in parts of Southern Nigeria. This is especially true in the Niger Delta and Southeast regions. Armed crime and gangs are common in the area. Crimes include kidnapping and assaults on Nigerian security services. Violence can occur between communities of farmers and herders in rural areas. Unreliable health care Americans should not expect the same level of health care to be available in Nigeria as they do in the United States: Nigerian medical facilities are generally not equipped to U.S. or European standards. Many medicines are not available. This includes common medications for diabetes or asthma. Bring enough over the counter and prescription medicines to last your entire stay in Nigeria. Make sure all your vaccinations are up to date. Consider getting boosters for yellow fever, meningitis, typhoid, cholera, hepatitis A, hepatitis B, and polio. All visitors should take Malaria prophylaxis. Nigeria is high risk for Malaria. Counterfeit pharmaceuticals are a common problem. Hospitals often expect immediate cash payment for health services. Most hospitals and doctors do not accept U.S. health insurance. Emergency services like those in the United States or Europe do not exist. Blood supply is often unreliable. Ambulance services are unreliable, have poor equipment, and often do not have trained paramedics. We strongly recommend getting traveler&#8217;s insurance, including medical evacuation insurance, before traveling. The Department of State does not pay medical bills for Americans overseas. The U.S. government cannot offer emergency services to Americans in many areas of Nigeria due to the safety risks. Risks in specific areas -Level 4 - Do Not Travel Borno, Yobe, Kogi, and Northern Adamawa states Do not travel to Borno, Jigawa, Kogi, Kwara, Niger, Plateau, Taraba, Yobe, and northern Adamawa states due to terrorism , crime , and kidnapping . Do not travel to these areas for any reason. The security situation in these states is unstable and uncertain . This is because of widespread terrorist activity, violence between communities, and kidnapping. Security operations to counter these threats may occur without warning. Terrorist groups in the Northeast often target: Humanitarian camps Security forces Churches and mosques Schools Government buildings Entertainment venues Road travelers Violence in Northeast Nigeria has forced about 2 million Nigerians to leave their homes. Visit our website for Travel to High-Risk Areas . Bauchi, Gombe, Kaduna, Kano, Katsina, Sokoto and Zamfara states Do not travel to Bauchi, Gombe, Kaduna, Kano, Katsina, Sokoto, and Zamfara states due to unrest , crime , and kidnapping . Do not travel to these areas for any reason. The security situation in these states is unstable and uncertain due to civil unrest . Widespread violence between communities and armed crime, including kidnapping and roadside banditry. Security operations to counter these threats may occur without warning. Visit our website for Travel to High-Risk Areas . Abia, Anambra, Bayelsa, Delta, Enugu, Imo, and Rivers states (with the exception of Port Harcourt) Do not travel to Abia, Anambra, Bayelsa, Delta, Enugu, Imo, and Rivers states (with the exception of Port Harcourt) due to crime , kidnapping , and unrest . Do not travel to these areas for any reason. Crime is widespread in Southern Nigeria. There is a high risk of kidnapping , violent protests , and armed gangs . Visit our website for Travel to High-Risk Areas . If you decide to travel to Nigeria: Enroll in the Smart Traveler Enrollment Program (STEP) to get important updates and alerts from the U.S. embassy or consulate. Enrolling helps the U.S. embassy or consulate contact you or your emergency contact in an emergency. Review the Country Security Report for Nigeria. Carry proper identification, including a U.S. passport with a current Nigerian visa, if needed. Use caution when walking or driving. Keep a low profile. Review travel routes and times. Vary your predictability. Do not physically resist any robbery attempt. Be extra vigilant when visiting banks or ATMs. Check local media for breaking events and be prepared to adjust your plans. Be aware of your surroundings. Stay alert in locations frequented by foreign tourists. Avoid demonstrations and large political gatherings. Review your personal security plans. Have evacuation plans that do not depend on U.S. government help. Establish a &#8220;proof of life&#8221; protocol with your loved ones, so that if you are taken hostage, your loved ones know specific questions (and answers) to ask the hostage-takers to be sure that you are alive. This helps to rule out scams. Prepare a backup plan for emergency situations. Visit the Centers for Disease Control and Prevention (CDC) website for the latest Travel Health Information for Nigeria. Get comprehensive medical insurance that includes medical evacuation. We highly recommend that you buy travel insurance before you travel. Check with your travel insurance provider about evacuation assistance, medical insurance, and trip cancelation coverage. Whether you&#8217;re a first time or frequent traveler, use the International Travel Checklist .",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/nigeria-travel-advisory.html",
+        "author": {
+          "name": "U.S. State Department",
+          "profileLocation": ""
+        },
+        "provenance": "live rss feed: U.S. State Department Advisories",
+        "engagement": {},
+        "timestamp": "2026-04-08T04:00:00.000Z",
+        "geo": {
+          "locationId": "abuja",
+          "name": "Abuja",
+          "lat": 9.0765,
+          "lon": 7.3986,
+          "country": "Nigeria",
+          "resolution": "city",
+          "confidence": 0.7608,
+          "justification": "mentioned in source text, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 3.7,
+          "civilWeight": 2.7,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "protest activity",
+            "security-force presence"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 1,
+        "displayLocationName": "Abuja"
+      },
+      {
+        "id": "signal-bluesky-0b9e543aa2",
+        "sourceId": "bluesky-0b9e543aa2",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "The Wisdom of the Nairobi-Cairo Proposals: A Response to Paul Avis…",
+        "excerpt": "The Wisdom of the Nairobi-Cairo Proposals: A Response to Paul Avis https://www.europesays.com/africa/192506/ Editor’s Note: This essay is part of a series (April 13-17) analyzing the Abuja Affirmation and the Nairobi-Cairo…",
+        "url": "https://bsky.app/profile/europe-africa.bsky.social/post/3mjq6ptqdyd2l",
+        "author": {
+          "name": "europe-africa.bsky.social",
+          "handle": "europe-africa.bsky.social",
+          "did": "did:plc:v3lkb3m4lu6nzv6npkah6umc",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Abuja Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T00:30:17+00:00",
+        "geo": {
+          "locationId": "abuja",
+          "name": "Abuja",
+          "lat": 9.0765,
+          "lon": 7.3986,
+          "country": "Nigeria",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 14,
+        "displayLocationName": "Abuja"
+      },
+      {
+        "id": "signal-bluesky-0426e93fb1",
+        "sourceId": "bluesky-0426e93fb1",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "JAMB to Release 2026 UTME Results for April 16 Candidates Before Midnight ABUJA, April 17, 2026…",
+        "excerpt": "JAMB to Release 2026 UTME Results for April 16 Candidates Before Midnight ABUJA, April 17, 2026 (Naija247news) – The Joint Admissions and Matriculation Board (JAMB) has announced that results of candidates who sat for the 2026 Unified Tertiary Matriculation Examination (UTME) on April 16 will be…",
+        "url": "https://bsky.app/profile/naija247news.bsky.social/post/3mjq63uzkff2w",
+        "author": {
+          "name": "Nigerian Stories",
+          "handle": "naija247news.bsky.social",
+          "did": "did:plc:spjdchwn5opevbg34g5io3s2",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Abuja Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T00:19:08Z",
+        "geo": {
+          "locationId": "abuja",
+          "name": "Abuja",
+          "lat": 9.0765,
+          "lon": 7.3986,
+          "country": "Nigeria",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 14,
+        "displayLocationName": "Abuja"
+      }
+    ],
+    "center": {
+      "lat": 9.0765,
+      "lon": 7.3986
+    },
+    "resolution": "city"
+  },
+  {
+    "id": "port-au-prince",
+    "name": "Port-au-Prince",
+    "heat": 5.9,
+    "delta": 0,
+    "confidence": 0.87,
+    "civilComponent": 4.1,
+    "militaryComponent": 4.2,
+    "trend": "steady",
+    "history": [
+      0,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      3.63
+    ],
+    "sourceBreakdown": [
+      "bluesky",
+      "analysis",
+      "official"
+    ],
+    "topDrivers": [
+      "protest activity",
+      "street-level unrest",
+      "state response escalation",
+      "force movement",
+      "narrative manipulation",
+      "security-force presence"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-bluesky-41cc1db9ac",
+        "sourceId": "bluesky-41cc1db9ac",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Haitians have fled their country over the years following a catastrophic 2010 earthquake and the takeover…",
+        "excerpt": "Haitians have fled their country over the years following a catastrophic 2010 earthquake and the takeover of violent gangs. AN UNNATURAL DISASTER tells the story of the residents of Canaan, Haiti, who built a community based on faith but are now on the edge of survival as gangs come to power.",
+        "url": "https://bsky.app/profile/longlead.com/post/3mjniarplus2z",
+        "author": {
+          "name": "Long Lead",
+          "handle": "longlead.com",
+          "did": "did:plc:2vuaryrq6kxestqlaedvqtog",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Port-au-Prince Watch",
+        "engagement": {
+          "likes": 1,
+          "reposts": 0,
+          "replies": 1,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-16T22:42:52.419Z",
+        "geo": {
+          "locationId": "port-au-prince",
+          "name": "Port-au-Prince",
+          "lat": 18.5944,
+          "lon": -72.3074,
+          "country": "Haiti",
+          "resolution": "city",
+          "confidence": 0.7796,
+          "justification": "provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 4.5,
+          "civilWeight": 0,
+          "militaryWeight": 3.5,
+          "narrativeWeight": 0,
+          "drivers": [
+            "coup-related narrative"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 7,
+        "displayLocationName": "Port-au-Prince"
+      },
+      {
+        "id": "signal-state-travel-advisories-7f6f0a5678",
+        "sourceId": "state-travel-advisories-7f6f0a5678",
+        "sourceFamily": "official",
+        "sourceName": "U.S. State Department",
+        "title": "Haiti - Level 4: Do Not Travel",
+        "excerpt": "There was no change to the advisory level or risk indicators. Advisory summary was updated. Do Not Travel to Haiti due to the risk of crime , terrorism , kidnapping , unrest , and limited health care . Read the entire Travel Advisory. Advisory Summary On July 27, 2023, the Department of State ordered non-emergency U.S. government employees and their family members to leave Haiti due to safety risks. Haiti has been under a national state of emergency since March 2024. This state of emergency remains in effect. U.S. government employee travel restrictions U.S. government employees working in Haiti are not allowed to travel away from the U.S. Embassy for non-essential reasons due to safety risks. The U.S. government has an extremely limited ability to provide emergency services to U.S. citizens in Haiti because of security-related travel restrictions. Air Travel U.S. commercial flights are not currently operating to or from Port-au-Prince. The Federal Aviation Administration (FAA) issued a Notice to Airmen (NOTAM) that prohibits U.S. air carrier flights to Port-au-Prince due to ongoing instability. For more information, U.S. citizens should consult the Federal Aviation Administration&#8217;s Prohibitions, Restrictions and Notices. Crime Violent crime is rampant in Haiti, especially in Port-au-Prince. The expansion of gang, organized crime, and terrorist activity has led to widespread violence. Crimes involving firearms are common. Crimes include robbery, carjackings, sexual assault and kidnappings for ransom. The escalation of clashes between armed groups has led to a rise in sporadic gunfire incidents. There is a substantial risk of being struck by stray bullets, even for people not directly involved in the violence. Local law enforcement has an extremely limited ability to respond to serious crimes, particularly outside Port-au-Prince and Cap Haitien. When traveling to Haiti, do not engage in activity or behave in a manner that could be in violation of local law and subject you to arrest and detention. Be mindful of potential violations of law. Kidnapping Kidnapping is widespread. U.S. citizen kidnapping victims have been hurt or killed. Kidnappers often demand ransoms. Ransom demands are typically in the high tens of thousands to high hundreds of thousands of thousands of dollars. Kidnappers target and attack vehicles, including commercial busses, and can even attack convoys. Terrorism Terrorist violence, including attacks on citizens and other violent gang activity, happens frequently in Haiti. Some Haitian gangs are designated by the U.S. Department of State as terrorist organizations. Visit the U.S. Department of State&#8217;s country reports on terrorism to learn more. Unrest Protests, demonstrations, and roadblocks are common and unpredictable. Protesters and demonstrators sometimes damage or destroy infrastructure and can become violent. Armed, anti-gang vigilante groups attack and, in many cases, have killed individuals, including U.S. citizens, suspected of being gang members based only on rumors or incorrect information. Neighborhood watch groups have built improvised barricades and gates to control the flow of traffic in certain areas. Watch groups often harass or detain individuals who are not known to be residents of their neighborhoods. Health Hospitals and clinics in Haiti have limited trained staff and lack basic resources.&#8239;Medical providers almost always require payment in cash before treatment. Most medical providers speak little or no English. For U.S. citizens in Haiti: Enroll in the Smart Traveler Enrollment Program (STEP) to get important updates and alerts from the U.S. embassy or consulate. Enrolling helps the U.S. embassy or consulate contact you or your emergency contact in an emergency. Review the Country Security Report for Haiti. Choose one family member to serve as the point of contact. If you are kidnapped or taken hostage, that person can communicate with kidnappers or hostage-takers, media, U.S. or foreign government agencies, and members of Congress. Establish a proof of life protocol with your loved ones. If you are kidnapped, your loved ones will know specific questions (and answers) to ask the kidnappers to confirm that you are being held captive and are alive. Review our information on Terrorism , Travel to High-Risk Areas , U.S. Citizens Missing Abroad , Crime Abroad , and for Victims of Crime . Keep your travel documents up to date and easy to access. Make a communication plan with your family, employer, or host organization. Decide how and when you will check in to confirm you are safe. Prepare a will and any last instructions. Designate appropriate insurance beneficiaries or prepare a power of attorney. Refer to our list of medical providers medical providers . Make sure your insurance includes medical evacuation coverage. Have a plan to leave in an emergency that does not depend on U.S. government help. Review our information on Crisis and Evacuations . We highly recommend that you buy travel insurance before you travel. Check with your travel insurance provider about evacuation assistance, medical insurance, and trip cancelation coverage. Consider purchasing medical evacuation insurance. Medical evacuation from Haiti is very expensive and the U.S. government may not&#8239;be able to assist should you need emergency medical care. Monitor local media for breaking news. Be prepared to adjust your plans. Do not physically resist any robbery attempt. Use caution when walking or driving at night. Keep a low profile. Stay aware of your surroundings. Do not display signs of wealth, like expensive watches or jewelry. Stay alert when visiting banks or ATMs. Consider hiring a professional security organization. Check with your doctor about required vaccines and shots for high-risk exposure before you go to Haiti . Review the Health section in the Travel Guidance for Haiti . Bring enough supplies of over the counter and prescription medicines to last not only for your entire planned stay in Haiti but for several extra weeks in the event you are unable to depart due to security restrictions that may occur at any moment. Visit the Centers for Disease Control and Prevention (CDC) website for the latest Travel Health Information.",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/haiti-travel-advisory.html",
+        "author": {
+          "name": "U.S. State Department",
+          "profileLocation": ""
+        },
+        "provenance": "live rss feed: U.S. State Department Advisories",
+        "engagement": {},
+        "timestamp": "2026-04-16T04:00:00.000Z",
+        "geo": {
+          "locationId": "port-au-prince",
+          "name": "Port-au-Prince",
+          "lat": 18.5944,
+          "lon": -72.3074,
+          "country": "Haiti",
+          "resolution": "city",
+          "confidence": 0.7608,
+          "justification": "mentioned in source text, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 5,
+          "civilWeight": 8.59,
+          "militaryWeight": 1.78,
+          "narrativeWeight": 0.95,
+          "drivers": [
+            "protest activity",
+            "street-level unrest",
+            "state response escalation",
+            "force movement",
+            "narrative manipulation"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 1,
+        "displayLocationName": "Port-au-Prince"
+      },
+      {
+        "id": "signal-bluesky-28a7b7c945",
+        "sourceId": "bluesky-28a7b7c945",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "EXCLUSIF : les premières photos des ruines de l’Hôtel Oloffson et des rues environnantes, dans des zones…",
+        "excerpt": "EXCLUSIF : les premières photos des ruines de l’Hôtel Oloffson et des rues environnantes, dans des zones tout juste libérées par la police de Port-au-Prince. www.haitimagazine.ca/p/62-territo...",
+        "url": "https://bsky.app/profile/etiennecp.bsky.social/post/3mjpgyrcelc2f",
+        "author": {
+          "name": "Etienne Côté-Paluck",
+          "handle": "etiennecp.bsky.social",
+          "did": "did:plc:rdp56yke2y56koyaqjpkmkmc",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Port-au-Prince Watch",
+        "engagement": {
+          "likes": 1,
+          "reposts": 0,
+          "replies": 1,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-17T17:25:49.290Z",
+        "geo": {
+          "locationId": "port-au-prince",
+          "name": "Port-au-Prince",
+          "lat": 18.5944,
+          "lon": -72.3074,
+          "country": "Haiti",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 1.5,
+          "civilWeight": 0.5,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "security-force presence"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 3,
+        "displayLocationName": "Port-au-Prince"
+      },
+      {
+        "id": "signal-crisisgroup-haiti-7f2aff3035",
+        "sourceId": "crisisgroup-haiti-7f2aff3035",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "U.S. Gunboats Patrol Haiti’s Waters amid Wrangling over a New Government",
+        "excerpt": "Crisis Group expert Diego Da Rin assesses the political deadlock in Haiti and the motives behind the deployment of U.S. naval vessels off Port-au-Prince",
+        "url": "https://www.crisisgroup.org/anb/latin-america-caribbean/haiti-united-states/us-gunboats-patrol-haitis-waters-amid-wrangling-over-new-government",
+        "author": {
+          "name": "emactaggart",
+          "profileLocation": "Haiti"
+        },
+        "provenance": "live rss feed: Crisis Group Haiti",
+        "engagement": {},
+        "timestamp": "2026-02-05T16:42:00.000Z",
+        "geo": {
+          "locationId": "port-au-prince",
+          "name": "Port-au-Prince",
+          "lat": 18.5944,
+          "lon": -72.3074,
+          "country": "Haiti",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 21,
+        "displayLocationName": "Port-au-Prince"
+      }
+    ],
+    "center": {
+      "lat": 18.5944,
+      "lon": -72.3074
+    },
+    "resolution": "city"
+  },
+  {
+    "id": "yangon",
+    "name": "Yangon",
+    "heat": 4.2,
+    "delta": 24,
+    "confidence": 0.75,
+    "civilComponent": 0,
+    "militaryComponent": 8.3,
+    "trend": "warming",
+    "history": [
+      0,
+      4.45,
+      4.45,
+      4.45,
+      4.45,
+      4.45
+    ],
+    "sourceBreakdown": [
+      "bluesky"
+    ],
+    "topDrivers": [
+      "military actor involvement",
+      "coup-related narrative",
+      "non-instability chatter",
+      "protest activity"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-bluesky-8e21813d56",
+        "sourceId": "bluesky-8e21813d56",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Today is Burmese New Year’s Day. It’s the year 1388 (၁၃၈၈) of the Kawza calendar and the *sixth* new year…",
+        "excerpt": "Today is Burmese New Year’s Day. It’s the year 1388 (၁၃၈၈) of the Kawza calendar and the *sixth* new year since the military coup in Myanmar. Once again, I pray that this year finally sees an end to the dictatorship, victory for the revolution, and peace for our land and our people 🙏🏽🙏🏽🙏🏽💛",
+        "url": "https://bsky.app/profile/meemalee.bsky.social/post/3mjpi4j52pk2l",
+        "author": {
+          "name": "MiMi Aye",
+          "handle": "meemalee.bsky.social",
+          "did": "did:plc:lfl22ffvp2l5by2jhnalnchb",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Yangon Watch",
+        "engagement": {
+          "likes": 42,
+          "reposts": 14,
+          "replies": 1,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-17T17:45:48.684Z",
+        "geo": {
+          "locationId": "yangon",
+          "name": "Yangon",
+          "lat": 16.8661,
+          "lon": 96.1951,
+          "country": "Myanmar",
+          "resolution": "city",
+          "confidence": 0.7796,
+          "justification": "provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 3.45,
+          "civilWeight": 0,
+          "militaryWeight": 2.45,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement",
+            "coup-related narrative"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 4,
+        "displayLocationName": "Yangon"
+      },
+      {
+        "id": "signal-bluesky-f8b01ca5b8",
+        "sourceId": "bluesky-f8b01ca5b8",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Residents of Yangon Region told DVB that they’ve been struggling with water shortages due to “frequent”…",
+        "excerpt": "Residents of Yangon Region told DVB that they’ve been struggling with water shortages due to “frequent” power outages, which started on March 18 and are expected to continue until the end of June. Read more in the today's daily briefing: english.dvb.no/power-cuts-d...",
+        "url": "https://bsky.app/profile/dvbenglish.bsky.social/post/3mj4icf7gls2y",
+        "author": {
+          "name": "DVB English News",
+          "handle": "dvbenglish.bsky.social",
+          "did": "did:plc:kvznnibqezrk6mfvfozau4ai",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Yangon Watch",
+        "engagement": {
+          "likes": 1,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-10T04:28:30.858Z",
+        "geo": {
+          "locationId": "yangon",
+          "name": "Yangon",
+          "lat": 16.8661,
+          "lon": 96.1951,
+          "country": "Myanmar",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 2.1,
+          "civilWeight": 1.1,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "protest activity"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 12,
+        "displayLocationName": "Yangon"
+      },
+      {
+        "id": "signal-bluesky-9ae4632d2e",
+        "sourceId": "bluesky-9ae4632d2e",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Menilik semarak perayaan Festival Air Thingyan di Yangon, Myanmar -…",
+        "excerpt": "Menilik semarak perayaan Festival Air Thingyan di Yangon, Myanmar - https://www.antaranews.com/berita/5525279/menilik-semarak-perayaan-festival-air-thingyan-di-yangon-myanmar",
+        "url": "https://bsky.app/profile/antara-poster.bsky.social/post/3mjg3kseqku25",
+        "author": {
+          "name": "antaranews.com (Unofficial)",
+          "handle": "antara-poster.bsky.social",
+          "did": "did:plc:mwlzey3sttvtzgjtfci54ub3",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Yangon Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-14T00:07:11.516Z",
+        "geo": {
+          "locationId": "yangon",
+          "name": "Yangon",
+          "lat": 16.8661,
+          "lon": 96.1951,
+          "country": "Myanmar",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "noise",
+          "severity": 0.2,
+          "civilWeight": 0.05,
+          "militaryWeight": 0.05,
+          "narrativeWeight": 0.05,
+          "drivers": [
+            "non-instability chatter"
+          ],
+          "confidencePenalty": 0.55
+        },
+        "corroborationCount": 6,
+        "displayLocationName": "Yangon"
+      },
+      {
+        "id": "signal-bluesky-fced617962",
+        "sourceId": "bluesky-fced617962",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "“No one cares what’s happening in Parliament or who will be president,” said a Yangon taxi driver on…",
+        "excerpt": "“No one cares what’s happening in Parliament or who will be president,” said a Yangon taxi driver on condition of anonymity. “Nothing will change: the military will remain in charge. It’s a selection, not an election.” www.irrawaddy.com/opinion/gues...",
+        "url": "https://bsky.app/profile/erincook.bsky.social/post/3miuumdvmh22t",
+        "author": {
+          "name": "Erin Cook",
+          "handle": "erincook.bsky.social",
+          "did": "did:plc:7autxoykvrwaxo6perhesj3l",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Yangon Watch",
+        "engagement": {
+          "likes": 4,
+          "reposts": 1,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-07T03:47:32.035Z",
+        "geo": {
+          "locationId": "yangon",
+          "name": "Yangon",
+          "lat": 16.8661,
+          "lon": 96.1951,
+          "country": "Myanmar",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 15,
+        "displayLocationName": "Yangon"
+      }
+    ],
+    "center": {
+      "lat": 16.8661,
+      "lon": 96.1951
+    },
+    "resolution": "city"
+  },
+  {
+    "id": "khartoum",
+    "name": "Khartoum",
+    "heat": 1.7,
+    "delta": 12,
+    "confidence": 0.75,
+    "civilComponent": 0,
+    "militaryComponent": 3.4,
+    "trend": "warming",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "bluesky"
+    ],
+    "topDrivers": [
+      "military actor involvement"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-bluesky-e2214ae780",
+        "sourceId": "bluesky-e2214ae780",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Sudan’s army and RSF are locked in a deadlock, with the army holding Khartoum and the north‑east while the…",
+        "excerpt": "Sudan’s army and RSF are locked in a deadlock, with the army holding Khartoum and the north‑east while the RSF dominates Darfur, Kordofan and a new front in the Blue Nile; recent... https://blackwirein.tel/article/sudans-prolonged-war-stalls-as-army-and-rsf-remain-locked-in-stalemate #Africa #War",
+        "url": "https://bsky.app/profile/blackwireintel.bsky.social/post/3mjmou6gdcc2r",
+        "author": {
+          "name": "BLACKWIRE INTEL",
+          "handle": "blackwireintel.bsky.social",
+          "did": "did:plc:n2iek3sblzmpqm4kyrwc7jus",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Khartoum Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-16T15:08:25.922Z",
+        "geo": {
+          "locationId": "khartoum",
+          "name": "Khartoum",
+          "lat": 15.5007,
+          "lon": 32.5599,
+          "country": "Sudan",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 4.5,
+          "civilWeight": 0,
+          "militaryWeight": 3.5,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 19,
+        "displayLocationName": "Khartoum"
+      },
+      {
+        "id": "signal-bluesky-3b807d3577",
+        "sourceId": "bluesky-3b807d3577",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "KHARTOUM, Sudan — Sudan’s army-appointed prime minister declared victory last week in the long-running…",
+        "excerpt": "KHARTOUM, Sudan — Sudan’s army-appointed prime minister declared victory last week in the long-running civil war against the rebel Rapid Support Forces, while holding court with foreign journalists…",
+        "url": "https://bsky.app/profile/newsnation.bsky.social/post/3mjmc7kek5e23",
+        "author": {
+          "name": "NewsNation",
+          "handle": "newsnation.bsky.social",
+          "did": "did:plc:vitnj4ndng6jzpr3wqvndj22",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Khartoum Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-16T11:22:08.923Z",
+        "geo": {
+          "locationId": "khartoum",
+          "name": "Khartoum",
+          "lat": 15.5007,
+          "lon": 32.5599,
+          "country": "Sudan",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 2.4,
+          "civilWeight": 0,
+          "militaryWeight": 1.4,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 19,
+        "displayLocationName": "Khartoum"
+      },
+      {
+        "id": "signal-bluesky-a9c97d92e8",
+        "sourceId": "bluesky-a9c97d92e8",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "4. Total number of refugees including Chadian returnees ? Maybe 1.5 million. Given the lack of solution in…",
+        "excerpt": "4. Total number of refugees including Chadian returnees ? Maybe 1.5 million. Given the lack of solution in sight very few have the option of going back. There are some Arab refugees who fled after the army retook Khartoum but 90% + are victims of the RSF backed by the UAE",
+        "url": "https://bsky.app/profile/ulflaessing.bsky.social/post/3mjmldmgxy22y",
+        "author": {
+          "name": "Ulf Laessing",
+          "handle": "ulflaessing.bsky.social",
+          "did": "did:plc:nbm47zadunohbozvjvkomw5k",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Khartoum Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 1,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-16T14:05:29.016Z",
+        "geo": {
+          "locationId": "khartoum",
+          "name": "Khartoum",
+          "lat": 15.5007,
+          "lon": 32.5599,
+          "country": "Sudan",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 19,
+        "displayLocationName": "Khartoum"
+      },
+      {
+        "id": "signal-bluesky-174392dfa2",
+        "sourceId": "bluesky-174392dfa2",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Silvicultrix got a ride back to where Cyndi Was being kept safe in Khartoum. She hopped on her Cyndi…",
+        "excerpt": "Silvicultrix got a ride back to where Cyndi Was being kept safe in Khartoum. She hopped on her Cyndi Chopper & Time Chopped thru squirrels of golden light back in time with the Time Warden. She landed back exactly in the same spot where Angelina had met her in front of her house precisely.",
+        "url": "https://bsky.app/profile/angelamcewen.bsky.social/post/3mjq2lheyhk2j",
+        "author": {
+          "name": "⭐️Angela 🐿️ McEwen⭐️",
+          "handle": "angelamcewen.bsky.social",
+          "did": "did:plc:xyd6rnb2s3bztytz7yyg5w43",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Khartoum Watch",
+        "engagement": {
+          "likes": 8,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-17T23:16:17.518Z",
+        "geo": {
+          "locationId": "khartoum",
+          "name": "Khartoum",
+          "lat": 15.5007,
+          "lon": 32.5599,
+          "country": "Sudan",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 3,
+        "displayLocationName": "Khartoum"
+      }
+    ],
+    "center": {
+      "lat": 15.5007,
+      "lon": 32.5599
+    },
+    "resolution": "city"
+  },
+  {
+    "id": "quetta",
+    "name": "Quetta",
+    "heat": 1.7,
+    "delta": 24,
+    "confidence": 0.77,
+    "civilComponent": 0.7,
+    "militaryComponent": 2.6,
+    "trend": "warming",
+    "history": [
+      0,
+      0,
+      0.01,
+      0.01,
+      0.01,
+      0.75
+    ],
+    "sourceBreakdown": [
+      "bluesky"
+    ],
+    "topDrivers": [
+      "non-instability chatter",
+      "acceleration in discussion volume",
+      "military actor involvement"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-bluesky-f69cd15ad9",
+        "sourceId": "bluesky-f69cd15ad9",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Baloch Liberation Army claims killing 29 Pakistani military personnel in 14 attacks this month…",
+        "excerpt": "Baloch Liberation Army claims killing 29 Pakistani military personnel in 14 attacks this month yespunjab.com?p=240333 #Balochistan #Quetta #BLA #PakistanNews #Security #Conflict #BreakingNews #SouthAsia #Militancy #Insurgency #Defense #Geopolitics",
+        "url": "https://bsky.app/profile/handle.invalid/post/3mjmk56tmqk2p",
+        "author": {
+          "name": "YesPunjab.com",
+          "handle": "handle.invalid",
+          "did": "did:plc:mcd4vpan6gaduidxxgu53654",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Quetta Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-16T13:43:59.715Z",
+        "geo": {
+          "locationId": "quetta",
+          "name": "Quetta",
+          "lat": 30.1798,
+          "lon": 66.975,
+          "country": "Pakistan",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 3.8,
+          "civilWeight": 0,
+          "militaryWeight": 2.8,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Quetta"
+      },
+      {
+        "id": "signal-bluesky-a8b6eeba9d",
+        "sourceId": "bluesky-a8b6eeba9d",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "‘Saari nazar utaar denge’: PSL CEO wards off ‘evil eye’ for Pakistan’s Babar Azam, video goes viral – Watch…",
+        "excerpt": "‘Saari nazar utaar denge’: PSL CEO wards off ‘evil eye’ for Pakistan’s Babar Azam, video goes viral – Watch | Cricket News – The Times of India A light moment involving Salman Naseer and Babar Azam went viral after Peshawar Zalmi’s win over Quetta Gladiators, with the PSL CEO seen performing a…",
+        "url": "https://bsky.app/profile/dailyheadlinez.bsky.social/post/3mjnhok4t7524",
+        "author": {
+          "name": "Shailesh Tiwari",
+          "handle": "dailyheadlinez.bsky.social",
+          "did": "did:plc:bxgt7fnnr4s3rc7aeglq3gwg",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Quetta Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-16T22:32:39Z",
+        "geo": {
+          "locationId": "quetta",
+          "name": "Quetta",
+          "lat": 30.1798,
+          "lon": 66.975,
+          "country": "Pakistan",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 2.6500000000000004,
+          "civilWeight": 0.41,
+          "militaryWeight": 0.58,
+          "narrativeWeight": 1.65,
+          "drivers": [
+            "acceleration in discussion volume"
+          ],
+          "confidencePenalty": 0.22
+        },
+        "corroborationCount": 13,
+        "displayLocationName": "Quetta"
+      },
+      {
+        "id": "signal-bluesky-c4bfafa920",
+        "sourceId": "bluesky-c4bfafa920",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "‘Saari nazar utaar denge’: PSL CEO wards off ‘evil eye’ for Pakistan’s Babar Azam, video goes viral – Watch…",
+        "excerpt": "‘Saari nazar utaar denge’: PSL CEO wards off ‘evil eye’ for Pakistan’s Babar Azam, video goes viral – Watch | Cricket News https://www.newsbeep.com/uk/533838/ A light moment involving Salman Naseer and Babar Azam went viral after Peshawar Zalmi’s win over Quetta Gladiators,…",
+        "url": "https://bsky.app/profile/uk-nb.bsky.social/post/3mjm4bwdf722p",
+        "author": {
+          "name": "uk-nb.bsky.social",
+          "handle": "uk-nb.bsky.social",
+          "did": "did:plc:6w7425hsc4mjjkte2mbsxdhw",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Quetta Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-16T09:36:02+00:00",
+        "geo": {
+          "locationId": "quetta",
+          "name": "Quetta",
+          "lat": 30.1798,
+          "lon": 66.975,
+          "country": "Pakistan",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 2.6500000000000004,
+          "civilWeight": 0.41,
+          "militaryWeight": 0.58,
+          "narrativeWeight": 1.65,
+          "drivers": [
+            "acceleration in discussion volume"
+          ],
+          "confidencePenalty": 0.22
+        },
+        "corroborationCount": 18,
+        "displayLocationName": "Quetta"
+      },
+      {
+        "id": "signal-bluesky-344ed64580",
+        "sourceId": "bluesky-344ed64580",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "✅ Launched Google Scholarships for students in Gwadar, Turbat, Quetta & SBK Women’s University ✅…",
+        "excerpt": "✅ Launched Google Scholarships for students in Gwadar, Turbat, Quetta & SBK Women’s University ✅ Facilitated internships across Sibi, Turbat, Loralai & more ✅ Organized Interfaith Harmony Summits, All-Women Provincial Summit & Youth Festival ✅ Conducted Women Empowerment Summits in 20 districts",
+        "url": "https://bsky.app/profile/ishaaldear.bsky.social/post/3mjoumgue4k2j",
+        "author": {
+          "name": "ishaaldear.bsky.social",
+          "handle": "ishaaldear.bsky.social",
+          "did": "did:plc:5hzspknfgs4oqozklpfaszly",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Quetta Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 1,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-17T11:56:48.334Z",
+        "geo": {
+          "locationId": "quetta",
+          "name": "Quetta",
+          "lat": 30.1798,
+          "lon": 66.975,
+          "country": "Pakistan",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "noise",
+          "severity": 0.2,
+          "civilWeight": 0.05,
+          "militaryWeight": 0.05,
+          "narrativeWeight": 0.05,
+          "drivers": [
+            "non-instability chatter"
+          ],
+          "confidencePenalty": 0.55
+        },
+        "corroborationCount": 10,
+        "displayLocationName": "Quetta"
+      }
+    ],
+    "center": {
+      "lat": 30.1798,
+      "lon": 66.975
+    },
+    "resolution": "city"
+  },
+  {
+    "id": "nigeria",
+    "name": "Nigeria",
+    "heat": 1.6,
+    "delta": -40,
+    "confidence": 0.33,
+    "civilComponent": 2.6,
+    "militaryComponent": 0,
+    "trend": "cooling",
+    "history": [
+      0,
+      0,
+      2.51,
+      2.51,
+      2.51,
+      2.51
+    ],
+    "sourceBreakdown": [
+      "news"
+    ],
+    "topDrivers": [
+      "protest activity"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-allafrica-west-africa-5801ef3828",
+        "sourceId": "allafrica-west-africa-5801ef3828",
+        "sourceFamily": "news",
+        "sourceName": "allAfrica",
+        "title": "Nigeria: Tinubu Signs 2026 Appropriation Bill, 2025 Budget Extension",
+        "excerpt": "[Vanguard] President Bola Tinubu has assented to the 2026 Appropriation Bill, which provides for an aggregate expenditure of &#x20A6;68.32 trillion. He has also signed the bill extending the implementation period for the 2025 budget from March 31, 2026, to June 30, 2026.",
+        "url": "https://allafrica.com/stories/202604170415.html",
+        "author": {
+          "name": "allAfrica",
+          "profileLocation": "West Africa"
+        },
+        "provenance": "live rss feed: allAfrica West Africa",
+        "engagement": {},
+        "timestamp": "2026-04-17T12:48:46.000Z",
+        "geo": {
+          "locationId": "nigeria",
+          "name": "Nigeria",
+          "lat": 9.082,
+          "lon": 8.6753,
+          "country": "Nigeria",
+          "resolution": "country",
+          "confidence": 0.7224,
+          "justification": "mentioned in source text, provided in place hint, country named explicitly"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 2.1,
+          "civilWeight": 1.1,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "protest activity"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 27,
+        "displayLocationName": "Nigeria"
+      },
+      {
+        "id": "signal-allafrica-africa-5a7bd7c45b",
+        "sourceId": "allafrica-africa-5a7bd7c45b",
+        "sourceFamily": "news",
+        "sourceName": "allAfrica",
+        "title": "Africa: Keyamo Calls for Aircraft Maintenance Hubs in Africa to Stop Capital Flight",
+        "excerpt": "[This Day] Nigeria's Minister of Aviation and Aerospace Development, Festus Keyamo, has called for urgent and unified action to transform Africa's aviation sector, insisting that the region must become self-sustaining in aircraft maintenance to curb current capital flight from the continent.",
+        "url": "https://allafrica.com/stories/202604170098.html",
+        "author": {
+          "name": "allAfrica",
+          "profileLocation": "Africa"
+        },
+        "provenance": "live rss feed: allAfrica Africa",
+        "engagement": {},
+        "timestamp": "2026-04-17T06:49:15.000Z",
+        "geo": {
+          "locationId": "nigeria",
+          "name": "Nigeria",
+          "lat": 9.082,
+          "lon": 8.6753,
+          "country": "Nigeria",
+          "resolution": "country",
+          "confidence": 0.3824,
+          "justification": "mentioned in source text, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 8,
+        "displayLocationName": "Nigeria"
+      },
+      {
+        "id": "signal-allafrica-africa-bd51441ac8",
+        "sourceId": "allafrica-africa-bd51441ac8",
+        "sourceFamily": "news",
+        "sourceName": "allAfrica",
+        "title": "Africa: Nigeria Intensify Efforts to Deepen Monetary Cooperation, Financial Integration Across Africa",
+        "excerpt": "[This Day] Nigeria has stepped up efforts to host the African Union (AU) African Monetary Institute (AMI), signalling a renewed push toward deeper monetary cooperation and financial integration across the continent, as preparations intensify for the institute's planned take-off in September 2026.",
+        "url": "https://allafrica.com/stories/202604170024.html",
+        "author": {
+          "name": "allAfrica",
+          "profileLocation": "Africa"
+        },
+        "provenance": "live rss feed: allAfrica Africa",
+        "engagement": {},
+        "timestamp": "2026-04-17T04:15:26.000Z",
+        "geo": {
+          "locationId": "nigeria",
+          "name": "Nigeria",
+          "lat": 9.082,
+          "lon": 8.6753,
+          "country": "Nigeria",
+          "resolution": "country",
+          "confidence": 0.3824,
+          "justification": "mentioned in source text, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 8,
+        "displayLocationName": "Nigeria"
+      },
+      {
+        "id": "signal-allafrica-west-africa-e1c6d32f62",
+        "sourceId": "allafrica-west-africa-e1c6d32f62",
+        "sourceFamily": "news",
+        "sourceName": "allAfrica",
+        "title": "Africa: All of Africa Today - April 17, 2026",
+        "excerpt": "[allAfrica]",
+        "url": "https://allafrica.com/stories/202604170093.html",
+        "author": {
+          "name": "info@allafrica.com (allAfrica)",
+          "profileLocation": "West Africa"
+        },
+        "provenance": "live rss feed: allAfrica West Africa",
+        "engagement": {},
+        "timestamp": "2026-04-17T06:48:01.000Z",
+        "geo": {
+          "locationId": "nigeria",
+          "name": "Nigeria",
+          "lat": 9.082,
+          "lon": 8.6753,
+          "country": "Nigeria",
+          "resolution": "country",
+          "confidence": 0.30760000000000004,
+          "justification": "provided in place hint"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 28,
+        "displayLocationName": "Nigeria"
+      }
+    ],
+    "center": {
+      "lat": 9.082,
+      "lon": 8.6753
+    },
+    "resolution": "country"
+  },
+  {
+    "id": "lebanon",
+    "name": "Lebanon",
+    "heat": 0,
+    "delta": 6,
+    "confidence": 0.31,
+    "civilComponent": 0,
+    "militaryComponent": 0,
+    "trend": "warming",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "news"
+    ],
+    "topDrivers": [],
+    "evidenceBundle": [
+      {
+        "id": "signal-pbs-headlines-3e8ce8fa47",
+        "sourceId": "pbs-headlines-3e8ce8fa47",
+        "sourceFamily": "news",
+        "sourceName": "PBS NewsHour",
+        "title": "After weeks of fighting, ceasefire sparks cautious celebration in Lebanon",
+        "excerpt": "Iran declared that it would reopen the Strait of Hormuz to commercial sea traffic, which President Trump eagerly supported in a social media post. But Trump also declared that the U.S. blockade of Iran's ports could continue. Meanwhile, the day-old truce between Israel and Hezbollah appeared to hold after weeks of disastrous fighting. Special correspondent Simona Foltyn reports.",
+        "url": "https://www.pbs.org/newshour/show/after-weeks-of-fighting-ceasefire-sparks-cautious-celebration-in-lebanon",
+        "author": {
+          "name": "Simona Foltyn",
+          "profileLocation": ""
+        },
+        "provenance": "live rss feed: PBS NewsHour Headlines",
+        "engagement": {},
+        "timestamp": "2026-04-17T22:55:08.000Z",
+        "geo": {
+          "locationId": "lebanon",
+          "name": "Lebanon",
+          "lat": 33.8547,
+          "lon": 35.8623,
+          "country": "Lebanon",
+          "resolution": "country",
+          "confidence": 0.3824,
+          "justification": "mentioned in source text, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 1,
+        "displayLocationName": "Lebanon"
+      }
+    ],
+    "center": {
+      "lat": 33.8547,
+      "lon": 35.8623
+    },
+    "resolution": "country"
+  },
+  {
+    "id": "sudan",
+    "name": "Sudan",
+    "heat": 0,
+    "delta": -6,
+    "confidence": 0.68,
+    "civilComponent": 0,
+    "militaryComponent": 0,
+    "trend": "cooling",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "analysis",
+      "news"
+    ],
+    "topDrivers": [
+      "protest activity",
+      "street-level unrest",
+      "security-force presence",
+      "military actor involvement"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-fews-sudan-5d16898ff1",
+        "sourceId": "fews-sudan-5d16898ff1",
+        "sourceFamily": "analysis",
+        "sourceName": "FEWS NET",
+        "title": "The risk of Famine (IPC Phase 5) persists in South Kordofan and North Darfur",
+        "excerpt": "The risk of Famine (IPC Phase 5) persists in South Kordofan and North Darfur Key Messages Key Messages In March, Emergency (IPC Phase 4) outcomes with populations in Catastrophe (IPC Phase 5) are ongoing in key hotspot areas. The areas of highest concern include parts of South Kordofan (Dilling, Kadugli, and surrounding western Nuba Mountains), North Darfur (northwestern localities of Um Baru, Kernoi, At-Tine), and North Kordofan (in El-Obeid town and surrounding rural areas). Conflict, displacement, and the early start of the lean season are driving severe hunger, acute malnutrition, and mortality in the typical post-harvest period. In Blue Nile , escalating fighting is causing displacement, straining host community resources, reducing household food access, and driving widespread Crisis (IPC Phase 3) outcomes with pockets of Emergency (IPC Phase 4) among newly displaced populations. Overall, Emergency (IPC Phase 4) outcomes are anticipated to expand further across Greater Darfur, Greater Kordofan, and Blue Nile during the lean season. FEWS NET estimates that up to 22.0-22.99 million people will need humanitarian food aid. A credible risk of Famine (IPC Phase 5) remains in parts of South Kordofan, North Kordofan, North Darfur, and areas of Greater Darfur with large concentrations of displaced populations. Of particular concern are Kadugli, Dilling, and surrounding areas of the western Nuba Mountains; these areas were recently projected to remain in Famine due to severe siege conditions. While recent shifts in access and displacement have driven the change to Emergency (IPC Phase 4) with populations in Catastrophe (Phase 5), the levels of hunger, acute malnutrition, and mortality could deteriorate rapidly and surpass Famine (IPC Phase 5) thresholds if populations are again isolated from food, including humanitarian assistance, for a prolonged period. In northwest North Darfur, there is a credible risk of Famine (IPC Phase 5) given already high levels of acute malnutrition: if conflict frontlines cut off trade and humanitarian access, prevent population movement, and obstruct household access to minimally available food, then Famine (IPC Phase 5) would likely occur. In March 2026, conflict escalated across several regions of Sudan, driving instability and undermining humanitarian operations. In South Kordofan , Rapid Support Forces launched coordinated attacks on Sudan Armed Forces positions around Dilling , cutting supply routes, seizing control of stretches of the Dilling-Kadugli and Dilling-Habila roads, and disrupting trade and humanitarian access again after a brief reprieve in February that had facilitated the arrival of market and humanitarian supplies. Along the Chad-Sudan border , armed ground offensives and drone strikes at both Adré and At-Tine prompted the Chad government to close the border to movement except for humanitarian operations, disrupted population displacement across the border, trade flows, and humanitarian operations. In Blue Nile , the capture of Kurmuk by joint RSF-SPLM-N forces altered control of a strategic transit hub on the Ethiopian border, threatening trade and humanitarian corridors and triggering new waves of displacement. Conflict-driven displacement continues to disrupt livelihoods and household food access, particularly in Blue Nile and Greater Kordofan. Needs also remain acute among displaced populations amid loss of access to livelihoods, income, and basic services. According to the International Organization for Migration , one-third of IDPs report going a full day without food, and one-quarter lack access to healthcare. In March, the escalating conflict in Blue Nile has driven waves of displacement, reaching a cumulative figure of 28,000 people displaced between January and the end of March. Meanwhile, in Greater Kordofan, over 2,100 people were displaced in March in South Kordofan due to armed clashes in Dilling town and in some villages in Habila . In North Kordofan, localized insecurity displaced 585 people in Gharb Bara and Bara , while 120 people were displaced from Abu Zabad town in West Kordofan. In Kas of South Darfur, intercommunal conflict between two tribes uprooted about 250 individuals, highlighting ongoing ethnic tensions between pastoralists and farmers. Humanitarian access in the frontline areas of the conflict remains exceedingly challenging in March . Road closures, heightened insecurity, and escalating drone strikes, on top of ongoing bureaucratic constraints , are restricting humanitarian deliveries in areas of active conflict. In Greater Darfur, attacks at At-Tine and Adré border crossings are disrupting humanitarian operations. Assistance in conflict-affected areas in the northwest of North Darfur are limited, with no food assistance reported to date; deliveries elsewhere in Greater Darfur remain volatile. Access to Dilling has deteriorated again amid ongoing fighting, while access to Kadugli and surrounding areas has remained relatively better since the breaking of the sieges. The escalation of clashes in Blue Nile has also disrupted humanitarian operations in the area. While the Nutrition Cluster confirmed sufficient nutrition supplies were available to last through June 2026, insecurity, administrative restrictions, and movement constraints are expected to disrupt operations and limit distribution to areas of greatest need. Market flows also remain disrupted by the conflict and insecurity, driving high and volatile prices even in the post-harvest period . While prices declined in Dilling and Kadugli compared to the siege’s peak, they remain among the highest in the country and significantly above normal; it is expected that similarly high market prices prevail in nearby markets in South Kordofan. In Greater Darfur, disruptions at the Chad border have disrupted staple imports and livestock movements, affecting supply and driving up prices. Declining fuel supplies due to the conflict in the Middle East are causing surging transport costs. According to WFP market monitoring in February, fuel prices registered a 3-4 percent price increase on commercial markets, though black market prices rose more sharply (7-11 percent) compared to January; further increases were again reported in March. In addition to escalating fuel shortages and rising transport costs that are translating into increasing retail food prices, the conflict in the Middle East is destabilizing the humanitarian supply pipeline and disrupting fertilizer access. Fertilizer imports are already depressed due to the Sudan conflict; however, further reductions in availability are expected to reduce yields, particularly for farmers preparing to plant in the semi-mechanized and irrigated eastern areas. The conflict is causing delays in humanitarian supply and increasing operational costs. Sustained conflict in the Middle East is expected to sharply worsen Sudan’s already fragile food security by further increasing fuel and import costs, disrupting logistics, and diverting international attention from Sudan’s conflict. eturano@fews.net Thu, 04/09/2026 - 19:29 Download the report 34",
+        "url": "https://fews.net/east-africa/sudan/key-message-update/march-2026",
+        "author": {
+          "name": "eturano@fews.net",
+          "profileLocation": "Sudan"
+        },
+        "provenance": "live rss feed: FEWS NET Sudan",
+        "engagement": {},
+        "timestamp": "2026-04-09T19:29:24.000Z",
+        "geo": {
+          "locationId": "sudan",
+          "name": "Sudan",
+          "lat": 15.5007,
+          "lon": 32.5599,
+          "country": "Sudan",
+          "resolution": "country",
+          "confidence": 0.8824000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 5,
+          "civilWeight": 10.2,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "protest activity",
+            "street-level unrest"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 22,
+        "displayLocationName": "Sudan"
+      },
+      {
+        "id": "signal-fews-sudan-4319a04088",
+        "sourceId": "fews-sudan-4319a04088",
+        "sourceFamily": "analysis",
+        "sourceName": "FEWS NET",
+        "title": "Sudan Acute Food Insecurity Classification",
+        "excerpt": "Sudan Acute Food Insecurity Classification Sudan Acute Food Insecurity Classification Shapefile March 2026 (.zip) Download File Sudan Acute Food Insecurity Classification March 2026 (.geojson) Download File Near Term Projection: March 2026 - May 2026 (.png) Download File Medium Term Projection: June 2026 - September 2026 (.png) Download File Near Term Projection: March 2026 - May 2026 (.kml) Download File Medium Term Projection: June 2026 - September 2026 (.kml) Download File Anonymous (not verified) Thu, 04/09/2026 - 23:30 Sector Integrated food security analysis",
+        "url": "https://fews.net/sudan-acute-food-insecurity-classification-march-2026-september-2026",
+        "author": {
+          "name": "Anonymous",
+          "profileLocation": "Sudan"
+        },
+        "provenance": "live rss feed: FEWS NET Sudan",
+        "engagement": {},
+        "timestamp": "2026-04-09T23:30:21.000Z",
+        "geo": {
+          "locationId": "sudan",
+          "name": "Sudan",
+          "lat": 15.5007,
+          "lon": 32.5599,
+          "country": "Sudan",
+          "resolution": "country",
+          "confidence": 0.8824000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 5,
+          "civilWeight": 4.4,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "protest activity"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 22,
+        "displayLocationName": "Sudan"
+      },
+      {
+        "id": "signal-fews-sudan-b53a757478",
+        "sourceId": "fews-sudan-b53a757478",
+        "sourceFamily": "analysis",
+        "sourceName": "FEWS NET",
+        "title": "Sudan Conflict Contributing to Food Crises Beyond Country’s Borders",
+        "excerpt": "Sudan Conflict Contributing to Food Crises Beyond Country’s Borders hbutton@fews.net Mon, 03/30/2026 - 17:42 The Sudan conflict is worsening food insecurity across the region, displacing millions and straining resources in neighboring countries like South Sudan, Chad, and Ethiopia. This blog explores how conflict-driven migration, disrupted markets, and limited aid are intensifying hunger and humanitarian needs. October 13, 2023 Source: UNOCHA/Ala Kheir In brief Conflict in Sudan has displaced millions of people, driving large-scale migration that is straining food, water, and livelihood resources both within the country and in neighboring countries. Refugee flows into South Sudan, Chad, and Ethiopia are worsening already fragile food security conditions, increasing pressure on markets, driving up food prices, and stretching humanitarian assistance. Ongoing conflict and displacement are disrupting livelihoods, trade, and aid delivery, leaving millions across the region facing heightened levels of acute food insecurity. Over 5,000 people have been killed and millions displaced as a result of ongoing conflict in Sudan, and related impacts on food security are being felt beyond the country’s borders in neighboring South Sudan, Chad, and Ethiopia. Since the outbreak of conflict between the Sudan Armed Forces (SAF) and the Rapid Support Forces (RSF) on April 15, more than 5 million people within Sudan have lost or fled their homes. According to the Famine Early Warning Systems Network (FEWS NET) , the movement of more than 4 million internally displaced people (IDPs) into host communities is placing considerable strain on already limited food resources in areas like Sudan’s Northern and River Nile states. In addition, more than 1 million refugees have fled to neighboring countries, most of whom have entered Egypt (about 317,000 people), Chad (over 420,000 people), and South Sudan (about 292,000 people). “Conflict and hunger-induced migration is an extreme coping strategy that deprives people of their land, livelihoods, and usual social support systems,” FEWS NET Program Manager Phil Steffen said. Source: FEWS NET Amid the influx of Sudanese refugees into eastern Chad, the food security situation has steadily worsened due to strains on food reserves, disruptions to cross-border trade, limited job opportunities, and the depletion of natural resources. “Chad was already hosting some 407,000 refugees from Sudan. Now, there are even more,” Steffen said. “Local governments and communities are straining to host a large influx of refugees, and tensions are high between long-term refugees and new arrivals who compete for the same finite resources while emergency food aid is underfunded.” Source: Global Data Institute Displacement Tracking Matrix via IOM In addition to refugees, some soldiers and members of security forces have reportedly crossed the border from Sudan into Chad. As armed personnel and weapons continue flowing into the country, concern for security remains high. “Sudan’s western border has long been extremely porous, allowing for the relatively free and unchecked movement of arms and militia fighters alike,” according to the Economist Intelligence Unit . “A significant inflow of refugees and militia fighters into Chad will exacerbate the already poor humanitarian and security situation in the country.” South Sudan, which is considered one of the world’s most food insecure countries , has experienced similarly negative effects as the arrival of refugees and returnees has impacted access to already limited food, water, and other basic needs. The conflict has also disrupted cross-border trade and market operations, contributing to elevated food prices in South Sudan and further maintaining high levels of acute food insecurity in northern parts of the country bordering Sudan. Livelihoods in South Sudan had already been disrupted as a result of years of conflict and floods that occurred between 2019-2022. Many households are now entirely dependent on food assistance and fish to meet their daily needs, and FEWS NET projections indicated over 60% of the population of South Sudan would be acutely food insecure through the end of September. Sudanese refugees have also fled to neighboring Ethiopia , with more people expected to arrive as the conflict continues. Amid the pause in humanitarian food assistance in Ethiopia, this could further place pressure on markets and increase food prices. Effects of Conflict Felt Across Urban, Rural Sudan While direct and indirect effects of the conflict are being felt in both urban and rural areas throughout Sudan , Khartoum and large urban centers across Greater Kordofan and Greater Darfur have borne the brunt of the fighting to date. Sustained heavy fighting has caused considerable collateral damage and destruction to critical infrastructure, including health care, power, water supply, banking, and telecommunications. The conflict has also resulted in an uptick in petty crime, looting, and destruction of markets and basic service facilities. Those who remain in cities at the epicenter of the fighting have limited access to income and food, and the delivery of humanitarian assistance continues to be extremely challenging and unpredictable. “Humanitarian partners report that looting, bureaucratic challenges , electricity and communication outages, fuel shortages, and disruptions to the banking systems are undermining further efforts to deliver assistance,” according to FEWS NET’s August report . FEWS NET projected one in four people in Sudan to be in urgent need of humanitarian assistance between July and September, a rate 50% higher than expected for this time of year. In El Geneina, where targeted ethnic killings and atrocities are reportedly being committed, households are likely facing the most severe outcomes as fighting disrupts household mobility and the delivery of humanitarian assistance. While food assistance needs are expected to decline between October and January with the start of the harvest, millions of people will continue to face hunger across the country. Concern is highest for IDPs from poor households in Sudan who depend on agricultural production or informal income to access food. \"[These IDPs] have lost their primary livelihood, lack access to land to plant for the 2023 harvest, and are expected to face difficulty finding other means of earning income to purchase their basic food and non-food needs,” FEWS NET Decision Support Advisor Lark Walters said. “Market supplies, labor demand, and other resources in host communities are insufficient to absorb such a large influx of additional people, particularly during the lean season period when food stocks reach an annual low and food prices typically peak.\" Sign up to receive FEWS NET reports and updates in your inbox. Sudan Integrated Food Security Analysis South Sudan Chad Ethiopia Conflict Humanitarian Food Security Hannah Button FEWS NET Senior Communications Lead",
+        "url": "https://fews.net/blog/2023-10-13/sudan-conflict-contributing-food-crises-beyond-countrys-borders",
+        "author": {
+          "name": "hbutton@fews.net",
+          "profileLocation": "Sudan"
+        },
+        "provenance": "live rss feed: FEWS NET Sudan",
+        "engagement": {},
+        "timestamp": "2026-03-30T17:42:32.000Z",
+        "geo": {
+          "locationId": "sudan",
+          "name": "Sudan",
+          "lat": 15.5007,
+          "lon": 32.5599,
+          "country": "Sudan",
+          "resolution": "country",
+          "confidence": 0.8032,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "civil",
+          "severity": 4,
+          "civilWeight": 3,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [
+            "street-level unrest",
+            "security-force presence"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 28,
+        "displayLocationName": "Sudan"
+      },
+      {
+        "id": "signal-crisisgroup-sudan-ed00ef37e0",
+        "sourceId": "crisisgroup-sudan-ed00ef37e0",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "As Tensions Mount, Sudan Accuses Ethiopia of New Hostilities",
+        "excerpt": "Crisis Group expert Alan Boswell assesses the fallout following Sudanese army claims that Ethiopia has staged cross-border attacks on Sudanese territory",
+        "url": "https://www.crisisgroup.org/anb/africa/ethiopia-sudan/tensions-mount-sudan-accuses-ethiopia-new-hostilities",
+        "author": {
+          "name": "eschelhaas",
+          "profileLocation": "Sudan"
+        },
+        "provenance": "live rss feed: Crisis Group Sudan",
+        "engagement": {},
+        "timestamp": "2026-03-04T17:42:00.000Z",
+        "geo": {
+          "locationId": "sudan",
+          "name": "Sudan",
+          "lat": 15.5007,
+          "lon": 32.5599,
+          "country": "Sudan",
+          "resolution": "country",
+          "confidence": 0.8824000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 34,
+        "displayLocationName": "Sudan"
+      }
+    ],
+    "center": {
+      "lat": 15.5007,
+      "lon": 32.5599
+    },
+    "resolution": "country"
+  },
+  {
+    "id": "pakistan",
+    "name": "Pakistan",
+    "heat": 0,
+    "delta": 0,
+    "confidence": 0.38,
+    "civilComponent": 0,
+    "militaryComponent": 0,
+    "trend": "steady",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "news"
+    ],
+    "topDrivers": [
+      "non-instability chatter",
+      "military actor involvement"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-voa-south-central-asia-7524aab168",
+        "sourceId": "voa-south-central-asia-7524aab168",
+        "sourceFamily": "news",
+        "sourceName": "Voice of America",
+        "title": "Military says death toll in Pakistan&apos;s train hijacking rises to 31",
+        "excerpt": "Islamabad blames Afghanistan and India for attack; both countries deny the charge",
+        "url": "https://www.voanews.com/a/military-says-death-toll-in-pakistan-s-train-hijacking-rises-to-31/8011076.html",
+        "author": {
+          "name": "webdesk@voanews.com (Sarah Zaman)",
+          "profileLocation": "South Asia"
+        },
+        "provenance": "live rss feed: VOA South & Central Asia",
+        "engagement": {},
+        "timestamp": "2025-03-14T19:40:17.000Z",
+        "geo": {
+          "locationId": "pakistan",
+          "name": "Pakistan",
+          "lat": 30.3753,
+          "lon": 69.3451,
+          "country": "Pakistan",
+          "resolution": "country",
+          "confidence": 0.7224,
+          "justification": "mentioned in source text, provided in place hint, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 22,
+        "displayLocationName": "Pakistan"
+      },
+      {
+        "id": "signal-voa-south-central-asia-0812e6fd23",
+        "sourceId": "voa-south-central-asia-0812e6fd23",
+        "sourceFamily": "news",
+        "sourceName": "Voice of America",
+        "title": "Afghanistan denies link to train attack in Pakistan",
+        "excerpt": "Pakistani military had said Tuesday&apos;s attack was planned and orchestrated from Afghan soil",
+        "url": "https://www.voanews.com/a/afghanistan-denies-link-to-train-attack-in-pakistan/8009976.html",
+        "author": {
+          "name": "webdesk@voanews.com (Sarah Zaman)",
+          "profileLocation": "South Asia"
+        },
+        "provenance": "live rss feed: VOA South & Central Asia",
+        "engagement": {},
+        "timestamp": "2025-03-13T21:12:06.000Z",
+        "geo": {
+          "locationId": "pakistan",
+          "name": "Pakistan",
+          "lat": 30.3753,
+          "lon": 69.3451,
+          "country": "Pakistan",
+          "resolution": "country",
+          "confidence": 0.7224,
+          "justification": "mentioned in source text, provided in place hint, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 24,
+        "displayLocationName": "Pakistan"
+      },
+      {
+        "id": "signal-voa-south-central-asia-5886297356",
+        "sourceId": "voa-south-central-asia-5886297356",
+        "sourceFamily": "news",
+        "sourceName": "Voice of America",
+        "title": "Pakistani military rescues nearly 200 passengers after train attack",
+        "excerpt": "The Baloch Liberation Army has claimed responsibility for the attack",
+        "url": "https://www.voanews.com/a/pakistani-military-rescues-155-passengers-after-balochistan-train-attack/8007760.html",
+        "author": {
+          "name": "webdesk@voanews.com (Sarah Zaman)",
+          "profileLocation": "South Asia"
+        },
+        "provenance": "live rss feed: VOA South & Central Asia",
+        "engagement": {},
+        "timestamp": "2025-03-12T13:16:27.000Z",
+        "geo": {
+          "locationId": "pakistan",
+          "name": "Pakistan",
+          "lat": 30.3753,
+          "lon": 69.3451,
+          "country": "Pakistan",
+          "resolution": "country",
+          "confidence": 0.7224,
+          "justification": "mentioned in source text, provided in place hint, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 2.4,
+          "civilWeight": 0,
+          "militaryWeight": 1.4,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 28,
+        "displayLocationName": "Pakistan"
+      },
+      {
+        "id": "signal-voa-south-central-asia-e07c5712d4",
+        "sourceId": "voa-south-central-asia-e07c5712d4",
+        "sourceFamily": "news",
+        "sourceName": "Voice of America",
+        "title": "Millions celebrate Hindu Holi festival, approach of spring",
+        "excerpt": "Since Holi is one of India&apos;s biggest festivals, millions of people make nostalgic journeys to their hometowns to celebrate with loved ones by lighting bonfires on festival eve",
+        "url": "https://www.voanews.com/a/millions-celebrate-hindu-holi-festival-approach-of-spring-/8011484.html",
+        "author": {
+          "name": "webdesk@voanews.com (VOA News)",
+          "profileLocation": "South Asia"
+        },
+        "provenance": "live rss feed: VOA South & Central Asia",
+        "engagement": {},
+        "timestamp": "2025-03-15T01:41:19.000Z",
+        "geo": {
+          "locationId": "pakistan",
+          "name": "Pakistan",
+          "lat": 30.3753,
+          "lon": 69.3451,
+          "country": "Pakistan",
+          "resolution": "country",
+          "confidence": 0.30760000000000004,
+          "justification": "provided in place hint"
+        },
+        "classification": {
+          "signalType": "noise",
+          "severity": 0.2,
+          "civilWeight": 0.05,
+          "militaryWeight": 0.05,
+          "narrativeWeight": 0.05,
+          "drivers": [
+            "non-instability chatter"
+          ],
+          "confidencePenalty": 0.55
+        },
+        "corroborationCount": 19,
+        "displayLocationName": "Pakistan"
+      }
+    ],
+    "center": {
+      "lat": 30.3753,
+      "lon": 69.3451
+    },
+    "resolution": "country"
+  },
+  {
+    "id": "myanmar",
+    "name": "Myanmar",
+    "heat": 0,
+    "delta": 0,
+    "confidence": 0.25,
+    "civilComponent": 0,
+    "militaryComponent": 0,
+    "trend": "steady",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "news"
+    ],
+    "topDrivers": [
+      "military actor involvement"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-voa-east-asia-da3cde2a01",
+        "sourceId": "voa-east-asia-da3cde2a01",
+        "sourceFamily": "news",
+        "sourceName": "Voice of America",
+        "title": "VOA Mandarin: China revises PLA regulations prioritizing war readiness",
+        "excerpt": "Three revised regulations that dictate everything from the Chinese military’s broad mandate to soldiers’ day-to-day life are slated to take effect on April 1. The revisions have placed an emphasis on the PLA’s combat readiness and wartime conduct, the latter of which appears 49 times. Analysts say the revised regulations show the priority of the PLA’s future reform and its challenges. Click here for the full story in Mandarin.",
+        "url": "https://www.voanews.com/a/voa-mandarin-china-revises-pla-regulations-prioritizing-war-readiness-/8010375.html",
+        "author": {
+          "name": "webdesk@voanews.com (Meng-Li Yang)",
+          "profileLocation": "East Asia"
+        },
+        "provenance": "live rss feed: VOA East Asia",
+        "engagement": {},
+        "timestamp": "2025-03-14T02:50:12.000Z",
+        "geo": {
+          "locationId": "myanmar",
+          "name": "Myanmar",
+          "lat": 21.9162,
+          "lon": 95.956,
+          "country": "Myanmar",
+          "resolution": "country",
+          "confidence": 0.30760000000000004,
+          "justification": "provided in place hint"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 23,
+        "displayLocationName": "Myanmar"
+      },
+      {
+        "id": "signal-voa-east-asia-d717571dfd",
+        "sourceId": "voa-east-asia-d717571dfd",
+        "sourceFamily": "news",
+        "sourceName": "Voice of America",
+        "title": "Russian foreign minister exaggerates Russia-China relations, ignores nuances",
+        "excerpt": "Relations between Russia and China are indeed closer than at any point since the 1950s, but they are shaped more by pragmatism, economic necessity and shared opposition to Western influence than by deep trust or historical affinity.",
+        "url": "https://www.voanews.com/a/russian-foreign-minister-exaggerates-russia-china-relations-ignores-nuances/8011464.html",
+        "author": {
+          "name": "webdesk@voanews.com (Leonid Martynyuk)",
+          "profileLocation": "East Asia"
+        },
+        "provenance": "live rss feed: VOA East Asia",
+        "engagement": {},
+        "timestamp": "2025-03-15T00:53:12.000Z",
+        "geo": {
+          "locationId": "myanmar",
+          "name": "Myanmar",
+          "lat": 21.9162,
+          "lon": 95.956,
+          "country": "Myanmar",
+          "resolution": "country",
+          "confidence": 0.30760000000000004,
+          "justification": "provided in place hint"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 19,
+        "displayLocationName": "Myanmar"
+      },
+      {
+        "id": "signal-voa-east-asia-2e3efce3ea",
+        "sourceId": "voa-east-asia-2e3efce3ea",
+        "sourceFamily": "news",
+        "sourceName": "Voice of America",
+        "title": "Chinese officials look to limit social media and screen time in China",
+        "excerpt": "Washington — While some youth in China admit to spending an excessive amount of time on the internet, many are skeptical about new government proposals aimed at regulating the time young Chinese spend online and on social media sites. In conversations at China’s annual political meetings that wrapped up in Beijing this week, retired international basketball star Yao Ming, called for some limits on internet access for young people in China. Yao was advocating for a plan that would mandate...",
+        "url": "https://www.voanews.com/a/chinese-officials-look-to-limit-social-media-and-screen-time-in-china-/8010657.html",
+        "author": {
+          "name": "webdesk@voanews.com (Katherine Michaelson, Kelly Tang)",
+          "profileLocation": "East Asia"
+        },
+        "provenance": "live rss feed: VOA East Asia",
+        "engagement": {},
+        "timestamp": "2025-03-14T15:10:21.000Z",
+        "geo": {
+          "locationId": "myanmar",
+          "name": "Myanmar",
+          "lat": 21.9162,
+          "lon": 95.956,
+          "country": "Myanmar",
+          "resolution": "country",
+          "confidence": 0.30760000000000004,
+          "justification": "provided in place hint"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 20,
+        "displayLocationName": "Myanmar"
+      },
+      {
+        "id": "signal-voa-east-asia-132dfca8ef",
+        "sourceId": "voa-east-asia-132dfca8ef",
+        "sourceFamily": "news",
+        "sourceName": "Voice of America",
+        "title": "Exclusive: Second Iranian ship suspected of carrying missile ingredient leaves China",
+        "excerpt": "Iran-flagged ship Jairan departs southern China port on Monday with new cargo load, according to analysis of ship-tracking websites",
+        "url": "https://www.voanews.com/a/exclusive-second-iranian-ship-suspected-of-carrying-missile-ingredient-leaves-china/8010476.html",
+        "author": {
+          "name": "webdesk@voanews.com (Michael Lipin)",
+          "profileLocation": "East Asia"
+        },
+        "provenance": "live rss feed: VOA East Asia",
+        "engagement": {},
+        "timestamp": "2025-03-14T05:05:35.000Z",
+        "geo": {
+          "locationId": "myanmar",
+          "name": "Myanmar",
+          "lat": 21.9162,
+          "lon": 95.956,
+          "country": "Myanmar",
+          "resolution": "country",
+          "confidence": 0.30760000000000004,
+          "justification": "provided in place hint"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 22,
+        "displayLocationName": "Myanmar"
+      }
+    ],
+    "center": {
+      "lat": 21.9162,
+      "lon": 95.956
+    },
+    "resolution": "country"
+  },
+  {
+    "id": "haiti",
+    "name": "Haiti",
+    "heat": 0,
+    "delta": 0,
+    "confidence": 0.63,
+    "civilComponent": 0,
+    "militaryComponent": 0,
+    "trend": "steady",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "analysis"
+    ],
+    "topDrivers": [],
+    "evidenceBundle": [
+      {
+        "id": "signal-crisisgroup-haiti-30a44c3bf2",
+        "sourceId": "crisisgroup-haiti-30a44c3bf2",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "There’s a Way for Haiti to Dismantle Its Gangs. It Might Not Like It.",
+        "excerpt": "There’s a Way for Haiti to Dismantle Its Gangs. It Might Not Like It.",
+        "url": "https://www.crisisgroup.org/opd/latin-america-caribbean/haiti/theres-way-haiti-dismantle-its-gangs-it-might-not-it",
+        "author": {
+          "name": "eschelhaas",
+          "profileLocation": "Haiti"
+        },
+        "provenance": "live rss feed: Crisis Group Haiti",
+        "engagement": {},
+        "timestamp": "2026-04-10T18:31:00.000Z",
+        "geo": {
+          "locationId": "haiti",
+          "name": "Haiti",
+          "lat": 18.9712,
+          "lon": -72.2852,
+          "country": "Haiti",
+          "resolution": "country",
+          "confidence": 0.7888000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 19,
+        "displayLocationName": "Haiti"
+      },
+      {
+        "id": "signal-crisisgroup-haiti-425d5fb1a2",
+        "sourceId": "crisisgroup-haiti-425d5fb1a2",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "Chad Joins the New Force Taking up the Fight against Haiti’s Gangs",
+        "excerpt": "Crisis Group experts Fulbert Ngodji and Diego Da Rin assess the reasons behind N’Djamena’s move and the prospects of success for the new mission",
+        "url": "https://www.crisisgroup.org/anb/africa/chad-haiti/chad-joins-new-force-taking-fight-against-haitis-gangs",
+        "author": {
+          "name": "glenssen",
+          "profileLocation": "Haiti"
+        },
+        "provenance": "live rss feed: Crisis Group Haiti",
+        "engagement": {},
+        "timestamp": "2026-03-27T14:15:00.000Z",
+        "geo": {
+          "locationId": "haiti",
+          "name": "Haiti",
+          "lat": 18.9712,
+          "lon": -72.2852,
+          "country": "Haiti",
+          "resolution": "country",
+          "confidence": 0.7888000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 20,
+        "displayLocationName": "Haiti"
+      },
+      {
+        "id": "signal-crisisgroup-haiti-8a49224072",
+        "sourceId": "crisisgroup-haiti-8a49224072",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "How to Dismantle the Viv Ansanm Gang Coalition?",
+        "excerpt": "In this online event, Crisis Group and external experts offered insights into the reconfiguration of Haitian gangs and how to address the challenges they pose to Haiti’s stability.",
+        "url": "https://www.crisisgroup.org/evt/latin-america-caribbean/haiti/how-dismantle-viv-ansanm-gang-coalition",
+        "author": {
+          "name": "eschelhaas",
+          "profileLocation": "Haiti"
+        },
+        "provenance": "live rss feed: Crisis Group Haiti",
+        "engagement": {},
+        "timestamp": "2026-01-29T17:22:00.000Z",
+        "geo": {
+          "locationId": "haiti",
+          "name": "Haiti",
+          "lat": 18.9712,
+          "lon": -72.2852,
+          "country": "Haiti",
+          "resolution": "country",
+          "confidence": 0.7888000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 22,
+        "displayLocationName": "Haiti"
+      },
+      {
+        "id": "signal-crisisgroup-haiti-a4ae7594a4",
+        "sourceId": "crisisgroup-haiti-a4ae7594a4",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "Undoing Haiti’s Deadly Gang Alliance",
+        "excerpt": "The Viv Ansanm gang coalition has pushed the violence wracking Haiti to alarming levels. As a new foreign force takes shape, it is vital that plans be in place not just to overpower the criminal groups but also to persuade them to disband.",
+        "url": "https://www.crisisgroup.org/rpt/latin-america-caribbean/haiti/110-undoing-haitis-deadly-gang-alliance",
+        "author": {
+          "name": "emactaggart",
+          "profileLocation": "Haiti"
+        },
+        "provenance": "live rss feed: Crisis Group Haiti",
+        "engagement": {},
+        "timestamp": "2025-12-15T10:06:00.000Z",
+        "geo": {
+          "locationId": "haiti",
+          "name": "Haiti",
+          "lat": 18.9712,
+          "lon": -72.2852,
+          "country": "Haiti",
+          "resolution": "country",
+          "confidence": 0.7888000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 24,
+        "displayLocationName": "Haiti"
+      }
+    ],
+    "center": {
+      "lat": 18.9712,
+      "lon": -72.2852
+    },
+    "resolution": "country"
+  },
+  {
+    "id": "venezuela",
+    "name": "Venezuela",
+    "heat": 0,
+    "delta": 0,
+    "confidence": 0.63,
+    "civilComponent": 0,
+    "militaryComponent": 0,
+    "trend": "steady",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "analysis"
+    ],
+    "topDrivers": [
+      "military actor involvement"
+    ],
+    "evidenceBundle": [
+      {
+        "id": "signal-crisisgroup-venezuela-bb27ebb7f4",
+        "sourceId": "crisisgroup-venezuela-bb27ebb7f4",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "The Venezuela Paradigm: Is Trump’s Model Intervention a Mirage?",
+        "excerpt": "The startling U.S. seizure of Venezuelan President Nicolás Maduro and his wife for transfer to a U.S. jail has emboldened the Trump administration to flex its military muscle elsewhere. But in Venezuela itself the medium- and long-term consequences of the U.S. action remain uncertain.",
+        "url": "https://www.crisisgroup.org/cmt/latin-america-caribbean/venezuela/venezuela-paradigm-trumps-model-intervention-mirage",
+        "author": {
+          "name": "glenssen",
+          "profileLocation": "Venezuela"
+        },
+        "provenance": "live rss feed: Crisis Group Venezuela",
+        "engagement": {},
+        "timestamp": "2026-03-27T16:26:00.000Z",
+        "geo": {
+          "locationId": "venezuela",
+          "name": "Venezuela",
+          "lat": 6.4238,
+          "lon": -66.5897,
+          "country": "Venezuela",
+          "resolution": "country",
+          "confidence": 0.7888000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 18,
+        "displayLocationName": "Venezuela"
+      },
+      {
+        "id": "signal-crisisgroup-venezuela-307795a7a1",
+        "sourceId": "crisisgroup-venezuela-307795a7a1",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "Is Cuba Next?",
+        "excerpt": "This week on Hold Your Fire!, Richard speaks with Crisis Group experts Renata Segura and Ivan Briscoe about what the Trump administration is seeking in Cuba, the post-Maduro landscape in Venezuela, and prospects for U.S. military action in the Caribbean.",
+        "url": "https://www.crisisgroup.org/pod/latin-america-caribbean/cuba/cuba-next",
+        "author": {
+          "name": "hschaub",
+          "profileLocation": "Venezuela"
+        },
+        "provenance": "live rss feed: Crisis Group Venezuela",
+        "engagement": {},
+        "timestamp": "2026-03-20T17:37:00.000Z",
+        "geo": {
+          "locationId": "venezuela",
+          "name": "Venezuela",
+          "lat": 6.4238,
+          "lon": -66.5897,
+          "country": "Venezuela",
+          "resolution": "country",
+          "confidence": 0.7888000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "military",
+          "severity": 1.7,
+          "civilWeight": 0,
+          "militaryWeight": 0.7,
+          "narrativeWeight": 0,
+          "drivers": [
+            "military actor involvement"
+          ],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 19,
+        "displayLocationName": "Venezuela"
+      },
+      {
+        "id": "signal-crisisgroup-venezuela-845f89c3e8",
+        "sourceId": "crisisgroup-venezuela-845f89c3e8",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "U.S. Snaps up Venezuela’s Oil and Rare Minerals in Race for Supplies",
+        "excerpt": "Even before the price of oil spiked, the Trump administration was eyeing Venezuela’s natural resources. There is now more urgency to getting access to petroleum and critical minerals. In this Q&A, Crisis Group experts Bram Ebus and Alexandra Fuenmayor Starr explain the challenges lying ahead.",
+        "url": "https://www.crisisgroup.org/qna/latin-america-caribbean/venezuela/us-snaps-venezuelas-oil-and-rare-minerals-race-supplies",
+        "author": {
+          "name": "pfranz",
+          "profileLocation": "Venezuela"
+        },
+        "provenance": "live rss feed: Crisis Group Venezuela",
+        "engagement": {},
+        "timestamp": "2026-03-06T18:04:00.000Z",
+        "geo": {
+          "locationId": "venezuela",
+          "name": "Venezuela",
+          "lat": 6.4238,
+          "lon": -66.5897,
+          "country": "Venezuela",
+          "resolution": "country",
+          "confidence": 0.7888000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 20,
+        "displayLocationName": "Venezuela"
+      },
+      {
+        "id": "signal-crisisgroup-venezuela-be2b493846",
+        "sourceId": "crisisgroup-venezuela-be2b493846",
+        "sourceFamily": "analysis",
+        "sourceName": "International Crisis Group",
+        "title": "Proposed Amnesty and Jail Closure Stir Hopes for a Venezuelan Spring",
+        "excerpt": "Crisis Group expert Phil Gunson assesses the reach of President Rodríguez’s moves to release political prisoners and open up the economy under U.S. pressure",
+        "url": "https://www.crisisgroup.org/anb/latin-america-caribbean/venezuela-united-states/proposed-amnesty-and-jail-closure-stir-hopes-venezuelan-spring",
+        "author": {
+          "name": "emactaggart",
+          "profileLocation": "Venezuela"
+        },
+        "provenance": "live rss feed: Crisis Group Venezuela",
+        "engagement": {},
+        "timestamp": "2026-02-02T17:26:00.000Z",
+        "geo": {
+          "locationId": "venezuela",
+          "name": "Venezuela",
+          "lat": 6.4238,
+          "lon": -66.5897,
+          "country": "Venezuela",
+          "resolution": "country",
+          "confidence": 0.7888000000000001,
+          "justification": "mentioned in source text, provided in place hint, matches profile location, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 21,
+        "displayLocationName": "Venezuela"
+      }
+    ],
+    "center": {
+      "lat": 6.4238,
+      "lon": -66.5897
+    },
+    "resolution": "country"
+  },
+  {
+    "id": "caracas",
+    "name": "Caracas",
+    "heat": 0,
+    "delta": 40,
+    "confidence": 0.72,
+    "civilComponent": 0,
+    "militaryComponent": 0,
+    "trend": "warming",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "bluesky"
+    ],
+    "topDrivers": [],
+    "evidenceBundle": [
+      {
+        "id": "signal-bluesky-946882b850",
+        "sourceId": "bluesky-946882b850",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Caracas eyectiva",
+        "excerpt": "Caracas eyectiva",
+        "url": "https://bsky.app/profile/caracasadjetivo.bsky.social/post/3mjqkhaf5yq2q",
+        "author": {
+          "name": "Caracas + Adjetivo",
+          "handle": "caracasadjetivo.bsky.social",
+          "did": "did:plc:3ogqo7hkmutraohnahlavslc",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Caracas Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T04:00:15.822148+00:00",
+        "geo": {
+          "locationId": "caracas",
+          "name": "Caracas",
+          "lat": 10.4806,
+          "lon": -66.9036,
+          "country": "Venezuela",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 12,
+        "displayLocationName": "Caracas"
+      },
+      {
+        "id": "signal-bluesky-43967fc1f2",
+        "sourceId": "bluesky-43967fc1f2",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "El Marriott de Caracas, el hotel donde se decide el futuro de Venezuela dozz.es/bp2wk1",
+        "excerpt": "El Marriott de Caracas, el hotel donde se decide el futuro de Venezuela dozz.es/bp2wk1",
+        "url": "https://bsky.app/profile/elpaismexico.bsky.social/post/3mjqjaso4qc2g",
+        "author": {
+          "name": "EL PAÍS México",
+          "handle": "elpaismexico.bsky.social",
+          "did": "did:plc:7zlnvtvm2fqq4wj5m43im34y",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Caracas Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T03:38:46+00:00",
+        "geo": {
+          "locationId": "caracas",
+          "name": "Caracas",
+          "lat": 10.4806,
+          "lon": -66.9036,
+          "country": "Venezuela",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match, country named explicitly"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 13,
+        "displayLocationName": "Caracas"
+      },
+      {
+        "id": "signal-bluesky-5d4299e7b4",
+        "sourceId": "bluesky-5d4299e7b4",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Caracas surgidora",
+        "excerpt": "Caracas surgidora",
+        "url": "https://bsky.app/profile/caracasadjetivo.bsky.social/post/3mjqdqnv25s24",
+        "author": {
+          "name": "Caracas + Adjetivo",
+          "handle": "caracasadjetivo.bsky.social",
+          "did": "did:plc:3ogqo7hkmutraohnahlavslc",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Caracas Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T02:00:15.768586+00:00",
+        "geo": {
+          "locationId": "caracas",
+          "name": "Caracas",
+          "lat": 10.4806,
+          "lon": -66.9036,
+          "country": "Venezuela",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 17,
+        "displayLocationName": "Caracas"
+      },
+      {
+        "id": "signal-bluesky-b2272367ad",
+        "sourceId": "bluesky-b2272367ad",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Caracas anódica",
+        "excerpt": "Caracas anódica",
+        "url": "https://bsky.app/profile/caracasadjetivo.bsky.social/post/3mjq52k2mmm2c",
+        "author": {
+          "name": "Caracas + Adjetivo",
+          "handle": "caracasadjetivo.bsky.social",
+          "did": "did:plc:3ogqo7hkmutraohnahlavslc",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Caracas Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T00:00:31.111176+00:00",
+        "geo": {
+          "locationId": "caracas",
+          "name": "Caracas",
+          "lat": 10.4806,
+          "lon": -66.9036,
+          "country": "Venezuela",
+          "resolution": "city",
+          "confidence": 0.96,
+          "justification": "mentioned in source text, provided in place hint, country context supports subnational match"
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 17,
+        "displayLocationName": "Caracas"
+      }
+    ],
+    "center": {
+      "lat": 10.4806,
+      "lon": -66.9036
+    },
+    "resolution": "city"
+  },
+  {
+    "id": "libya",
+    "name": "Libya",
+    "heat": 0,
+    "delta": 30,
+    "confidence": 0.42,
+    "civilComponent": 0,
+    "militaryComponent": 0,
+    "trend": "warming",
+    "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceBreakdown": [
+      "bluesky"
+    ],
+    "topDrivers": [],
+    "evidenceBundle": [
+      {
+        "id": "signal-bluesky-6e3cf95b4b",
+        "sourceId": "bluesky-6e3cf95b4b",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "EFTA02684804.jpg #epsteinweb #efta02684804 https://epsteinweb.org Available in the iOS app store now!…",
+        "excerpt": "EFTA02684804.jpg #epsteinweb #efta02684804 https://epsteinweb.org Available in the iOS app store now! https://apps.apple.com/us/app/epstein-web/id6758880661",
+        "url": "https://bsky.app/profile/epsteinweb.bsky.social/post/3mjqnlsa7ik2j",
+        "author": {
+          "name": "Epstein Web",
+          "handle": "epsteinweb.bsky.social",
+          "did": "did:plc:ndjyym3ihrqu3g25gdztefrv",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Tripoli Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T04:56:29.709822Z",
+        "geo": {
+          "locationId": "libya",
+          "name": "Libya",
+          "lat": 26.3351,
+          "lon": 17.2283,
+          "resolution": "country",
+          "confidence": 0.52,
+          "justification": "Ambiguous city name; rolled up to country because country context was weak."
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Libya"
+      },
+      {
+        "id": "signal-bluesky-4b869bcbae",
+        "sourceId": "bluesky-4b869bcbae",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Parts 1-2/2 — EFTA02682743.jpg #epsteinweb #efta02682743 https://epsteinweb.org Available in the iOS app…",
+        "excerpt": "Parts 1-2/2 — EFTA02682743.jpg #epsteinweb #efta02682743 https://epsteinweb.org Available in the iOS app store now! https://apps.apple.com/us/app/epstein-web/id6758880661",
+        "url": "https://bsky.app/profile/epsteinweb.bsky.social/post/3mjqgu7u5232k",
+        "author": {
+          "name": "Epstein Web",
+          "handle": "epsteinweb.bsky.social",
+          "did": "did:plc:ndjyym3ihrqu3g25gdztefrv",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Tripoli Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T02:55:56.095378Z",
+        "geo": {
+          "locationId": "libya",
+          "name": "Libya",
+          "lat": 26.3351,
+          "lon": 17.2283,
+          "resolution": "country",
+          "confidence": 0.52,
+          "justification": "Ambiguous city name; rolled up to country because country context was weak."
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Libya"
+      },
+      {
+        "id": "signal-bluesky-61a27786dc",
+        "sourceId": "bluesky-61a27786dc",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "EFTA02682742.jpg #epsteinweb #efta02682742 https://epsteinweb.org Available in the iOS app store now!…",
+        "excerpt": "EFTA02682742.jpg #epsteinweb #efta02682742 https://epsteinweb.org Available in the iOS app store now! https://apps.apple.com/us/app/epstein-web/id6758880661",
+        "url": "https://bsky.app/profile/epsteinweb.bsky.social/post/3mjqgu4yggc2t",
+        "author": {
+          "name": "Epstein Web",
+          "handle": "epsteinweb.bsky.social",
+          "did": "did:plc:ndjyym3ihrqu3g25gdztefrv",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Tripoli Watch",
+        "engagement": {
+          "likes": 0,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 0
+        },
+        "timestamp": "2026-04-18T02:55:53.248515Z",
+        "geo": {
+          "locationId": "libya",
+          "name": "Libya",
+          "lat": 26.3351,
+          "lon": 17.2283,
+          "resolution": "country",
+          "confidence": 0.52,
+          "justification": "Ambiguous city name; rolled up to country because country context was weak."
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Libya"
+      },
+      {
+        "id": "signal-bluesky-0c403852e6",
+        "sourceId": "bluesky-0c403852e6",
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky AppView",
+        "title": "Bluesky post",
+        "excerpt": "Bluesky post",
+        "url": "https://bsky.app/profile/mormonpartyboat.bsky.social/post/3mjqb7czsrc2q",
+        "author": {
+          "name": "Catfisher of Men",
+          "handle": "mormonpartyboat.bsky.social",
+          "did": "did:plc:lu244yzbqwvdagt3tdkkp6xn",
+          "profileLocation": "",
+          "description": ""
+        },
+        "provenance": "public bluesky searchPosts: Tripoli Watch",
+        "engagement": {
+          "likes": 1,
+          "reposts": 0,
+          "replies": 0,
+          "quotes": 4
+        },
+        "timestamp": "2026-04-18T01:14:46.495Z",
+        "geo": {
+          "locationId": "libya",
+          "name": "Libya",
+          "lat": 26.3351,
+          "lon": 17.2283,
+          "resolution": "country",
+          "confidence": 0.52,
+          "justification": "Ambiguous city name; rolled up to country because country context was weak."
+        },
+        "classification": {
+          "signalType": "narrative",
+          "severity": 1,
+          "civilWeight": 0,
+          "militaryWeight": 0,
+          "narrativeWeight": 0,
+          "drivers": [],
+          "confidencePenalty": 0
+        },
+        "corroborationCount": 16,
+        "displayLocationName": "Libya"
+      }
+    ],
+    "center": {
+      "lat": 26.3351,
+      "lon": 17.2283
+    },
+    "resolution": "country"
+  }
+]

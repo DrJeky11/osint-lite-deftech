@@ -11,31 +11,32 @@ except ImportError:
 
 BASE_URL = "https://api.worldbank.org/v2"
 TIMEOUT = 30.0
+WGI_BULK_CSV_URL = "https://databank.worldbank.org/data/download/WGI_CSV.zip"
 
 DIMENSION_CONFIG = {
     GovernanceDimension.voice_accountability: {
-        WGIMetric.percentile_rank: "VA.PER.RNK",
-        WGIMetric.estimate: "VA.EST",
+        WGIMetric.percentile_rank: "GOV_WGI_VA.SC",
+        WGIMetric.estimate: "GOV_WGI_VA.EST",
     },
     GovernanceDimension.political_stability: {
-        WGIMetric.percentile_rank: "PV.PER.RNK",
-        WGIMetric.estimate: "PV.EST",
+        WGIMetric.percentile_rank: "GOV_WGI_PV.SC",
+        WGIMetric.estimate: "GOV_WGI_PV.EST",
     },
     GovernanceDimension.government_effectiveness: {
-        WGIMetric.percentile_rank: "GE.PER.RNK",
-        WGIMetric.estimate: "GE.EST",
+        WGIMetric.percentile_rank: "GOV_WGI_GE.SC",
+        WGIMetric.estimate: "GOV_WGI_GE.EST",
     },
     GovernanceDimension.regulatory_quality: {
-        WGIMetric.percentile_rank: "RQ.PER.RNK",
-        WGIMetric.estimate: "RQ.EST",
+        WGIMetric.percentile_rank: "GOV_WGI_RQ.SC",
+        WGIMetric.estimate: "GOV_WGI_RQ.EST",
     },
     GovernanceDimension.rule_of_law: {
-        WGIMetric.percentile_rank: "RL.PER.RNK",
-        WGIMetric.estimate: "RL.EST",
+        WGIMetric.percentile_rank: "GOV_WGI_RL.SC",
+        WGIMetric.estimate: "GOV_WGI_RL.EST",
     },
     GovernanceDimension.control_of_corruption: {
-        WGIMetric.percentile_rank: "CC.PER.RNK",
-        WGIMetric.estimate: "CC.EST",
+        WGIMetric.percentile_rank: "GOV_WGI_CC.SC",
+        WGIMetric.estimate: "GOV_WGI_CC.EST",
     },
 }
 
@@ -183,39 +184,30 @@ async def _get_indicator_dataset(indicator: str) -> dict:
         return cached
 
     async with httpx.AsyncClient(timeout=TIMEOUT, follow_redirects=True) as client:
-        response = await client.get(
-            f"{BASE_URL}/en/indicator/{indicator}",
-            params={"downloadformat": "csv"},
-        )
+        response = await client.get(WGI_BULK_CSV_URL)
         response.raise_for_status()
 
-    dataset = _parse_indicator_zip(indicator, response.content)
-    _indicator_cache[indicator] = dataset
+    datasets = _parse_wgi_bulk_zip(response.content)
+    _indicator_cache.update(datasets)
+    dataset = _indicator_cache.get(indicator)
+    if dataset is None:
+        raise ValueError(f"Indicator {indicator} was not found in the WGI bulk dataset")
     return dataset
 
 
-def _parse_indicator_zip(indicator: str, content: bytes) -> dict:
+def _parse_wgi_bulk_zip(content: bytes) -> dict[str, dict]:
     with zipfile.ZipFile(io.BytesIO(content)) as archive:
-        data_filenames = [
-            name
-            for name in archive.namelist()
-            if name.startswith("API_") and name.endswith(".csv")
-        ]
-        if not data_filenames:
-            raise ValueError(f"No CSV data file found for indicator {indicator}")
+        if "WGICSV.csv" not in archive.namelist():
+            raise ValueError("WGICSV.csv was not found in the World Bank WGI download")
 
-        data_filename = data_filenames[0]
-        with archive.open(data_filename) as file_handle:
+        with archive.open("WGICSV.csv") as file_handle:
             text_handle = io.TextIOWrapper(file_handle, encoding="utf-8-sig")
             reader = csv.reader(text_handle)
             rows = list(reader)
 
-    header_index = next(
-        (idx for idx, row in enumerate(rows) if row and row[0] == "Country Name"),
-        None,
-    )
+    header_index = next((idx for idx, row in enumerate(rows) if row and row[0] == "Country Name"), None)
     if header_index is None:
-        raise ValueError(f"Unexpected CSV structure for indicator {indicator}")
+        raise ValueError("Unexpected CSV structure for the World Bank WGI bulk dataset")
 
     header = rows[header_index]
     year_columns = {
@@ -224,8 +216,7 @@ def _parse_indicator_zip(indicator: str, content: bytes) -> dict:
         if column.isdigit() and len(column) == 4
     }
 
-    indicator_name = indicator
-    parsed_rows: dict[str, dict] = {}
+    parsed_datasets: dict[str, dict] = {}
     for row in rows[header_index + 1 :]:
         if len(row) < 4:
             continue
@@ -235,9 +226,7 @@ def _parse_indicator_zip(indicator: str, content: bytes) -> dict:
         row_indicator_name = row[2].strip()
         row_indicator_code = row[3].strip()
 
-        if not country_name or not country_code:
-            continue
-        if row_indicator_code and row_indicator_code != indicator:
+        if not country_name or not country_code or not row_indicator_code:
             continue
 
         values: dict[int, float] = {}
@@ -247,21 +236,21 @@ def _parse_indicator_zip(indicator: str, content: bytes) -> dict:
             raw_value = row[column_index].strip()
             if not raw_value:
                 continue
-            values[year] = _normalize_indicator_value(indicator, float(raw_value))
+            values[year] = float(raw_value)
 
         if not values:
             continue
 
-        indicator_name = row_indicator_name or indicator_name
-        parsed_rows[country_code] = {
+        dataset = parsed_datasets.setdefault(
+            row_indicator_code,
+            {
+                "indicator_name": row_indicator_name or row_indicator_code,
+                "rows": {},
+            },
+        )
+        dataset["rows"][country_code] = {
             "country_name": country_name,
             "values": values,
         }
 
-    return {"indicator_name": indicator_name, "rows": parsed_rows}
-
-
-def _normalize_indicator_value(indicator: str, value: float) -> float:
-    if indicator.endswith(".PER.RNK") and value > 100:
-        return value / 10.0
-    return value
+    return parsed_datasets

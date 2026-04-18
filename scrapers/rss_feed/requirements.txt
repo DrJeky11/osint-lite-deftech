@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+httpx
+feedparser
+groq
+pydantic>=2
+python-dotenv
+

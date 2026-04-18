@@ -1,0 +1,14 @@
+{
+  "name": "osint-lite-deftech",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "deploy": "npm run build && wrangler pages deploy frontend/dist --project-name=osint-lite --commit-dirty=true",
+    "deploy:quick": "wrangler pages deploy frontend/dist --project-name=osint-lite --commit-dirty=true",
+    "dev:functions": "wrangler pages dev frontend/dist --compatibility-date=2026-04-18"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

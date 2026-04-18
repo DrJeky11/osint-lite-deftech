@@ -160,7 +160,14 @@
       source: "hotspots",
       paint: {
         "circle-radius": ["interpolate", ["linear"], ["get", "heat"], 0, 14, 50, 24, 100, 40],
-        "circle-color": ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#ffb25f", 100, "#ff7557"],
+        "circle-color": [
+          "case",
+          ["==", ["get", "trend"], "warming"],
+          ["interpolate", ["linear"], ["get", "heat"], 0, "#ffb25f", 50, "#ff7557", 100, "#ff4030"],
+          ["==", ["get", "trend"], "cooling"],
+          ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#49d4ba", 100, "#ffb25f"],
+          ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#ffb25f", 100, "#ff7557"]
+        ],
         "circle-opacity": 0.14,
         "circle-blur": 0.9
       }
@@ -172,7 +179,14 @@
       source: "hotspots",
       paint: {
         "circle-radius": ["interpolate", ["linear"], ["get", "heat"], 0, 6, 50, 11, 100, 18],
-        "circle-color": ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#ffb25f", 100, "#ff7557"],
+        "circle-color": [
+          "case",
+          ["==", ["get", "trend"], "warming"],
+          ["interpolate", ["linear"], ["get", "heat"], 0, "#ffb25f", 50, "#ff7557", 100, "#ff4030"],
+          ["==", ["get", "trend"], "cooling"],
+          ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#49d4ba", 100, "#ffb25f"],
+          ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#ffb25f", 100, "#ff7557"]
+        ],
         "circle-opacity": 0.88,
         "circle-stroke-width": 0,
         "circle-stroke-color": "rgba(255, 255, 255, 0.92)",

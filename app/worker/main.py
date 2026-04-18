@@ -18,6 +18,7 @@ from email.utils import parsedate_to_datetime
 
 import httpx
 
+from app.scrapers.rss.fetcher import fetch_feed as fetch_rss_feed
 from app.scrapers.bluesky.fetcher import build_query as build_bluesky_query, fetch_posts as fetch_bluesky_posts
 from app.scrapers.x.fetcher import build_query as build_x_query, fetch_posts as fetch_x_posts
 from app.scrapers.common.classifier import classify
@@ -297,6 +298,39 @@ def bluesky_post_to_signal(post: dict, search: dict) -> dict:
             "quotes": post.get("quotes", 0),
         },
         "timestamp": parse_timestamp(raw_ts),
+        "geo": geo,
+        "classification": classification,
+        "corroborationCount": 1,
+    }
+
+
+def rss_article_to_signal(article: dict, search: dict) -> dict:
+    """Convert a raw RSS article dict + its search config into a signal event."""
+    title = article.get("title", "")
+    desc = article.get("description", "") or ""
+    source_id = search["id"]
+    event_id = make_id(source_id, title)
+
+    classification = classify(title, desc)
+    classification["drivers"] = humanize_drivers(classification.get("drivers", []))
+
+    geo = infer_geo(
+        place_hints=search.get("place_hints", []),
+        text=f"{title} {desc}",
+    )
+
+    return {
+        "id": event_id,
+        "sourceId": source_id,
+        "sourceFamily": "rss",
+        "sourceName": search.get("label", "RSS Feed"),
+        "title": title,
+        "excerpt": desc,
+        "url": article.get("link", ""),
+        "author": {"name": article.get("source", "Unknown"), "profileLocation": ""},
+        "provenance": f"rss feed: {search.get('feed_url', '')}",
+        "engagement": {},
+        "timestamp": parse_timestamp(article.get("published")),
         "geo": geo,
         "classification": classification,
         "corroborationCount": 1,
@@ -694,6 +728,41 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
 
             logger.info("Search %s x complete: %d posts", search_id, len(posts))
 
+        elif platform == "rss":
+            # --- RSS/Atom feed source ---
+            feed_url = search.get("feed_url", "")
+            if not feed_url:
+                logger.warning("RSS search %s has no feed_url, skipping", search_id)
+                continue
+
+            try:
+                articles = await fetch_rss_feed(
+                    feed_url,
+                    max_articles=search.get("max_articles", 15),
+                    topics=search.get("topics"),
+                )
+            except Exception as exc:
+                logger.warning("RSS fetch failed for %s: %s", search_id, exc)
+                failures.append({"sourceId": search_id, "error": str(exc)})
+                continue
+
+            source_catalog.append({
+                "id": search_id,
+                "label": search_label,
+                "source": "RSS Feed",
+                "sourceFamily": "rss",
+                "sourceKind": "rss-feed",
+                "url": feed_url,
+                "itemCount": len(articles),
+            })
+
+            for art in articles:
+                source_items.append({**art, "searchId": search_id})
+                signal = rss_article_to_signal(art, search)
+                all_signals.append(signal)
+
+            logger.info("Search %s rss complete: %d articles", search_id, len(articles))
+
         else:
             # --- Google News source (default) ---
             query = build_query(
@@ -746,7 +815,7 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
         "feedCatalog": [],
         "failures": failures,
         "sourceStatus": {
-            "rss": "missing",
+            "rss": "loaded" if any(s.get("sourceFamily") == "rss" for s in all_signals) else "missing",
             "bluesky": "loaded" if any(s.get("sourceFamily") == "bluesky" for s in all_signals) else "missing",
             "news": "loaded" if any(s.get("sourceFamily") == "news" for s in all_signals) else "empty",
             "x": "loaded" if any(s.get("sourceFamily") == "x" for s in all_signals) else "missing",

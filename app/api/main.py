@@ -26,6 +26,7 @@ from app.scrapers.common.geo import infer_geo
 from app.scrapers.common.classifier import classify
 from app.api.summarizer import summarize
 from app.api.search_catalog import get_searches, add_search, add_search_group, update_search, delete_search, delete_search_group, SUPPORTED_PLATFORMS
+from app.scrapers.rss.fetcher import fetch_feed as fetch_rss_feed
 from app.scrapers.bluesky.fetcher import build_query as build_bluesky_query, fetch_posts as fetch_bluesky_posts
 from app.scrapers.x.fetcher import build_query as build_x_query, fetch_posts as fetch_x_posts
 from app.scrapers.common.classifier import load_config as load_classifier_config, save_config as save_classifier_config, DEFAULT_CONFIG as DEFAULT_CLASSIFIER_CONFIG
@@ -297,6 +298,41 @@ def _article_to_signal(article: dict, search: dict) -> dict:
         "url": article.get("link", ""),
         "author": {"name": article.get("source", "Unknown"), "profileLocation": ""},
         "provenance": f"google news search: {search['label']}",
+        "engagement": {},
+        "timestamp": _parse_timestamp(article.get("published")),
+        "geo": geo,
+        "classification": classification,
+        "corroborationCount": 1,
+    }
+
+
+def _rss_article_to_signal(article: dict, search: dict) -> dict:
+    """Convert a raw RSS article dict + its search config into a signal event."""
+    title = html_unescape(article.get("title", ""))
+    desc = html_unescape(article.get("description", "") or "")
+    source_id = search["id"]
+    event_id = _make_id(source_id, title)
+
+    llm_cfg = _read_llm_config()
+    classification_enabled = llm_cfg.get("enableClassification", True)
+    classification = classify(title, desc, enabled=classification_enabled)
+    classification["drivers"] = _humanize_drivers(classification.get("drivers", []))
+
+    geo = infer_geo(
+        place_hints=search.get("place_hints", []),
+        text=f"{title} {desc}",
+    )
+
+    return {
+        "id": event_id,
+        "sourceId": source_id,
+        "sourceFamily": "rss",
+        "sourceName": search.get("label", "RSS Feed"),
+        "title": title,
+        "excerpt": desc,
+        "url": article.get("link", ""),
+        "author": {"name": article.get("source", "Unknown"), "profileLocation": ""},
+        "provenance": f"rss feed: {search.get('feed_url', '')}",
         "engagement": {},
         "timestamp": _parse_timestamp(article.get("published")),
         "geo": geo,
@@ -580,6 +616,52 @@ async def trigger_refresh():
                 signal = _x_post_to_signal(post, search)
                 all_signals.append(signal)
 
+        elif platform == "rss":
+            # --- RSS/Atom feed source ---
+            feed_url = search.get("feed_url", "")
+            if not feed_url:
+                logger.warning("RSS search %s has no feed_url, skipping", search_id)
+                continue
+
+            try:
+                articles = await fetch_rss_feed(
+                    feed_url,
+                    max_articles=search.get("max_articles", 15),
+                    topics=search.get("topics"),
+                )
+            except Exception as exc:
+                logger.warning("RSS fetch failed for %s: %s", search_id, exc)
+                failures.append({"sourceId": search_id, "error": str(exc)})
+                continue
+
+            source_catalog.append({
+                "id": search_id,
+                "label": search_label,
+                "source": "RSS Feed",
+                "sourceFamily": "rss",
+                "sourceKind": "rss-feed",
+                "url": feed_url,
+                "itemCount": len(articles),
+            })
+
+            for art in articles:
+                source_items.append({**art, "searchId": search_id})
+                signal = _rss_article_to_signal(art, search)
+                all_signals.append(signal)
+
+            # Summarize RSS articles if enabled
+            if enable_summarization and articles:
+                try:
+                    search_desc = f"search '{search_label}' (feed: {feed_url})"
+                    search_summary = await summarize(
+                        articles,
+                        request_description=search_desc,
+                    )
+                    summaries[search_id] = search_summary
+                    _summaries_cache[search_id] = search_summary
+                except Exception as exc:
+                    logger.warning("Summarization failed for search %s: %s", search_id, exc)
+
         else:
             # --- Google News source (default) ---
             query = build_query(
@@ -635,7 +717,7 @@ async def trigger_refresh():
         "feedCatalog": [],
         "failures": failures,
         "sourceStatus": {
-            "rss": "missing",
+            "rss": "loaded" if any(s.get("sourceFamily") == "rss" for s in all_signals) else "missing",
             "bluesky": "loaded" if any(s.get("sourceFamily") == "bluesky" for s in all_signals) else "missing",
             "x": "loaded" if any(s.get("sourceFamily") == "x" for s in all_signals) else "missing",
             "news": "loaded" if any(s.get("sourceFamily") == "news" for s in all_signals) else "empty",

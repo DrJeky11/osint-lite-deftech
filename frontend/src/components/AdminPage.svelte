@@ -76,6 +76,7 @@
 
   const tabs = [
     { id: "sources", label: "Data Sources", icon: "M4 4h16v2H4zM4 9h16v2H4zM4 14h10v2H4z" },
+    { id: "credentials", label: "Source Credentials", icon: "M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" },
     { id: "ai", label: "AI / LLM", icon: "M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4zm0 2a2 2 0 0 1 2 2v2H10V6a2 2 0 0 1 2-2zm-3 10a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" },
     { id: "system", label: "System Status", icon: "M22 12h-4l-3 9L9 3l-3 9H2" },
     { id: "config", label: "Configuration", icon: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" },
@@ -171,12 +172,14 @@
   let newLocation = $state("");
   let newPlaceHints = $state("");
   let newMaxArticles = $state(15);
+  let newFeedUrl = $state("");
   let expandedGroups = $state(new Set());
 
   const platformMeta = {
     google: { name: "Google News", color: "#78d6ff", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" },
     bluesky: { name: "Bluesky", color: "#49d4ba", icon: "M12 2C7.31 2 4.5 7.1 3.5 9.5c-1 2.5-.5 6.5 3 7 2.5.3 4-1 5-2.5.2-.3.35-.55.5-.75.15.2.3.45.5.75 1 1.5 2.5 2.8 5 2.5 3.5-.5 4-4.5 3-7C19.5 7.1 16.69 2 12 2z" },
     x: { name: "X / Twitter", color: "#f0f4fb", icon: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" },
+    rss: { name: "RSS Feed", color: "#ffb25f", icon: "M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16M5 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" },
   };
 
   /** Group searches by their `group` field for display */
@@ -221,7 +224,7 @@
 
   function resetAddForm() {
     addingMode = null;
-    newLabel = ""; newTopics = ""; newLocation = ""; newPlaceHints = ""; newMaxArticles = 15;
+    newLabel = ""; newTopics = ""; newLocation = ""; newPlaceHints = ""; newMaxArticles = 15; newFeedUrl = "";
   }
 
   async function addNewSearch() {
@@ -242,9 +245,11 @@
         });
       } else {
         // Create a single platform source
+        const payload = { ...base, platform: addingMode };
+        if (addingMode === 'rss') payload.feed_url = newFeedUrl.trim();
         res = await fetch(scraperUrl + "/searches", {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...base, platform: addingMode }),
+          body: JSON.stringify(payload),
         });
       }
       if (res.ok) {
@@ -423,6 +428,13 @@
 
   // Check backend on mount
   $effect(() => { checkBackend(); });
+
+  // Fetch credentials when credentials tab is selected
+  $effect(() => {
+    if (activeTab === "credentials" && backendStatus === "online") {
+      fetchCredentials();
+    }
+  });
 
   /* ── Env-var override warning for AI tab ── */
   let envOverrides = $state(null); // null = not fetched, object = fetched flags
@@ -647,108 +659,6 @@
             </div>
           </div>
 
-          <!-- ── Source Credentials ── -->
-          <div class="info-card mb-4">
-            <h3 class="info-card-title">Source Credentials</h3>
-            <p class="m-0 mb-3 text-[0.68rem] text-muted">Configure API credentials for each data source. Google News requires no credentials.</p>
-
-            {#if credentials}
-            <div class="grid grid-cols-2 gap-4 max-[820px]:grid-cols-1">
-              <!-- Bluesky -->
-              <div style="border: 1px solid rgba(73,212,186,0.15); border-radius: 6px; padding: 12px;">
-                <div class="flex items-center gap-2 mb-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#49d4ba"><path d={platformMeta.bluesky.icon} /></svg>
-                  <span class="text-[0.78rem] font-medium" style="color: #49d4ba;">Bluesky</span>
-                  {#if credentials.bluesky?.app_password_set}
-                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(73,212,186,0.12); color: #49d4ba;">configured</span>
-                  {:else}
-                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(255,117,87,0.12); color: #ff7557;">not set</span>
-                  {/if}
-                </div>
-                <div class="config-row">
-                  <label class="config-label">Identifier</label>
-                  <input type="text" class="config-input config-input-wide" bind:value={credsEdit.bluesky.identifier} placeholder="your-handle.bsky.social" />
-                </div>
-                <div class="config-row">
-                  <label class="config-label">App Password</label>
-                  <div class="flex items-center gap-1">
-                    <input
-                      type={credsKeyVisible.bluesky ? "text" : "password"}
-                      class="config-input config-input-wide"
-                      bind:value={credsEdit.bluesky.app_password}
-                      placeholder={credentials.bluesky?.app_password_set ? "(saved — leave blank to keep)" : "xxxx-xxxx-xxxx-xxxx"}
-                    />
-                    <button type="button" class="action-btn" style="padding: 5px 6px; min-width: unset;" onclick={() => credsKeyVisible = {...credsKeyVisible, bluesky: !credsKeyVisible.bluesky}}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        {#if credsKeyVisible.bluesky}
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/>
-                        {:else}
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-                        {/if}
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div class="config-row">
-                  <label class="config-label">PDS URL</label>
-                  <input type="text" class="config-input config-input-wide" bind:value={credsEdit.bluesky.pds_url} placeholder="https://bsky.social" />
-                </div>
-              </div>
-
-              <!-- X / Twitter -->
-              <div style="border: 1px solid rgba(240,244,251,0.15); border-radius: 6px; padding: 12px;">
-                <div class="flex items-center gap-2 mb-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f0f4fb"><path d={platformMeta.x.icon} /></svg>
-                  <span class="text-[0.78rem] font-medium" style="color: #f0f4fb;">X / Twitter</span>
-                  {#if credentials.x?.bearer_token_set}
-                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(240,244,251,0.12); color: #f0f4fb;">configured</span>
-                  {:else}
-                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(255,117,87,0.12); color: #ff7557;">not set</span>
-                  {/if}
-                </div>
-                <div class="config-row">
-                  <label class="config-label">Bearer Token</label>
-                  <div class="flex items-center gap-1">
-                    <input
-                      type={credsKeyVisible.x ? "text" : "password"}
-                      class="config-input config-input-wide"
-                      bind:value={credsEdit.x.bearer_token}
-                      placeholder={credentials.x?.bearer_token_set ? "(saved — leave blank to keep)" : "AAAA..."}
-                    />
-                    <button type="button" class="action-btn" style="padding: 5px 6px; min-width: unset;" onclick={() => credsKeyVisible = {...credsKeyVisible, x: !credsKeyVisible.x}}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        {#if credsKeyVisible.x}
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/>
-                        {:else}
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-                        {/if}
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div class="config-row">
-                  <label class="config-label">API Base URL</label>
-                  <input type="text" class="config-input config-input-wide" bind:value={credsEdit.x.api_base_url} placeholder="https://api.x.com" />
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-3 flex items-center gap-3">
-              <button type="button" class="admin-btn" onclick={saveCredentials} disabled={backendStatus !== 'online'}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                Save Credentials
-              </button>
-              {#if credsSaveMsg}
-                <span class="font-mono text-[0.65rem]" class:text-civil={!credsSaveMsg.includes('failed')} class:text-military={credsSaveMsg.includes('failed')}>{credsSaveMsg}</span>
-              {/if}
-            </div>
-            {:else if backendStatus === 'online'}
-              <p class="text-[0.72rem] text-muted">Loading credentials...</p>
-            {:else}
-              <p class="text-[0.72rem] text-muted">Connect backend to configure credentials.</p>
-            {/if}
-          </div>
-
           <!-- ── Stats Ribbon (from backend) ── -->
           <div class="grid grid-cols-4 gap-px bg-line mb-5 max-[820px]:grid-cols-2">
             <div class="stat-cell bg-bg">
@@ -826,13 +736,18 @@
             </p>
             <div class="grid gap-2">
               <div class="config-row"><label class="config-label">Label</label><input type="text" class="config-input config-input-wide" bind:value={newLabel} placeholder="e.g. Sudan Conflict" /></div>
-              <div class="config-row"><label class="config-label">Topics (comma-sep)</label><input type="text" class="config-input config-input-wide" bind:value={newTopics} placeholder="e.g. Sudan conflict, RSF Khartoum" /></div>
+              {#if addingMode === 'rss'}
+                <div class="config-row"><label class="config-label">Feed URL</label><input type="url" class="config-input config-input-wide" bind:value={newFeedUrl} placeholder="https://example.com/feed.xml" /></div>
+                <div class="config-row"><label class="config-label">Topics (comma-sep, optional)</label><input type="text" class="config-input config-input-wide" bind:value={newTopics} placeholder="e.g. Sudan conflict, RSF Khartoum" /></div>
+              {:else}
+                <div class="config-row"><label class="config-label">Topics (comma-sep)</label><input type="text" class="config-input config-input-wide" bind:value={newTopics} placeholder="e.g. Sudan conflict, RSF Khartoum" /></div>
+              {/if}
               <div class="config-row"><label class="config-label">Location</label><input type="text" class="config-input config-input-wide" bind:value={newLocation} placeholder="e.g. Sudan (optional)" /></div>
               <div class="config-row"><label class="config-label">Place Hints (comma-sep)</label><input type="text" class="config-input config-input-wide" bind:value={newPlaceHints} placeholder="e.g. Sudan, Khartoum" /></div>
               <div class="config-row"><label class="config-label">Max Results</label><input type="number" class="config-input" bind:value={newMaxArticles} min="5" max="50" /></div>
             </div>
             <div class="mt-3">
-              <button type="button" class="admin-btn" style="border-color: {formMeta.color}44; color: {formMeta.color};" onclick={addNewSearch} disabled={!newLabel.trim() || !newTopics.trim()}>
+              <button type="button" class="admin-btn" style="border-color: {formMeta.color}44; color: {formMeta.color};" onclick={addNewSearch} disabled={!newLabel.trim() || (addingMode === 'rss' ? !newFeedUrl.trim() : !newTopics.trim())}>
                 {isGroup ? 'Create Search Group' : `Add ${formMeta.name} Source`}
               </button>
             </div>
@@ -869,7 +784,13 @@
                         {/each}
                       </div>
                     </td>
-                    <td class="font-mono text-[0.68rem] text-muted">{(grp.topics || []).join(", ")}</td>
+                    <td class="font-mono text-[0.68rem] text-muted">
+                      {#if grp.sources.length === 1 && grp.sources[0].platform === 'rss' && grp.sources[0].feed_url}
+                        <span title={grp.sources[0].feed_url}>{grp.sources[0].feed_url.length > 50 ? grp.sources[0].feed_url.slice(0, 50) + '...' : grp.sources[0].feed_url}</span>
+                      {:else}
+                        {(grp.topics || []).join(", ")}
+                      {/if}
+                    </td>
                     <td class="text-[0.72rem]">{grp.location || "—"}</td>
                     <td class="tabular-nums">{grp.max_articles}</td>
                     <td>
@@ -889,7 +810,13 @@
                           <span class="font-mono text-[0.58rem] text-muted pl-5">{src.id}</span>
                         </td>
                         <td><span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[0.62rem] font-medium" style="background: {plat.color}12; color: {plat.color}; border: 1px solid {plat.color}22;">{plat.name}</span></td>
-                        <td class="font-mono text-[0.68rem] text-muted">{(src.topics || []).join(", ")}</td>
+                        <td class="font-mono text-[0.68rem] text-muted">
+                          {#if src.platform === 'rss' && src.feed_url}
+                            <span title={src.feed_url}>{src.feed_url.length > 50 ? src.feed_url.slice(0, 50) + '...' : src.feed_url}</span>
+                          {:else}
+                            {(src.topics || []).join(", ")}
+                          {/if}
+                        </td>
                         <td class="text-[0.72rem]">{src.location || "—"}</td>
                         <td class="tabular-nums">{src.max_articles}</td>
                         <td><button type="button" class="action-btn action-danger" onclick={() => deleteSearch(src.id)} title="Remove this platform source only">Remove</button></td>
@@ -966,6 +893,125 @@
               </tbody>
             </table>
           </div>
+          {/if}
+        </div>
+
+      <!-- ═══════ SOURCE CREDENTIALS ═══════ -->
+      {:else if activeTab === "credentials"}
+        <div class="admin-section">
+          <h2 class="admin-heading">Source Credentials</h2>
+          <p class="admin-desc">Configure API credentials for each data source platform. Google News uses a public RSS feed and requires no credentials. Credentials are persisted server-side and override environment variables.</p>
+
+          {#if credentials}
+
+          <!-- Google News (no credentials needed) -->
+          <div class="info-card mb-4" style="border-color: rgba(120,214,255,0.15);">
+            <div class="flex items-center gap-2 mb-1">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#78d6ff"><path d={platformMeta.google.icon} /></svg>
+              <h3 class="info-card-title m-0" style="color: #78d6ff;">Google News</h3>
+              <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(120,214,255,0.12); color: #78d6ff;">no auth required</span>
+            </div>
+            <p class="m-0 text-[0.68rem] text-muted">Uses the public Google News RSS feed. No API key or credentials needed.</p>
+          </div>
+
+          <!-- Bluesky -->
+          <div class="info-card mb-4" style="border-color: rgba(73,212,186,0.15);">
+            <div class="flex items-center gap-2 mb-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#49d4ba"><path d={platformMeta.bluesky.icon} /></svg>
+              <h3 class="info-card-title m-0" style="color: #49d4ba;">Bluesky</h3>
+              {#if credentials.bluesky?.app_password_set}
+                <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(73,212,186,0.12); color: #49d4ba;">configured</span>
+              {:else}
+                <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(255,178,95,0.12); color: #ffb25f;">optional</span>
+              {/if}
+            </div>
+            <p class="m-0 mb-3 text-[0.68rem] text-muted">Bluesky works without credentials via the public API. Auth is only needed if the public endpoint blocks requests. Create an App Password at bsky.app > Settings > App Passwords.</p>
+            <div class="grid gap-2">
+              <div class="config-row">
+                <label class="config-label">Identifier</label>
+                <input type="text" class="config-input config-input-wide" bind:value={credsEdit.bluesky.identifier} placeholder="your-handle.bsky.social" />
+              </div>
+              <div class="config-row">
+                <label class="config-label">App Password</label>
+                <div class="flex items-center gap-1">
+                  <input
+                    type={credsKeyVisible.bluesky ? "text" : "password"}
+                    class="config-input config-input-wide"
+                    bind:value={credsEdit.bluesky.app_password}
+                    placeholder={credentials.bluesky?.app_password_set ? "(saved — leave blank to keep)" : "xxxx-xxxx-xxxx-xxxx"}
+                  />
+                  <button type="button" class="action-btn" style="padding: 5px 6px; min-width: unset;" onclick={() => credsKeyVisible = {...credsKeyVisible, bluesky: !credsKeyVisible.bluesky}}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      {#if credsKeyVisible.bluesky}
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/>
+                      {:else}
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                      {/if}
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="config-row">
+                <label class="config-label">PDS URL</label>
+                <input type="text" class="config-input config-input-wide" bind:value={credsEdit.bluesky.pds_url} placeholder="https://bsky.social" />
+              </div>
+            </div>
+          </div>
+
+          <!-- X / Twitter -->
+          <div class="info-card mb-4" style="border-color: rgba(240,244,251,0.15);">
+            <div class="flex items-center gap-2 mb-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#f0f4fb"><path d={platformMeta.x.icon} /></svg>
+              <h3 class="info-card-title m-0" style="color: #f0f4fb;">X / Twitter</h3>
+              {#if credentials.x?.bearer_token_set}
+                <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(240,244,251,0.12); color: #f0f4fb;">configured</span>
+              {:else}
+                <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(255,117,87,0.12); color: #ff7557;">required</span>
+              {/if}
+            </div>
+            <p class="m-0 mb-3 text-[0.68rem] text-muted">Requires an X API v2 Bearer Token. Obtain one from the X Developer Portal (developer.x.com). The recent-search endpoint has a 7-day rolling window.</p>
+            <div class="grid gap-2">
+              <div class="config-row">
+                <label class="config-label">Bearer Token</label>
+                <div class="flex items-center gap-1">
+                  <input
+                    type={credsKeyVisible.x ? "text" : "password"}
+                    class="config-input config-input-wide"
+                    bind:value={credsEdit.x.bearer_token}
+                    placeholder={credentials.x?.bearer_token_set ? "(saved — leave blank to keep)" : "AAAA..."}
+                  />
+                  <button type="button" class="action-btn" style="padding: 5px 6px; min-width: unset;" onclick={() => credsKeyVisible = {...credsKeyVisible, x: !credsKeyVisible.x}}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      {#if credsKeyVisible.x}
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/>
+                      {:else}
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                      {/if}
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="config-row">
+                <label class="config-label">API Base URL</label>
+                <input type="text" class="config-input config-input-wide" bind:value={credsEdit.x.api_base_url} placeholder="https://api.x.com" />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button type="button" class="admin-btn" onclick={saveCredentials} disabled={backendStatus !== 'online'}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Save Credentials
+            </button>
+            {#if credsSaveMsg}
+              <span class="font-mono text-[0.65rem]" class:text-civil={!credsSaveMsg.includes('failed')} class:text-military={credsSaveMsg.includes('failed')}>{credsSaveMsg}</span>
+            {/if}
+          </div>
+
+          {:else if backendStatus === 'online'}
+            <p class="text-[0.72rem] text-muted">Loading credentials...</p>
+          {:else}
+            <p class="text-[0.72rem] text-muted">Connect the backend to configure credentials.</p>
           {/if}
         </div>
 

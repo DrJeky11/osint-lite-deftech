@@ -15,7 +15,7 @@ from pathlib import Path
 SEARCHES_PATH = Path(__file__).parent / "searches.json"
 
 # Supported platform values for the "platform" field
-SUPPORTED_PLATFORMS = ["google", "bluesky", "x"]
+SUPPORTED_PLATFORMS = ["google", "bluesky", "x", "rss"]
 
 _SEARCH_TEMPLATES = [
     {
@@ -166,7 +166,7 @@ def add_search_group(
     """Create one source per platform sharing a group ID. Returns all created sources."""
     slug = _make_slug(label)
     group = f"search-{slug}"
-    use_platforms = platforms or list(SUPPORTED_PLATFORMS)
+    use_platforms = platforms or [p for p in SUPPORTED_PLATFORMS if p != "rss"]
     created = []
     for platform in use_platforms:
         if platform not in SUPPORTED_PLATFORMS:

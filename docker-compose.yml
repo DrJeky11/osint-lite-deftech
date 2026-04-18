@@ -1,0 +1,28 @@
+services:
+  scraper:
+    build: ./scrapers/news
+    ports:
+      - "8000:8000"
+    environment:
+      - DATASET_DIR=/app/data
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    volumes:
+      - scraper-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      scraper:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  scraper-data:

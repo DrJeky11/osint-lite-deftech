@@ -4,12 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "refresh:rss": "node ./scripts/refresh-rss.mjs",
-    "refresh:bluesky": "node ./scripts/refresh-bluesky.mjs",
-    "refresh:live": "npm run refresh:rss && npm run refresh:bluesky",
-    "generate:data": "node ./scripts/generate-data.mjs",
-    "build": "npm run generate:data && vite build",
-    "build:live": "npm run refresh:live && npm run build",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "node --test",
     "dev": "vite --host 0.0.0.0"

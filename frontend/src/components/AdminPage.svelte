@@ -1,7 +1,5 @@
 <script>
   import { dataset } from "../state.svelte.js";
-  import NewsSearch from './NewsSearch.svelte';
-
   let { onBack = () => {} } = $props();
 
   let activeTab = $state("sources");
@@ -77,7 +75,6 @@
 
   const tabs = [
     { id: "sources", label: "Data Sources", icon: "M4 4h16v2H4zM4 9h16v2H4zM4 14h10v2H4z" },
-    { id: "news", label: "News Search", icon: "M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" },
     { id: "ai", label: "AI / LLM", icon: "M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4zm0 2a2 2 0 0 1 2 2v2H10V6a2 2 0 0 1 2-2zm-3 10a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" },
     { id: "system", label: "System Status", icon: "M22 12h-4l-3 9L9 3l-3 9H2" },
     { id: "config", label: "Configuration", icon: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" },
@@ -88,10 +85,132 @@
   /* ── Scraper Backend Config ── */
   const SCRAPER_STORAGE_KEY = "sa-scraper-config";
   let scraperUrl = $state(localStorage.getItem(SCRAPER_STORAGE_KEY) || "http://localhost:8000");
+  let backendStatus = $state("checking"); // "checking" | "online" | "offline"
+  let refreshing = $state(false);
+  let refreshMessage = $state("");
+  let backendSources = $state([]); // live source catalog from backend
+  let backendStats = $state({ signals: 0, sources: 0, failures: 0, generatedAt: null });
 
   function saveScraperUrl() {
     localStorage.setItem(SCRAPER_STORAGE_KEY, scraperUrl);
+    checkBackend();
   }
+
+  async function checkBackend() {
+    backendStatus = "checking";
+    try {
+      const res = await fetch(scraperUrl + "/health", { signal: AbortSignal.timeout(5000) });
+      backendStatus = res.ok ? "online" : "offline";
+      if (res.ok) {
+        fetchBackendDataset();
+        fetchSearches();
+        fetchSchedule();
+      }
+    } catch {
+      backendStatus = "offline";
+    }
+  }
+
+  async function fetchBackendDataset() {
+    try {
+      const res = await fetch(scraperUrl + "/dataset", { signal: AbortSignal.timeout(10000) });
+      if (res.ok) {
+        const ds = await res.json();
+        backendSources = ds.sourceCatalog ?? [];
+        backendStats = {
+          signals: ds.signalEvents?.length ?? 0,
+          sources: ds.sourceCatalog?.length ?? 0,
+          failures: ds.failures?.length ?? 0,
+          generatedAt: ds.generatedAt ? new Date(ds.generatedAt) : null,
+        };
+      }
+    } catch { /* ignore */ }
+  }
+
+  async function refreshAll() {
+    refreshing = true;
+    refreshMessage = "";
+    try {
+      const res = await fetch(scraperUrl + "/refresh", {
+        method: "POST",
+        signal: AbortSignal.timeout(120000),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        refreshMessage = `Refreshed — ${data.signalCount ?? 0} signals from ${data.sourceCount ?? 0} sources`;
+        await fetchBackendDataset();
+      } else {
+        refreshMessage = `Refresh failed: HTTP ${res.status}`;
+      }
+    } catch (e) {
+      refreshMessage = `Refresh failed: ${e.message}`;
+    }
+    refreshing = false;
+    setTimeout(() => { refreshMessage = ""; }, 8000);
+  }
+
+  let searches = $state([]);
+  let schedule = $state({ enabled: false, interval_minutes: 60 });
+  let addingSearch = $state(false);
+  let newLabel = $state("");
+  let newTopics = $state("");
+  let newLocation = $state("");
+  let newPlaceHints = $state("");
+  let newMaxArticles = $state(15);
+
+  async function fetchSearches() {
+    try {
+      const res = await fetch(scraperUrl + "/searches", { signal: AbortSignal.timeout(5000) });
+      if (res.ok) searches = await res.json();
+    } catch {}
+  }
+
+  async function fetchSchedule() {
+    try {
+      const res = await fetch(scraperUrl + "/schedule", { signal: AbortSignal.timeout(5000) });
+      if (res.ok) schedule = await res.json();
+    } catch {}
+  }
+
+  async function saveSchedule() {
+    try {
+      await fetch(scraperUrl + "/schedule", {
+        method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(schedule),
+      });
+    } catch {}
+  }
+
+  async function addNewSearch() {
+    const search = {
+      label: newLabel.trim(),
+      topics: newTopics.split(",").map(t => t.trim()).filter(Boolean),
+      location: newLocation.trim() || null,
+      place_hints: newPlaceHints.split(",").map(t => t.trim()).filter(Boolean),
+      max_articles: newMaxArticles,
+    };
+    try {
+      const res = await fetch(scraperUrl + "/searches", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(search),
+      });
+      if (res.ok) {
+        await fetchSearches();
+        addingSearch = false;
+        newLabel = ""; newTopics = ""; newLocation = ""; newPlaceHints = ""; newMaxArticles = 15;
+      }
+    } catch {}
+  }
+
+  async function deleteSearch(id) {
+    try {
+      await fetch(scraperUrl + "/searches/" + id, { method: "DELETE" });
+      await fetchSearches();
+    } catch {}
+  }
+
+  // Check backend on mount
+  $effect(() => { checkBackend(); });
 
   /* ── AI / LLM Configuration (persisted to localStorage) ── */
   const AI_STORAGE_KEY = "sa-ai-config";
@@ -218,64 +337,143 @@
       {#if activeTab === "sources"}
         <div class="admin-section">
           <h2 class="admin-heading">Data Sources</h2>
-          <p class="admin-desc">Add a collection source by selecting a platform, or manage existing feeds below.</p>
+          <p class="admin-desc">Sources are configured and scraped by the backend. Connect the backend to view active sources and trigger refreshes.</p>
 
-          <!-- ── Platform Grid ── -->
-          <div class="platform-grid">
-            {#each platforms as p}
-              {@const count = platformSourceCount(p.id)}
-              <button
-                type="button"
-                class="platform-card"
-                style="--p-color: {p.color}; --p-bg: {p.bg}; --p-border: {p.border};"
-                onclick={() => openAddSource(p)}
-              >
-                <div class="platform-icon">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill={p.id === 'x' ? p.color : 'none'} stroke={p.id === 'x' ? 'none' : p.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d={p.icon} />
-                  </svg>
-                </div>
-                <span class="platform-name">{p.name}</span>
-                <span class="platform-desc">{p.desc}</span>
-                {#if count > 0}
-                  <span class="platform-count">{count} active</span>
-                {:else}
-                  <span class="platform-add">+ Add</span>
+          <!-- ── Backend Connection ── -->
+          <div class="info-card mb-4">
+            <h3 class="info-card-title">Scraper Backend</h3>
+            <div class="config-row">
+              <label class="config-label">Backend URL</label>
+              <div class="flex items-center gap-2">
+                <input type="text" class="config-input config-input-wide" bind:value={scraperUrl} placeholder="http://localhost:8000" />
+                <button type="button" class="action-btn" onclick={saveScraperUrl}>Save</button>
+              </div>
+            </div>
+            <div class="config-row">
+              <label class="config-label">Status</label>
+              <div class="flex items-center gap-2">
+                <span class="status-dot" class:status-healthy={backendStatus === 'online'} class:status-error={backendStatus === 'offline'} style={backendStatus === 'checking' ? 'background: #ffb25f; box-shadow: 0 0 6px rgba(255,178,95,0.4);' : ''}></span>
+                <span class="text-[0.72rem] capitalize">{backendStatus}</span>
+                {#if backendStatus === 'offline'}
+                  <span class="font-mono text-[0.6rem] text-muted">— run: uvicorn main:app --reload</span>
                 {/if}
-              </button>
-            {/each}
+              </div>
+            </div>
           </div>
 
-          <!-- ── Stats Ribbon ── -->
+          <!-- ── Stats Ribbon (from backend) ── -->
           <div class="grid grid-cols-4 gap-px bg-line mb-5 max-[820px]:grid-cols-2">
             <div class="stat-cell bg-bg">
               <span class="stat-label">Total Sources</span>
-              <strong class="stat-value">{sources.length}</strong>
+              <strong class="stat-value">{backendSources.length || sources.length}</strong>
             </div>
             <div class="stat-cell bg-bg">
-              <span class="stat-label">Items Ingested</span>
-              <strong class="stat-value">{totalItems}</strong>
+              <span class="stat-label">Signal Events</span>
+              <strong class="stat-value">{backendStats.signals || totalItems}</strong>
             </div>
             <div class="stat-cell bg-bg">
               <span class="stat-label">Last Refresh</span>
-              <strong class="stat-value text-[1rem]">{timeAgo(generatedAt)}</strong>
+              <strong class="stat-value text-[1rem]">{backendStats.generatedAt ? timeAgo(backendStats.generatedAt) : timeAgo(generatedAt)}</strong>
             </div>
             <div class="stat-cell bg-bg">
               <span class="stat-label">Failures</span>
-              <strong class="stat-value" class:text-military={failures.length > 0}>{failures.length}</strong>
+              <strong class="stat-value" class:text-military={backendStats.failures > 0}>{backendStats.failures || failures.length}</strong>
             </div>
           </div>
 
-          <!-- ── Active Sources Table ── -->
+          <!-- ── Refresh Schedule ── -->
+          <div class="info-card mb-4">
+            <h3 class="info-card-title">Refresh Schedule</h3>
+            <div class="config-row">
+              <label class="config-label">Auto-refresh</label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" bind:checked={schedule.enabled} onchange={saveSchedule} class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+                <span class="text-[0.72rem]">{schedule.enabled ? 'Enabled' : 'Disabled'}</span>
+              </label>
+            </div>
+            {#if schedule.enabled}
+            <div class="config-row">
+              <label class="config-label">Interval</label>
+              <select class="config-input" bind:value={schedule.interval_minutes} onchange={saveSchedule}>
+                <option value={15}>Every 15 min</option>
+                <option value={30}>Every 30 min</option>
+                <option value={60}>Every hour</option>
+                <option value={120}>Every 2 hours</option>
+                <option value={360}>Every 6 hours</option>
+                <option value={720}>Every 12 hours</option>
+                <option value={1440}>Every 24 hours</option>
+              </select>
+            </div>
+            {/if}
+          </div>
+
+          <!-- ── Configured Searches ── -->
           <div class="flex items-center gap-3 mb-3">
-            <span class="font-mono text-[0.65rem] tracking-[0.14em] uppercase text-muted">Active Sources</span>
+            <span class="font-mono text-[0.65rem] tracking-[0.14em] uppercase text-muted">Configured Searches</span>
             <hr class="rule-thin flex-1" />
-            <button type="button" class="admin-btn admin-btn-secondary" style="padding: 6px 14px;" disabled>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-              Refresh All
+            <button type="button" class="admin-btn" style="padding: 6px 14px;" onclick={() => addingSearch = !addingSearch} disabled={backendStatus !== 'online'}>
+              {addingSearch ? '✕ Cancel' : '+ Add Search'}
             </button>
           </div>
 
+          {#if addingSearch}
+          <div class="info-card mb-4">
+            <h3 class="info-card-title">New Search</h3>
+            <div class="grid gap-2">
+              <div class="config-row"><label class="config-label">Label</label><input type="text" class="config-input config-input-wide" bind:value={newLabel} placeholder="e.g. Sudan Conflict" /></div>
+              <div class="config-row"><label class="config-label">Topics (comma-sep)</label><input type="text" class="config-input config-input-wide" bind:value={newTopics} placeholder="e.g. Sudan conflict, RSF Khartoum" /></div>
+              <div class="config-row"><label class="config-label">Location</label><input type="text" class="config-input config-input-wide" bind:value={newLocation} placeholder="e.g. Sudan (optional)" /></div>
+              <div class="config-row"><label class="config-label">Place Hints (comma-sep)</label><input type="text" class="config-input config-input-wide" bind:value={newPlaceHints} placeholder="e.g. Sudan, Khartoum" /></div>
+              <div class="config-row"><label class="config-label">Max Articles</label><input type="number" class="config-input" bind:value={newMaxArticles} min="5" max="50" /></div>
+            </div>
+            <div class="mt-3">
+              <button type="button" class="admin-btn" onclick={addNewSearch} disabled={!newLabel.trim() || !newTopics.trim()}>Add Search</button>
+            </div>
+          </div>
+          {/if}
+
+          <div class="admin-table-wrap mb-5">
+            <table class="admin-table">
+              <thead><tr><th>Search</th><th>Topics</th><th>Location</th><th>Max</th><th></th></tr></thead>
+              <tbody>
+                {#each searches as search}
+                  <tr>
+                    <td><div class="flex flex-col"><span class="font-medium text-[0.82rem]">{search.label}</span><span class="font-mono text-[0.6rem] text-muted">{search.id}</span></div></td>
+                    <td class="font-mono text-[0.68rem] text-muted">{(search.topics || []).join(", ")}</td>
+                    <td class="text-[0.72rem]">{search.location || "—"}</td>
+                    <td class="tabular-nums">{search.max_articles}</td>
+                    <td><button type="button" class="action-btn action-danger" onclick={() => deleteSearch(search.id)}>Delete</button></td>
+                  </tr>
+                {/each}
+                {#if searches.length === 0}
+                  <tr><td colspan="5" class="text-center text-muted font-mono text-[0.72rem] py-6">{backendStatus === 'online' ? 'No searches configured' : 'Connect backend to manage'}</td></tr>
+                {/if}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ── Refresh Controls ── -->
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-mono text-[0.65rem] tracking-[0.14em] uppercase text-muted">Active Sources</span>
+            <hr class="rule-thin flex-1" />
+            {#if refreshMessage}
+              <span class="font-mono text-[0.6rem]" class:text-civil={!refreshMessage.includes('failed')} class:text-military={refreshMessage.includes('failed')}>{refreshMessage}</span>
+            {/if}
+            <button
+              type="button"
+              class="admin-btn"
+              style="padding: 6px 14px;"
+              disabled={backendStatus !== 'online' || refreshing}
+              onclick={refreshAll}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class:animate-spin={refreshing}><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              {refreshing ? 'Refreshing...' : 'Refresh All'}
+            </button>
+          </div>
+
+          <!-- ── Sources Table (prefers backend data, falls back to static dataset) ── -->
+          {#if true}
+          {@const displaySources = backendSources.length ? backendSources : sources}
           <div class="admin-table-wrap">
             <table class="admin-table">
               <thead>
@@ -285,11 +483,10 @@
                   <th>Type</th>
                   <th>Items</th>
                   <th>Status</th>
-                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {#each sources as src}
+                {#each displaySources as src}
                   {@const status = sourceStatus(src)}
                   <tr>
                     <td>
@@ -305,35 +502,19 @@
                       <span class="status-dot status-{status}"></span>
                       <span class="text-[0.72rem] capitalize">{status}</span>
                     </td>
-                    <td>
-                      <div class="flex gap-2">
-                        <button type="button" class="action-btn" title="Edit source" disabled>Edit</button>
-                        <button type="button" class="action-btn action-danger" title="Remove source" disabled>Remove</button>
-                      </div>
-                    </td>
                   </tr>
                 {/each}
+                {#if displaySources.length === 0}
+                  <tr>
+                    <td colspan="5" class="text-center text-muted font-mono text-[0.72rem] py-8">
+                      {backendStatus === 'online' ? 'No sources yet — click Refresh All to fetch data' : 'Connect the backend to see sources'}
+                    </td>
+                  </tr>
+                {/if}
               </tbody>
             </table>
           </div>
-        </div>
-
-      <!-- ═══════ NEWS SEARCH ═══════ -->
-      {:else if activeTab === "news"}
-        <div class="admin-section">
-          <h2 class="admin-heading">News Search</h2>
-          <p class="admin-desc">Search Google News and optionally summarize results with the configured LLM. Requires the Python scraper backend running locally.</p>
-          <div class="info-card mb-4">
-            <h3 class="info-card-title">Scraper Backend</h3>
-            <div class="config-row">
-              <label class="config-label">Backend URL</label>
-              <div class="flex items-center gap-2">
-                <input type="text" class="config-input config-input-wide" bind:value={scraperUrl} placeholder="http://localhost:8000" />
-                <button type="button" class="action-btn" onclick={saveScraperUrl}>Save</button>
-              </div>
-            </div>
-          </div>
-          <NewsSearch />
+          {/if}
         </div>
 
       <!-- ═══════ AI / LLM ═══════ -->

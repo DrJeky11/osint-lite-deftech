@@ -108,6 +108,27 @@ async def _create_session(client: httpx.AsyncClient) -> Optional[str]:
     return resp.json().get("accessJwt")
 
 
+async def _fetch_page(
+    client: httpx.AsyncClient,
+    endpoint_url: str,
+    headers: dict[str, str],
+    params: dict[str, Any],
+    cursor: Optional[str] = None,
+) -> Optional[tuple[list[dict[str, Any]], Optional[str]]]:
+    """Fetch a single page from a Bluesky search endpoint. Returns (posts, next_cursor) or None on auth error."""
+    page_params = dict(params)
+    if cursor:
+        page_params["cursor"] = cursor
+    encoded = urlencode(page_params, doseq=True)
+    resp = await client.get(f"{endpoint_url}?{encoded}", headers=headers)
+    if resp.status_code in (401, 403):
+        return None
+    if resp.status_code >= 400:
+        resp.raise_for_status()
+    data = resp.json()
+    return data.get("posts", []), data.get("cursor")
+
+
 async def search_posts_raw(
     *,
     q: str,
@@ -119,12 +140,13 @@ async def search_posts_raw(
     mention: Optional[str] = None,
     domain: Optional[str] = None,
     url: Optional[str] = None,
-    limit: int = 20,
+    limit: int = 100,
 ) -> list[dict[str, Any]]:
-    params = {
+    per_page = min(limit, 100)
+    params: dict[str, Any] = {
         "q": q,
         "sort": sort,
-        "limit": limit,
+        "limit": per_page,
     }
     if start_date:
         params["since"] = _iso_start_of_day(start_date)
@@ -141,31 +163,44 @@ async def search_posts_raw(
     if url:
         params["url"] = url
 
-    encoded = urlencode(params, doseq=True)
     headers = {"User-Agent": "osint-lite-deftech-bluesky/1.0"}
+    max_pages = 5  # safety cap
 
     async with httpx.AsyncClient(timeout=20, follow_redirects=True) as client:
+        # Try public endpoints first
         for base_url in (PUBLIC_APPVIEW_URL, API_APPVIEW_URL):
-            resp = await client.get(
-                f"{base_url}/xrpc/app.bsky.feed.searchPosts?{encoded}",
-                headers=headers,
-            )
-            if resp.status_code < 400:
-                data = resp.json()
-                return data.get("posts", [])
-            if resp.status_code not in (401, 403):
-                resp.raise_for_status()
+            endpoint = f"{base_url}/xrpc/app.bsky.feed.searchPosts"
+            result = await _fetch_page(client, endpoint, headers, params)
+            if result is not None:
+                all_posts, cursor = result
+                for _ in range(max_pages - 1):
+                    if not cursor or len(all_posts) >= limit:
+                        break
+                    result = await _fetch_page(client, endpoint, headers, params, cursor)
+                    if result is None:
+                        break
+                    posts, cursor = result
+                    all_posts.extend(posts)
+                return all_posts[:limit]
 
+        # Fall back to authenticated endpoint
         access_jwt = await _create_session(client)
         if access_jwt:
             pds_url = os.getenv("BLUESKY_PDS_URL", DEFAULT_PDS_URL).rstrip("/")
-            resp = await client.get(
-                f"{pds_url}/xrpc/app.bsky.feed.searchPosts?{encoded}",
-                headers={**headers, "Authorization": f"Bearer {access_jwt}"},
-            )
-            resp.raise_for_status()
-            data = resp.json()
-            return data.get("posts", [])
+            endpoint = f"{pds_url}/xrpc/app.bsky.feed.searchPosts"
+            auth_headers = {**headers, "Authorization": f"Bearer {access_jwt}"}
+            result = await _fetch_page(client, endpoint, auth_headers, params)
+            if result is not None:
+                all_posts, cursor = result
+                for _ in range(max_pages - 1):
+                    if not cursor or len(all_posts) >= limit:
+                        break
+                    result = await _fetch_page(client, endpoint, auth_headers, params, cursor)
+                    if result is None:
+                        break
+                    posts, cursor = result
+                    all_posts.extend(posts)
+                return all_posts[:limit]
 
         raise httpx.HTTPStatusError(
             "Bluesky search is currently blocked by the public endpoint and no authenticated credentials were configured.",

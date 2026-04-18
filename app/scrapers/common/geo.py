@@ -83,9 +83,45 @@ GAZETTEER: dict[str, dict] = {
     # Russia
     "russia": {"lat": 55.7558, "lon": 37.6173, "country": "Russia", "name": "Russia", "resolution": "country", "confidence": 0.7},
     "moscow": {"lat": 55.7558, "lon": 37.6173, "country": "Russia", "name": "Moscow", "resolution": "city", "confidence": 0.85},
+    "wagner": {"lat": 55.7558, "lon": 37.6173, "country": "Russia", "name": "Russia", "resolution": "country", "confidence": 0.6},
+    "kremlin": {"lat": 55.7520, "lon": 37.6175, "country": "Russia", "name": "Moscow", "resolution": "city", "confidence": 0.8},
+    "st. petersburg": {"lat": 59.9343, "lon": 30.3351, "country": "Russia", "name": "St. Petersburg", "resolution": "city", "confidence": 0.85},
+    "murmansk": {"lat": 68.9585, "lon": 33.0827, "country": "Russia", "name": "Murmansk", "resolution": "city", "confidence": 0.85},
     # China
     "china": {"lat": 39.9042, "lon": 116.4074, "country": "China", "name": "China", "resolution": "country", "confidence": 0.7},
     "beijing": {"lat": 39.9042, "lon": 116.4074, "country": "China", "name": "Beijing", "resolution": "city", "confidence": 0.85},
+    "south china sea": {"lat": 12.0, "lon": 114.0, "country": "China", "name": "South China Sea", "resolution": "region", "confidence": 0.8},
+    "shanghai": {"lat": 31.2304, "lon": 121.4737, "country": "China", "name": "Shanghai", "resolution": "city", "confidence": 0.85},
+    "xinjiang": {"lat": 41.7485, "lon": 84.7638, "country": "China", "name": "Xinjiang", "resolution": "region", "confidence": 0.8},
+    # United States
+    "united states": {"lat": 38.9072, "lon": -77.0369, "country": "United States", "name": "United States", "resolution": "country", "confidence": 0.7},
+    "washington": {"lat": 38.9072, "lon": -77.0369, "country": "United States", "name": "Washington", "resolution": "city", "confidence": 0.85},
+    "pentagon": {"lat": 38.8719, "lon": -77.0563, "country": "United States", "name": "Pentagon", "resolution": "city", "confidence": 0.85},
+    # North Korea
+    "north korea": {"lat": 39.0392, "lon": 125.7625, "country": "North Korea", "name": "North Korea", "resolution": "country", "confidence": 0.7},
+    "pyongyang": {"lat": 39.0392, "lon": 125.7625, "country": "North Korea", "name": "Pyongyang", "resolution": "city", "confidence": 0.85},
+    "dprk": {"lat": 39.0392, "lon": 125.7625, "country": "North Korea", "name": "North Korea", "resolution": "country", "confidence": 0.7},
+    # India
+    "india": {"lat": 28.6139, "lon": 77.2090, "country": "India", "name": "India", "resolution": "country", "confidence": 0.7},
+    "new delhi": {"lat": 28.6139, "lon": 77.2090, "country": "India", "name": "New Delhi", "resolution": "city", "confidence": 0.85},
+    "kashmir": {"lat": 34.0837, "lon": 74.7973, "country": "India", "name": "Kashmir", "resolution": "region", "confidence": 0.8},
+    "islamabad": {"lat": 33.6844, "lon": 73.0479, "country": "Pakistan", "name": "Islamabad", "resolution": "city", "confidence": 0.85},
+    # Eritrea
+    "eritrea": {"lat": 15.3229, "lon": 38.9251, "country": "Eritrea", "name": "Eritrea", "resolution": "country", "confidence": 0.7},
+    "asmara": {"lat": 15.3229, "lon": 38.9251, "country": "Eritrea", "name": "Asmara", "resolution": "city", "confidence": 0.85},
+    # Djibouti
+    "djibouti": {"lat": 11.5721, "lon": 43.1456, "country": "Djibouti", "name": "Djibouti", "resolution": "country", "confidence": 0.7},
+    # Red Sea
+    "red sea": {"lat": 20.0, "lon": 38.0, "country": "Red Sea", "name": "Red Sea", "resolution": "region", "confidence": 0.7},
+    # Strait of Hormuz
+    "strait of hormuz": {"lat": 26.5667, "lon": 56.25, "country": "Iran", "name": "Strait of Hormuz", "resolution": "region", "confidence": 0.8},
+    "hormuz": {"lat": 26.5667, "lon": 56.25, "country": "Iran", "name": "Strait of Hormuz", "resolution": "region", "confidence": 0.75},
+    "irgc": {"lat": 35.6892, "lon": 51.389, "country": "Iran", "name": "Iran", "resolution": "country", "confidence": 0.6},
+    # Myanmar additions
+    "naypyidaw": {"lat": 19.7633, "lon": 96.0785, "country": "Myanmar", "name": "Naypyidaw", "resolution": "city", "confidence": 0.85},
+    "rohingya": {"lat": 20.5, "lon": 92.8, "country": "Myanmar", "name": "Rakhine", "resolution": "region", "confidence": 0.75},
+    # NATO
+    "nato": {"lat": 50.8766, "lon": 4.3222, "country": "Belgium", "name": "NATO HQ", "resolution": "city", "confidence": 0.6},
 }
 
 # Unknown fallback

@@ -169,9 +169,9 @@ async def search_posts_raw(
     sort: str = "recency",
     start_date: Optional[date] = None,
     end_date: Optional[date] = None,
-    limit: int = 20,
+    limit: int = 100,
 ) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
-    """Call X API v2 recent-search and return (raw_posts, users_by_id)."""
+    """Call X API v2 recent-search with pagination and return (raw_posts, users_by_id)."""
     bearer_token = os.getenv("X_BEARER_TOKEN")
     if not bearer_token:
         raise RuntimeError(
@@ -185,38 +185,56 @@ async def search_posts_raw(
         "Authorization": f"Bearer {bearer_token}",
         "User-Agent": "osint-lite-deftech-x/1.0",
     }
-    params = {
-        "query": query,
-        "max_results": min(limit, 100),
-        "sort_order": sort,
-        "tweet.fields": TWEET_FIELDS,
-        "expansions": "author_id",
-        "user.fields": USER_FIELDS,
-    }
+
     start_time, end_time = _clamp_recent_search_window(start_date, end_date)
-    if start_time:
-        params["start_time"] = start_time
-    if end_time:
-        params["end_time"] = end_time
+
+    all_posts: list[dict[str, Any]] = []
+    users_by_id: dict[str, dict[str, Any]] = {}
+    next_token: Optional[str] = None
+    max_pages = 5  # safety cap to avoid runaway pagination
 
     async with httpx.AsyncClient(timeout=20, follow_redirects=True) as client:
-        resp = await client.get(f"{base_url}{search_path}", params=params, headers=headers)
-        try:
-            resp.raise_for_status()
-        except httpx.HTTPStatusError as exc:
-            detail = resp.text.strip()
-            message = f"{exc}"
-            if detail:
-                message = f"{message} | X response: {detail}"
-            raise httpx.HTTPStatusError(message, request=exc.request, response=exc.response) from exc
-        data = resp.json()
+        for _ in range(max_pages):
+            per_page = min(limit - len(all_posts), 100)
+            if per_page < 10:
+                per_page = 10  # X API minimum is 10
+            params: dict[str, Any] = {
+                "query": query,
+                "max_results": per_page,
+                "sort_order": sort,
+                "tweet.fields": TWEET_FIELDS,
+                "expansions": "author_id",
+                "user.fields": USER_FIELDS,
+            }
+            if start_time:
+                params["start_time"] = start_time
+            if end_time:
+                params["end_time"] = end_time
+            if next_token:
+                params["next_token"] = next_token
 
-    posts = data.get("data") or []
-    includes = data.get("includes") or {}
-    users = includes.get("users") or []
-    users_by_id = {
-        user.get("id", ""): user
-        for user in users
-        if isinstance(user, dict) and user.get("id")
-    }
-    return posts, users_by_id
+            resp = await client.get(f"{base_url}{search_path}", params=params, headers=headers)
+            try:
+                resp.raise_for_status()
+            except httpx.HTTPStatusError as exc:
+                detail = resp.text.strip()
+                message = f"{exc}"
+                if detail:
+                    message = f"{message} | X response: {detail}"
+                raise httpx.HTTPStatusError(message, request=exc.request, response=exc.response) from exc
+            data = resp.json()
+
+            posts = data.get("data") or []
+            all_posts.extend(posts)
+
+            includes = data.get("includes") or {}
+            users = includes.get("users") or []
+            for user in users:
+                if isinstance(user, dict) and user.get("id"):
+                    users_by_id[user["id"]] = user
+
+            next_token = data.get("meta", {}).get("next_token")
+            if not next_token or len(all_posts) >= limit:
+                break
+
+    return all_posts[:limit], users_by_id

@@ -11,7 +11,7 @@ def build_query(topics: list[str]) -> str:
 
 async def fetch_posts(
     query: str,
-    max_posts: int = 20,
+    max_posts: int = 100,
 ) -> list[dict]:
     """Search X and return normalized post dicts."""
     raw_posts, users_by_id = await search_posts_raw(

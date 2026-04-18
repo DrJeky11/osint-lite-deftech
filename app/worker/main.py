@@ -381,6 +381,80 @@ def x_post_to_signal(post: dict, search: dict) -> dict:
     }
 
 
+def _classify_wgi_dimension(obs: dict) -> dict:
+    """Map a WGI governance dimension to signal classification weights.
+
+    Low governance scores (high risk_level) produce higher threat weights,
+    distributed across categories based on which dimension is being measured.
+    """
+    dimension = obs.get("dimension", "")
+    value = obs.get("value", 50)
+
+    # Low governance scores indicate risk
+    risk_level = max(0, (100 - value) / 100)
+
+    mapping = {
+        "voice_accountability": {"civilWeight": risk_level * 0.7, "narrativeWeight": risk_level * 0.3},
+        "political_stability": {"warWeight": risk_level * 0.5, "civilWeight": risk_level * 0.3, "terrorismWeight": risk_level * 0.2},
+        "government_effectiveness": {"civilWeight": risk_level * 0.8, "humanitarianWeight": risk_level * 0.2},
+        "regulatory_quality": {"civilWeight": risk_level * 0.6, "narrativeWeight": risk_level * 0.4},
+        "rule_of_law": {"civilWeight": risk_level * 0.5, "warWeight": risk_level * 0.3, "terrorismWeight": risk_level * 0.2},
+        "control_of_corruption": {"civilWeight": risk_level * 0.6, "humanitarianWeight": risk_level * 0.2, "narrativeWeight": risk_level * 0.2},
+    }
+
+    base = {
+        "warWeight": 0, "militaryWeight": 0, "civilWeight": 0,
+        "terrorismWeight": 0, "humanitarianWeight": 0, "narrativeWeight": 0,
+        "drivers": [],
+    }
+    if dimension in mapping:
+        base.update(mapping[dimension])
+        if risk_level > 0.5:
+            base["drivers"].append(f"weak_{dimension}")
+
+    return base
+
+
+def _wgi_observation_to_signal(obs: dict, search: dict) -> dict:
+    """Convert a WGI observation dict into a signal event.
+
+    Produces a governance-family signal with a synthetic title, country-level
+    geo, and classification weights derived from the governance dimension.
+    """
+    dimension_label = obs.get("dimension_label", obs.get("dimension", ""))
+    country = obs.get("country", "Unknown")
+    value = obs.get("value", 0)
+    year = obs.get("year", "")
+
+    title = f"{country}: {dimension_label} — {value:.1f} percentile ({year})"
+
+    raw = f"{country}|{obs.get('dimension', '')}|{year}"
+    eid = "signal-" + hashlib.md5(raw.encode()).hexdigest()[:12]
+
+    return {
+        "id": eid,
+        "sourceId": search.get("id", ""),
+        "sourceFamily": "governance",
+        "sourceName": f"WGI – {dimension_label}",
+        "title": title,
+        "excerpt": f"{dimension_label} for {country}: {value:.1f}/100 percentile rank ({year})",
+        "url": "https://info.worldbank.org/governance/wgi/",
+        "author": {"name": "World Bank", "profileLocation": ""},
+        "provenance": "World Bank Worldwide Governance Indicators",
+        "engagement": {},
+        "timestamp": f"{year}-01-01T00:00:00Z",
+        "geo": {
+            "lat": None,
+            "lon": None,
+            "country": country,
+            "resolution": "country",
+            "confidence": 1.0,
+        },
+        "classification": _classify_wgi_dimension(obs),
+        "corroborationCount": 0,
+    }
+
+
 # ---------------------------------------------------------------------------
 # Location scoring — server-side port of frontend scoring.js
 # ---------------------------------------------------------------------------
@@ -632,6 +706,34 @@ def compute_location_scores(
 # ---------------------------------------------------------------------------
 
 
+async def sync_credentials(client: httpx.AsyncClient) -> None:
+    """Fetch credentials from the API and apply them to the process environment.
+
+    This lets the worker pick up token changes made via the frontend UI
+    without requiring a container restart.
+    """
+    try:
+        resp = await client.get(f"{API_BASE_URL}/config/credentials/raw")
+        resp.raise_for_status()
+        creds = resp.json()
+
+        # Map credential fields to environment variables
+        env_map = {
+            ("x", "bearer_token"): "X_BEARER_TOKEN",
+            ("x", "api_base_url"): "X_API_BASE_URL",
+            ("bluesky", "identifier"): "BLUESKY_IDENTIFIER",
+            ("bluesky", "app_password"): "BLUESKY_APP_PASSWORD",
+            ("bluesky", "pds_url"): "BLUESKY_PDS_URL",
+        }
+        for (platform, field), env_var in env_map.items():
+            value = creds.get(platform, {}).get(field, "")
+            if isinstance(value, str) and value:
+                os.environ[env_var] = value
+        logger.info("Credentials synced from API")
+    except Exception as exc:
+        logger.debug("Could not sync credentials from API: %s", exc)
+
+
 async def fetch_config(client: httpx.AsyncClient) -> tuple[list[dict], dict]:
     """Fetch searches and schedule from the API.
 
@@ -680,7 +782,7 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
             # --- Bluesky source ---
             bluesky_query = build_bluesky_query(search["topics"])
             try:
-                posts = await fetch_bluesky_posts(bluesky_query, max_posts=search.get("max_articles", 15))
+                posts = await fetch_bluesky_posts(bluesky_query, max_posts=search.get("max_articles", 50))
             except Exception as exc:
                 logger.warning("Bluesky fetch failed for %s: %s", search_id, exc)
                 failures.append({"sourceId": search_id, "error": str(exc)})
@@ -706,7 +808,7 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
             # --- X / Twitter source ---
             x_query = build_x_query(search["topics"])
             try:
-                posts = await fetch_x_posts(x_query, max_posts=search.get("max_articles", 15))
+                posts = await fetch_x_posts(x_query, max_posts=search.get("max_articles", 50))
             except Exception as exc:
                 logger.warning("X fetch failed for %s: %s", search_id, exc)
                 failures.append({"sourceId": search_id, "error": str(exc)})
@@ -738,7 +840,7 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
             try:
                 articles = await fetch_rss_feed(
                     feed_url,
-                    max_articles=search.get("max_articles", 15),
+                    max_articles=search.get("max_articles", 50),
                     topics=search.get("topics"),
                 )
             except Exception as exc:
@@ -763,6 +865,37 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
 
             logger.info("Search %s rss complete: %d articles", search_id, len(articles))
 
+        elif platform == "wgi":
+            # --- WGI (World Governance Indicators) source ---
+            from app.scrapers.wgi.fetcher import fetch_wgi_data
+
+            try:
+                observations = await fetch_wgi_data(
+                    countries=search.get("countries", search.get("topics", [])),
+                    dimensions=search.get("dimensions"),
+                    metric=search.get("metric", "percentile_rank"),
+                )
+            except Exception as exc:
+                logger.warning("WGI fetch failed for %s: %s", search_id, exc)
+                failures.append({"sourceId": search_id, "error": str(exc)})
+                continue
+
+            source_catalog.append({
+                "id": search_id,
+                "label": search_label,
+                "source": "World Bank WGI",
+                "sourceFamily": "governance",
+                "sourceKind": "wgi-indicators",
+                "url": "https://info.worldbank.org/governance/wgi/",
+                "itemCount": len(observations),
+            })
+
+            for obs in observations:
+                signal = _wgi_observation_to_signal(obs, search)
+                all_signals.append(signal)
+
+            logger.info("Search %s wgi complete: %d observations", search_id, len(observations))
+
         else:
             # --- Google News source (default) ---
             query = build_query(
@@ -775,7 +908,7 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
             try:
                 articles = await fetch_news(
                     query,
-                    max_articles=search.get("max_articles", 15),
+                    max_articles=search.get("max_articles", 50),
                 )
             except Exception as exc:
                 logger.warning("Failed to fetch search %s: %s", search_id, exc)
@@ -819,6 +952,7 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
             "bluesky": "loaded" if any(s.get("sourceFamily") == "bluesky" for s in all_signals) else "missing",
             "news": "loaded" if any(s.get("sourceFamily") == "news" for s in all_signals) else "empty",
             "x": "loaded" if any(s.get("sourceFamily") == "x" for s in all_signals) else "missing",
+            "governance": "loaded" if any(s.get("sourceFamily") == "governance" for s in all_signals) else "missing",
         },
         "sourceItems": source_items,
         "signalEvents": all_signals,
@@ -875,16 +1009,19 @@ async def main() -> None:
                     except Exception:
                         pass  # best-effort clear
 
-                # 4. Run scrape cycle
+                # 4. Sync credentials from API (picks up UI changes)
+                await sync_credentials(client)
+
+                # 5. Run scrape cycle
                 dataset = await run_scrape_cycle(client, searches)
 
-                # 5. POST dataset
+                # 6. POST dataset
                 try:
                     await post_dataset(client, dataset)
                 except Exception as exc:
                     logger.error("Failed to POST dataset: %s", exc)
 
-                # 6. Sleep — short poll if disabled (to catch pending_refresh), full interval if enabled
+                # 7. Sleep — short poll if disabled (to catch pending_refresh), full interval if enabled
                 if not enabled:
                     logger.info("Cycle complete (manual trigger). Resuming idle poll.")
                     await asyncio.sleep(30)

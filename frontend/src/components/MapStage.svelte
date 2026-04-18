@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import maplibregl from "maplibre-gl";
   import { filters, selection, getFilteredSignalEvents, getVisibleScores, ensureValidSelection } from "../state.svelte.js";
-  import { scoresToGeoJSON, signalEventsToGeoJSON } from "../lib/geojson.js";
+  import { scoresToGeoJSON, signalEventsToGeoJSON, countryFillGeoJSON, resolveCountryName } from "../lib/geojson.js";
   import {
     OVERLAY_REGISTRY,
     loadOverlayPreferences,
@@ -22,6 +22,7 @@
   let loaded = false;
   let overlayPrefs = loadOverlayPreferences();
   let hoverPopup = null;
+  let countriesGeoJSON = null;
 
   onMount(() => {
     if (!container) {
@@ -73,12 +74,26 @@
       setupOverlayLayers();
       setupOverlayInteractivity();
 
+      // Country choropleth fill — added before hotspot layers so dots render on top
+      setupCountryFillLayers();
+
       setupLayers();
       setupInteractivity();
 
       applyMapTheme(map);
       loaded = true;
-      updateMapData();
+
+      // Load the countries GeoJSON, then trigger initial data render
+      fetch("/overlays/countries.json")
+        .then((r) => r.json())
+        .then((geojson) => {
+          countriesGeoJSON = geojson;
+          updateMapData();
+        })
+        .catch((err) => {
+          console.warn("[MapStage] could not load countries.json:", err);
+          updateMapData();
+        });
     });
 
     window.addEventListener("resize", handleResize);
@@ -98,6 +113,10 @@
   }
 
   function setupSources() {
+    map.addSource("country-fill", {
+      type: "geojson",
+      data: { type: "FeatureCollection", features: [] }
+    });
     map.addSource("signal-events", {
       type: "geojson",
       data: signalEventsToGeoJSON([])
@@ -131,6 +150,95 @@
     }
   }
 
+  function setupCountryFillLayers() {
+    // Fill layer — lighter colors, always visible for all countries
+    map.addLayer({
+      id: "country-fill",
+      type: "fill",
+      source: "country-fill",
+      paint: {
+        "fill-color": [
+          "case",
+          ["==", ["get", "trend"], "warming"],
+          ["interpolate", ["linear"], ["get", "heat"],
+            0,   "#1e1810",
+            15,  "#3d2c14",
+            30,  "#6b4a1e",
+            50,  "#c47a2a",
+            70,  "#e8943a",
+            100, "#ffb25f"
+          ],
+          ["==", ["get", "trend"], "cooling"],
+          ["interpolate", ["linear"], ["get", "heat"],
+            0,   "#101e1a",
+            15,  "#183328",
+            30,  "#245040",
+            50,  "#2f7a60",
+            70,  "#3ba882",
+            100, "#49d4ba"
+          ],
+          ["==", ["get", "trend"], "steady"],
+          ["interpolate", ["linear"], ["get", "heat"],
+            0,   "#141820",
+            15,  "#1e2430",
+            30,  "#2e3648",
+            50,  "#455570",
+            70,  "#5a7090",
+            100, "#7a94b5"
+          ],
+          // default: no data — very subtle base fill
+          "#111620"
+        ],
+        "fill-opacity": [
+          "case",
+          ["==", ["get", "hasData"], true],
+          ["interpolate", ["linear"], ["get", "heat"],
+            0,   0.20,
+            30,  0.30,
+            60,  0.42,
+            100, 0.55
+          ],
+          0.15  // base opacity for countries with no data
+        ]
+      }
+    });
+
+    // Border layer — always visible on all countries
+    map.addLayer({
+      id: "country-fill-border",
+      type: "line",
+      source: "country-fill",
+      paint: {
+        "line-color": [
+          "case",
+          ["==", ["get", "trend"], "warming"], "rgba(255, 178, 95, 0.50)",
+          ["==", ["get", "trend"], "cooling"], "rgba(73, 212, 186, 0.45)",
+          ["==", ["get", "trend"], "steady"],  "rgba(140, 160, 190, 0.40)",
+          "rgba(80, 100, 130, 0.30)"  // no-data countries: subtle but visible outline
+        ],
+        "line-width": [
+          "case",
+          ["==", ["get", "hasData"], true], 1.2,
+          0.6  // thinner for no-data countries
+        ],
+        "line-opacity": 1
+      }
+    });
+
+    // Highlight border for selected country
+    map.addLayer({
+      id: "country-fill-highlight",
+      type: "line",
+      source: "country-fill",
+      paint: {
+        "line-color": "#ffb25f",
+        "line-width": 2.5,
+        "line-opacity": 0.9,
+      },
+      filter: ["==", ["get", "name"], ""],
+    });
+  }
+
   function setupLayers() {
     map.addLayer({
       id: "signal-heatmap",
@@ -150,7 +258,7 @@
           0.8,  "rgba(255, 178, 95, 0.85)",
           1.0,  "rgba(255, 80, 50, 0.95)"
         ],
-        "heatmap-opacity": 0.75
+        "heatmap-opacity": 0.40
       }
     });
 
@@ -159,7 +267,7 @@
       type: "circle",
       source: "hotspots",
       paint: {
-        "circle-radius": ["interpolate", ["linear"], ["get", "heat"], 0, 14, 50, 24, 100, 40],
+        "circle-radius": ["interpolate", ["linear"], ["get", "heat"], 0, 8, 50, 14, 100, 24],
         "circle-color": [
           "case",
           ["==", ["get", "trend"], "warming"],
@@ -168,7 +276,7 @@
           ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#49d4ba", 100, "#ffb25f"],
           ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#ffb25f", 100, "#ff7557"]
         ],
-        "circle-opacity": 0.14,
+        "circle-opacity": 0.08,
         "circle-blur": 0.9
       }
     });
@@ -178,7 +286,7 @@
       type: "circle",
       source: "hotspots",
       paint: {
-        "circle-radius": ["interpolate", ["linear"], ["get", "heat"], 0, 6, 50, 11, 100, 18],
+        "circle-radius": ["interpolate", ["linear"], ["get", "heat"], 0, 4, 50, 8, 100, 13],
         "circle-color": [
           "case",
           ["==", ["get", "trend"], "warming"],
@@ -187,7 +295,7 @@
           ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#49d4ba", 100, "#ffb25f"],
           ["interpolate", ["linear"], ["get", "heat"], 0, "#49d4ba", 50, "#ffb25f", 100, "#ff7557"]
         ],
-        "circle-opacity": 0.88,
+        "circle-opacity": 0.70,
         "circle-stroke-width": 0,
         "circle-stroke-color": "rgba(255, 255, 255, 0.92)",
         "circle-blur": 0.1
@@ -199,9 +307,9 @@
       type: "circle",
       source: "hotspots",
       paint: {
-        "circle-radius": 3,
+        "circle-radius": 2,
         "circle-color": "rgba(245, 250, 255, 0.96)",
-        "circle-opacity": 0.95
+        "circle-opacity": 0.80
       }
     });
 
@@ -231,6 +339,25 @@
     if (feature) {
       selectHotspot(feature.properties.id);
     }
+  }
+
+  function buildCountryTooltip(props) {
+    const trendColor = props.trend === "warming" ? "#ffb25f"
+      : props.trend === "cooling" ? "#49d4ba" : "#d3dde8";
+    return `
+      <div style="font-family:'DM Sans',sans-serif; padding:6px 2px;">
+        <div style="font-size:13px; font-weight:600; margin-bottom:6px; color:#e2e8f0;">
+          ${props.name}
+        </div>
+        <div style="display:grid; grid-template-columns:auto 1fr; gap:2px 10px; font-size:11px;">
+          <span style="color:#78d6ff99;">Heat</span>
+          <span style="color:#e2e8f0; font-family:'DM Mono',monospace;">${Math.round(props.heat)}</span>
+          <span style="color:#78d6ff99;">Delta</span>
+          <span style="color:#e2e8f0; font-family:'DM Mono',monospace;">${props.delta > 0 ? "+" : ""}${props.delta}</span>
+          <span style="color:#78d6ff99;">Trend</span>
+          <span style="color:${trendColor}; font-family:'DM Mono',monospace; text-transform:uppercase; font-size:10px;">${props.trend}</span>
+        </div>
+      </div>`;
   }
 
   function buildHotspotTooltip(props) {
@@ -311,10 +438,41 @@
       });
       if (features.length > 0) {
         selectHotspot(features[0].properties.id);
+        return;
+      }
+      // Fallback: check country fill
+      const countryFeatures = map.queryRenderedFeatures(e.point, {
+        layers: ["country-fill"]
+      });
+      if (countryFeatures.length > 0) {
+        const countryName = countryFeatures[0].properties.name;
+        if (countryName) selectCountry(countryName);
       }
     });
     map.on("mousemove", "hotspot-circles", handleHotspotHover);
     map.on("mouseleave", "hotspot-circles", handleHotspotLeave);
+
+    map.on("mousemove", "country-fill", (e) => {
+      if (!e.features?.length) return;
+      // Skip if hovering over a hotspot (points take priority)
+      const hotspotFeatures = map.queryRenderedFeatures(e.point, {
+        layers: ["hotspot-circles", "hotspot-glow", "hotspot-center"]
+      });
+      if (hotspotFeatures.length > 0) return;
+
+      const props = e.features[0].properties;
+      if (!props.hasData || props.hasData === "false") return;
+      map.getCanvas().style.cursor = "pointer";
+      hoverPopup
+        .setLngLat([e.lngLat.lng, e.lngLat.lat])
+        .setHTML(buildCountryTooltip(props))
+        .addTo(map);
+    });
+
+    map.on("mouseleave", "country-fill", () => {
+      map.getCanvas().style.cursor = "";
+      hoverPopup.remove();
+    });
   }
 
   export function selectHotspot(scoreId) {
@@ -332,6 +490,19 @@
     }
   }
 
+  function selectCountry(countryName) {
+    const visibleScores = getVisibleScores();
+    const match = visibleScores.find(s => {
+      const resolved = resolveCountryName(s);
+      return resolved?.toLowerCase() === countryName.toLowerCase()
+        || s.name?.toLowerCase() === countryName.toLowerCase();
+    });
+    if (match) {
+      selection.locationId = match.id;
+      updateSelectedStyling();
+    }
+  }
+
   function updateSelectedStyling() {
     if (!map || !map.getLayer("hotspot-circles")) return;
 
@@ -345,6 +516,14 @@
     map.setFilter("hotspot-labels", [
       "==", ["get", "id"], selection.locationId || ""
     ]);
+
+    // Find selected score's country for highlight border
+    const visibleScores = getVisibleScores();
+    const selectedScore = visibleScores.find(s => s.id === selection.locationId);
+    const selectedCountry = selectedScore ? resolveCountryName(selectedScore) : "";
+    if (map.getLayer("country-fill-highlight")) {
+      map.setFilter("country-fill-highlight", ["==", ["get", "name"], selectedCountry || ""]);
+    }
   }
 
   export function updateMapData() {
@@ -356,6 +535,11 @@
     const filteredEvents = getFilteredSignalEvents();
     map.getSource("signal-events").setData(signalEventsToGeoJSON(filteredEvents));
     map.getSource("hotspots").setData(scoresToGeoJSON(visibleScores));
+
+    // Update country choropleth fill when countries GeoJSON is available
+    if (countriesGeoJSON && map.getSource("country-fill")) {
+      map.getSource("country-fill").setData(countryFillGeoJSON(visibleScores, countriesGeoJSON));
+    }
 
     map.setLayoutProperty("signal-heatmap", "visibility",
       filters.heatmapEnabled ? "visible" : "none"

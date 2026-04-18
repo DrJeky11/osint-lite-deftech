@@ -1,12 +1,37 @@
 <script>
-  import { filters, dataset, scraperUrl } from "../state.svelte.js";
+  import { filters, dataset, scraperUrl, wgiUrl, scoringConfig } from "../state.svelte.js";
   import { formatDelta, selectedLabel, buildDetailBrief, recommendedActions } from "../lib/format.js";
+  import { fetchWgiForCountry, WGI_DIMENSIONS } from "../lib/wgi.js";
   import TrendPill from "./TrendPill.svelte";
   import Meter from "./Meter.svelte";
   import Sparkline from "./Sparkline.svelte";
   import EvidenceCard from "./EvidenceCard.svelte";
 
   let { score = null } = $props();
+
+  let wgiData = $state(null);
+  let wgiLoading = $state(false);
+
+  /** Extract country name from score — prefer geo.country from evidence, fall back to score.name */
+  function resolveCountry(s) {
+    if (!s) return null;
+    const countries = (s.evidenceBundle ?? [])
+      .map(e => e.geo?.country)
+      .filter(Boolean);
+    return countries[0] ?? s.name;
+  }
+
+  $effect(() => {
+    const country = resolveCountry(score);
+    if (!country || !scoringConfig.wgiEnabled) {
+      wgiData = null;
+      return;
+    }
+    wgiLoading = true;
+    fetchWgiForCountry(country, wgiUrl.value)
+      .then(data => { wgiData = data; wgiLoading = false; })
+      .catch(() => { wgiData = { error: 'Service unavailable' }; wgiLoading = false; });
+  });
 
   const brief = $derived.by(() => score ? buildDetailBrief(score, filters.timeWindowHours) : "");
   const actions = $derived.by(() => score ? recommendedActions(score) : []);
@@ -154,6 +179,34 @@
         <Meter label="Humanitarian crisis" value={score.humanitarianComponent} type="humanitarian" />
         <Meter label="Information warfare" value={score.infowarComponent} type="infowar" />
       </div>
+
+      {#if scoringConfig.wgiEnabled}
+        <div class="pt-4 mt-4 border-t border-line">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="section-flag">Governance Indicators (World Bank WGI)</span>
+            <hr class="rule-thin flex-1" />
+          </div>
+          {#if wgiLoading}
+            <p class="m-0 text-muted font-mono text-[0.72rem] tracking-[0.08em] uppercase">Loading governance data...</p>
+          {:else if wgiData?.error}
+            <p class="m-0 text-muted font-mono text-[0.72rem] tracking-[0.08em] uppercase">Governance data unavailable — {wgiData.error}</p>
+          {:else if wgiData && Object.keys(wgiData).length > 0}
+            <div class="grid grid-cols-2 gap-x-5 gap-y-3 max-[560px]:grid-cols-1">
+              {#each WGI_DIMENSIONS as dim}
+                {#if wgiData[dim.key]}
+                  <Meter
+                    label="{dim.label} ({wgiData[dim.key].year})"
+                    value={wgiData[dim.key].value}
+                    type="governance"
+                  />
+                {/if}
+              {/each}
+            </div>
+          {:else}
+            <p class="m-0 text-muted font-mono text-[0.72rem] tracking-[0.08em] uppercase">No governance data available</p>
+          {/if}
+        </div>
+      {/if}
 
       <div class="mt-4">
         <Sparkline history={score.history} />

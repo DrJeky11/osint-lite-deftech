@@ -438,6 +438,72 @@ def _x_post_to_signal(post: dict, search: dict) -> dict:
     }
 
 
+def _classify_wgi_dimension(obs: dict) -> dict:
+    """Map WGI governance dimension to signal classification."""
+    dimension = obs.get("dimension", "")
+    value = obs.get("value", 50)
+
+    # Low governance scores indicate risk
+    risk_level = max(0, (100 - value) / 100)
+
+    mapping = {
+        "voice_accountability": {"civilWeight": risk_level * 0.7, "narrativeWeight": risk_level * 0.3},
+        "political_stability": {"warWeight": risk_level * 0.5, "civilWeight": risk_level * 0.3, "terrorismWeight": risk_level * 0.2},
+        "government_effectiveness": {"civilWeight": risk_level * 0.8, "humanitarianWeight": risk_level * 0.2},
+        "regulatory_quality": {"civilWeight": risk_level * 0.6, "narrativeWeight": risk_level * 0.4},
+        "rule_of_law": {"civilWeight": risk_level * 0.5, "warWeight": risk_level * 0.3, "terrorismWeight": risk_level * 0.2},
+        "control_of_corruption": {"civilWeight": risk_level * 0.6, "humanitarianWeight": risk_level * 0.2, "narrativeWeight": risk_level * 0.2},
+    }
+
+    base = {
+        "warWeight": 0, "militaryWeight": 0, "civilWeight": 0,
+        "terrorismWeight": 0, "humanitarianWeight": 0, "narrativeWeight": 0,
+        "drivers": [],
+    }
+    if dimension in mapping:
+        base.update(mapping[dimension])
+        if risk_level > 0.5:
+            base["drivers"].append(f"weak_{dimension}")
+
+    return base
+
+
+def _wgi_observation_to_signal(obs: dict, search: dict) -> dict:
+    """Convert a WGI observation into a signal event."""
+    dimension_label = obs.get("dimension_label", obs.get("dimension", ""))
+    country = obs.get("country", "Unknown")
+    value = obs.get("value", 0)
+    year = obs.get("year", "")
+
+    title = f"{country}: {dimension_label} — {value:.1f} percentile ({year})"
+
+    raw = f"{country}|{obs.get('dimension', '')}|{year}"
+    eid = "signal-" + hashlib.md5(raw.encode()).hexdigest()[:12]
+
+    return {
+        "id": eid,
+        "sourceId": search.get("id", ""),
+        "sourceFamily": "governance",
+        "sourceName": f"WGI – {dimension_label}",
+        "title": title,
+        "excerpt": f"{dimension_label} for {country}: {value:.1f}/100 percentile rank ({year})",
+        "url": "https://info.worldbank.org/governance/wgi/",
+        "author": {"name": "World Bank", "profileLocation": ""},
+        "provenance": "World Bank Worldwide Governance Indicators",
+        "engagement": {},
+        "timestamp": f"{year}-01-01T00:00:00Z",
+        "geo": {
+            "lat": None,
+            "lon": None,
+            "country": country,
+            "resolution": "country",
+            "confidence": 1.0,
+        },
+        "classification": _classify_wgi_dimension(obs),
+        "corroborationCount": 0,
+    }
+
+
 def load_dataset() -> dict:
     """Read dataset.json if it exists, otherwise return an empty structure."""
     if DATASET_PATH.exists():
@@ -447,7 +513,7 @@ def load_dataset() -> dict:
         "sourceCatalog": [],
         "feedCatalog": [],
         "failures": [],
-        "sourceStatus": {"rss": "missing", "bluesky": "missing", "x": "missing", "news": "missing"},
+        "sourceStatus": {"rss": "missing", "bluesky": "missing", "x": "missing", "news": "missing", "governance": "missing"},
         "sourceItems": [],
         "signalEvents": [],
         "locationScores": [],
@@ -574,7 +640,7 @@ async def trigger_refresh():
             # --- Bluesky source ---
             bluesky_query = build_bluesky_query(search["topics"])
             try:
-                posts = await fetch_bluesky_posts(bluesky_query, max_posts=search.get("max_articles", 15))
+                posts = await fetch_bluesky_posts(bluesky_query, max_posts=search.get("max_articles", 50))
             except Exception as exc:
                 logger.warning("Bluesky fetch failed for %s: %s", search_id, exc)
                 failures.append({"sourceId": search_id, "error": str(exc)})
@@ -598,7 +664,7 @@ async def trigger_refresh():
             # --- X/Twitter source ---
             x_query = build_x_query(search["topics"])
             try:
-                posts = await fetch_x_posts(x_query, max_posts=search.get("max_articles", 15))
+                posts = await fetch_x_posts(x_query, max_posts=search.get("max_articles", 50))
             except Exception as exc:
                 logger.warning("X fetch failed for %s: %s", search_id, exc)
                 failures.append({"sourceId": search_id, "error": str(exc)})
@@ -628,7 +694,7 @@ async def trigger_refresh():
             try:
                 articles = await fetch_rss_feed(
                     feed_url,
-                    max_articles=search.get("max_articles", 15),
+                    max_articles=search.get("max_articles", 50),
                     topics=search.get("topics"),
                 )
             except Exception as exc:
@@ -664,6 +730,35 @@ async def trigger_refresh():
                 except Exception as exc:
                     logger.warning("Summarization failed for search %s: %s", search_id, exc)
 
+        elif platform == "wgi":
+            # --- WGI (World Governance Indicators) source ---
+            from app.scrapers.wgi.fetcher import fetch_wgi_data
+
+            try:
+                observations = await fetch_wgi_data(
+                    countries=search.get("countries", search.get("topics", [])),
+                    dimensions=search.get("dimensions") or None,
+                    metric=search.get("metric", "percentile_rank"),
+                )
+            except Exception as exc:
+                logger.warning("WGI fetch failed for %s: %s", search_id, exc)
+                failures.append({"sourceId": search_id, "error": str(exc)})
+                continue
+
+            source_catalog.append({
+                "id": search_id,
+                "label": search_label,
+                "source": "World Bank WGI",
+                "sourceFamily": "governance",
+                "sourceKind": "wgi-data",
+                "url": "https://info.worldbank.org/governance/wgi/",
+                "itemCount": len(observations),
+            })
+
+            for obs in observations:
+                signal = _wgi_observation_to_signal(obs, search)
+                all_signals.append(signal)
+
         else:
             # --- Google News source (default) ---
             query = build_query(
@@ -676,7 +771,7 @@ async def trigger_refresh():
             try:
                 articles = await fetch_news(
                     query,
-                    max_articles=search.get("max_articles", 15),
+                    max_articles=search.get("max_articles", 50),
                 )
             except Exception as exc:
                 logger.warning("Failed to fetch search %s: %s", search_id, exc)
@@ -723,6 +818,7 @@ async def trigger_refresh():
             "bluesky": "loaded" if any(s.get("sourceFamily") == "bluesky" for s in all_signals) else "missing",
             "x": "loaded" if any(s.get("sourceFamily") == "x" for s in all_signals) else "missing",
             "news": "loaded" if any(s.get("sourceFamily") == "news" for s in all_signals) else "empty",
+            "governance": "loaded" if any(s.get("sourceFamily") == "governance" for s in all_signals) else "missing",
         },
         "sourceItems": source_items,
         "signalEvents": all_signals,
@@ -787,7 +883,7 @@ async def create_search_group(body: dict):
         topics=topics,
         location=body.get("location"),
         place_hints=body.get("place_hints", []),
-        max_articles=body.get("max_articles", 15),
+        max_articles=body.get("max_articles", 50),
         platforms=body.get("platforms"),
     )
     return {"group": created[0]["group"], "sources": created}
@@ -1046,6 +1142,12 @@ async def set_credentials(body: dict):
     _write_credentials(current)
     _apply_credentials_to_env(current)
     return {"status": "saved"}
+
+
+@app.get("/config/credentials/raw")
+async def get_credentials_raw():
+    """Return unmasked credentials. Intended for internal worker consumption only."""
+    return _read_credentials()
 
 
 @app.get("/config/credentials/status")

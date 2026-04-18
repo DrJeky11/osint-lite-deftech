@@ -11,7 +11,7 @@ def _strip_html(text: Optional[str]) -> Optional[str]:
         return text
     return re.sub(r"<[^>]+>", "", text).strip()
 
-async def fetch_feed(feed_url: str, max_articles: int = 20, topics: list[str] | None = None) -> list[dict]:
+async def fetch_feed(feed_url: str, max_articles: int = 100, topics: list[str] | None = None) -> list[dict]:
     """Fetch and parse an RSS/Atom feed, returning articles in the standard shape."""
     async with httpx.AsyncClient(timeout=15, follow_redirects=True) as client:
         resp = await client.get(feed_url, headers={"User-Agent": "signal-atlas-rss/1.0"})

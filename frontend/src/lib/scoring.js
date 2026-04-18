@@ -25,6 +25,7 @@ const DEFAULT_SCORING_CONFIG = {
   componentDisplayMax: 100,
   trendHeatFloor: 0.1,
   sparklineReferenceMax: 100,
+  wgiEnabled: true,
 };
 
 export { DEFAULT_SCORING_CONFIG };
@@ -195,7 +196,7 @@ export function computeLocationScores(signalEvents, options = {}) {
         topDrivers: unique(events.flatMap((event) => event.classification.drivers)).slice(0, 6),
         evidenceBundle: events
           .slice()
-          .sort((left, right) => signalEventScore(right, referenceTime, cfg) - signalEventScore(left, referenceTime, cfg))
+          .sort((left, right) => new Date(right.timestamp) - new Date(left.timestamp))
           .slice(0, 4),
         center: {
           lat: strongestEvent.geo.lat,

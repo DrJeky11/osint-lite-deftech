@@ -2,6 +2,7 @@ import { dataset as staticDataset } from "./generated/osint-data.js";
 import { computeLocationScores, DEFAULT_SCORING_CONFIG } from "./lib/scoring.js";
 
 const SCRAPER_STORAGE_KEY = "sa-scraper-config";
+const WGI_STORAGE_KEY = "sa-wgi-url";
 
 function _readScraperUrl() {
   return typeof localStorage !== 'undefined'
@@ -9,12 +10,26 @@ function _readScraperUrl() {
     : "http://localhost:8000";
 }
 
+function _readWgiUrl() {
+  return typeof localStorage !== 'undefined'
+    ? (localStorage.getItem(WGI_STORAGE_KEY) || "http://localhost:8001")
+    : "http://localhost:8001";
+}
+
 /** Reactive scraper URL state. Use scraperUrl.value to read. */
 export const scraperUrl = $state({ value: _readScraperUrl() });
+
+/** Reactive WGI service URL state. Use wgiUrl.value to read. */
+export const wgiUrl = $state({ value: _readWgiUrl() });
 
 /** Call after the admin page saves a new scraper URL to localStorage. */
 export function syncScraperUrl() {
   scraperUrl.value = _readScraperUrl();
+}
+
+/** Call after the admin page saves a new WGI URL to localStorage. */
+export function syncWgiUrl() {
+  wgiUrl.value = _readWgiUrl();
 }
 
 export const dataset = $state({ ...staticDataset });
@@ -65,7 +80,7 @@ export const filters = $state({
   emphasis: "blend",
   timeWindowHours: 24,
   confidenceFloor: 0.5,
-  heatmapEnabled: true
+  heatmapEnabled: false
 });
 
 export const selection = $state({

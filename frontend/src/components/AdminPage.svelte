@@ -1,9 +1,10 @@
 <script>
-  import { dataset, scoringConfig, refreshDataset, syncScraperUrl } from "../state.svelte.js";
+  import { dataset, scoringConfig, refreshDataset, syncScraperUrl, wgiUrl, syncWgiUrl } from "../state.svelte.js";
   import { DEFAULT_SCORING_CONFIG } from "../lib/scoring.js";
   let { onBack = () => {} } = $props();
 
   let activeTab = $state("sources");
+  let wgiUrlError = $state('');
 
   /* ── Platform definitions ── */
   const platforms = [
@@ -171,7 +172,7 @@
   let newTopics = $state("");
   let newLocation = $state("");
   let newPlaceHints = $state("");
-  let newMaxArticles = $state(15);
+  let newMaxArticles = $state(50);
   let newFeedUrl = $state("");
   let expandedGroups = $state(new Set());
 
@@ -224,7 +225,7 @@
 
   function resetAddForm() {
     addingMode = null;
-    newLabel = ""; newTopics = ""; newLocation = ""; newPlaceHints = ""; newMaxArticles = 15; newFeedUrl = "";
+    newLabel = ""; newTopics = ""; newLocation = ""; newPlaceHints = ""; newMaxArticles = 50; newFeedUrl = "";
   }
 
   async function addNewSearch() {
@@ -269,6 +270,20 @@
   async function deleteSearch(id) {
     try {
       await fetch(scraperUrl + "/searches/" + id, { method: "DELETE" });
+      await fetchSearches();
+    } catch {}
+  }
+
+  async function updateGroupMaxArticles(grp, value) {
+    const clamped = Math.max(1, Math.min(500, parseInt(value) || 50));
+    try {
+      await Promise.all(grp.sources.map(src =>
+        fetch(scraperUrl + "/searches/" + encodeURIComponent(src.id), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ max_articles: clamped }),
+        })
+      ));
       await fetchSearches();
     } catch {}
   }
@@ -600,6 +615,28 @@
     const hrs = Math.round(mins / 60);
     return `${hrs}h ago`;
   }
+
+  /* ── Source Detail Drawer ── */
+  let selectedSourceId = $state(null);
+  let sourceDetailEvents = $state([]);
+  let sourceDetailMeta = $state(null);
+
+  function viewSourceData(sourceId) {
+    selectedSourceId = sourceId;
+    sourceDetailMeta = backendSources.find(s => s.id === sourceId) || sources.find(s => s.id === sourceId) || null;
+    sourceDetailEvents = (dataset.signalEvents ?? []).filter(e => e.sourceId === sourceId);
+  }
+
+  function closeSourceDetail() {
+    selectedSourceId = null;
+    sourceDetailEvents = [];
+    sourceDetailMeta = null;
+  }
+
+  function formatTimestamp(ts) {
+    if (!ts) return "\u2014";
+    try { return new Date(ts).toLocaleString(); } catch { return "\u2014"; }
+  }
 </script>
 
 <div class="w-[min(1560px,calc(100vw-32px))] mx-auto py-5 pb-8 animate-[shell-in_720ms_ease_both]">
@@ -744,7 +781,7 @@
               {/if}
               <div class="config-row"><label class="config-label">Location</label><input type="text" class="config-input config-input-wide" bind:value={newLocation} placeholder="e.g. Sudan (optional)" /></div>
               <div class="config-row"><label class="config-label">Place Hints (comma-sep)</label><input type="text" class="config-input config-input-wide" bind:value={newPlaceHints} placeholder="e.g. Sudan, Khartoum" /></div>
-              <div class="config-row"><label class="config-label">Max Results</label><input type="number" class="config-input" bind:value={newMaxArticles} min="5" max="50" /></div>
+              <div class="config-row"><label class="config-label">Max Results</label><input type="number" class="config-input" bind:value={newMaxArticles} min="1" max="500" /></div>
             </div>
             <div class="mt-3">
               <button type="button" class="admin-btn" style="border-color: {formMeta.color}44; color: {formMeta.color};" onclick={addNewSearch} disabled={!newLabel.trim() || (addingMode === 'rss' ? !newFeedUrl.trim() : !newTopics.trim())}>
@@ -792,7 +829,19 @@
                       {/if}
                     </td>
                     <td class="text-[0.72rem]">{grp.location || "—"}</td>
-                    <td class="tabular-nums">{grp.max_articles}</td>
+                    <td class="tabular-nums">
+                      <input
+                        type="number"
+                        min="1"
+                        max="500"
+                        value={grp.max_articles}
+                        onchange={(e) => { e.stopPropagation(); updateGroupMaxArticles(grp, e.target.value); }}
+                        onclick={(e) => e.stopPropagation()}
+                        class="config-input"
+                        style="width: 4.5rem; padding: 2px 4px; font-size: 0.72rem; text-align: center;"
+                        title="Max results per source (1–500)"
+                      />
+                    </td>
                     <td>
                       <button type="button" class="action-btn action-danger" onclick={(e) => { e.stopPropagation(); deleteSearchGroup(grp.group); }} title="Delete entire search group">Delete</button>
                     </td>
@@ -862,6 +911,7 @@
                   <th>Type</th>
                   <th>Items</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -881,11 +931,14 @@
                       <span class="status-dot status-{status}"></span>
                       <span class="text-[0.72rem] capitalize">{status}</span>
                     </td>
+                    <td>
+                      <button type="button" class="action-btn" onclick={() => viewSourceData(src.id)} title="View scraped data for this source">View Data</button>
+                    </td>
                   </tr>
                 {/each}
                 {#if displaySources.length === 0}
                   <tr>
-                    <td colspan="5" class="text-center text-muted font-mono text-[0.72rem] py-8">
+                    <td colspan="6" class="text-center text-muted font-mono text-[0.72rem] py-8">
                       {backendStatus === 'online' ? 'No sources yet — click Refresh All to fetch data' : 'Connect the backend to see sources'}
                     </td>
                   </tr>
@@ -894,6 +947,100 @@
             </table>
           </div>
           {/if}
+
+          <!-- ── Source Detail Panel ── -->
+          {#if selectedSourceId && sourceDetailMeta}
+          <div class="info-card mt-5 source-detail-panel">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <h3 class="info-card-title m-0">{sourceDetailMeta.label}</h3>
+                <span class="admin-badge">{sourceDetailMeta.sourceFamily}</span>
+                <span class="font-mono text-[0.68rem] text-muted">{sourceDetailEvents.length} records</span>
+              </div>
+              <button type="button" class="action-btn" onclick={closeSourceDetail}>Close</button>
+            </div>
+            <div class="font-mono text-[0.6rem] text-muted mb-3">{sourceDetailMeta.id}</div>
+
+            {#if sourceDetailEvents.length === 0}
+              <div class="text-center text-muted font-mono text-[0.72rem] py-8">No signal events found for this source.</div>
+            {:else}
+              <div class="source-detail-scroll">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 30%;">Title</th>
+                      <th>Author</th>
+                      <th>Time</th>
+                      <th>Type</th>
+                      <th>Location</th>
+                      <th>Engagement</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {#each sourceDetailEvents as evt}
+                      <tr>
+                        <td>
+                          <div class="flex flex-col gap-0.5">
+                            {#if evt.url}
+                              <a href={evt.url} target="_blank" rel="noopener noreferrer" class="font-medium text-[0.78rem]" style="color: var(--color-blue); text-decoration: none;" title={evt.url}>
+                                {evt.title || "Untitled"}
+                              </a>
+                            {:else}
+                              <span class="font-medium text-[0.78rem]">{evt.title || "Untitled"}</span>
+                            {/if}
+                            {#if evt.excerpt}
+                              <span class="text-[0.65rem] text-muted" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{evt.excerpt}</span>
+                            {/if}
+                          </div>
+                        </td>
+                        <td class="text-[0.72rem]">
+                          {#if evt.author?.name || evt.author?.handle}
+                            <span>{evt.author?.name || ""}</span>
+                            {#if evt.author?.handle}
+                              <span class="font-mono text-[0.62rem] text-muted block">@{evt.author.handle}</span>
+                            {/if}
+                          {:else}
+                            <span class="text-muted">&mdash;</span>
+                          {/if}
+                        </td>
+                        <td class="font-mono text-[0.68rem] text-muted whitespace-nowrap">{formatTimestamp(evt.timestamp)}</td>
+                        <td>
+                          {#if evt.classification?.signalType}
+                            <span class="admin-badge">{evt.classification.signalType}</span>
+                          {:else}
+                            <span class="text-muted">&mdash;</span>
+                          {/if}
+                        </td>
+                        <td class="text-[0.72rem]">
+                          {#if evt.geo?.name}
+                            <span>{evt.geo.name}</span>
+                          {:else}
+                            <span class="text-muted">&mdash;</span>
+                          {/if}
+                        </td>
+                        <td class="font-mono text-[0.68rem]">
+                          {#if evt.engagement?.likes != null || evt.engagement?.reposts != null}
+                            <div class="flex flex-col gap-0.5">
+                              {#if evt.engagement?.likes != null}
+                                <span class="text-muted">{evt.engagement.likes} likes</span>
+                              {/if}
+                              {#if evt.engagement?.reposts != null}
+                                <span class="text-muted">{evt.engagement.reposts} reposts</span>
+                              {/if}
+                            </div>
+                          {:else}
+                            <span class="text-muted">&mdash;</span>
+                          {/if}
+                        </td>
+                      </tr>
+                    {/each}
+                  </tbody>
+                </table>
+              </div>
+            {/if}
+          </div>
+          {/if}
+
         </div>
 
       <!-- ═══════ SOURCE CREDENTIALS ═══════ -->
@@ -1340,6 +1487,34 @@
               <div class="config-row">
                 <label class="config-label">Confidence Corrob. Weight</label>
                 <input type="number" class="config-input" value={scoringConfig.confidenceCorrobWeight} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('confidenceCorrobWeight', Number(e.target.value))} />
+              </div>
+            </div>
+
+            <!-- Governance (WGI) -->
+            <div class="info-card">
+              <h3 class="info-card-title">Governance (WGI)</h3>
+              <div class="config-row">
+                <label class="config-label">WGI Service URL</label>
+                <input type="text" class="config-input" value={wgiUrl.value} oninput={(e) => {
+                  const url = e.target.value;
+                  if (/^https?:\/\//.test(url)) {
+                    wgiUrlError = '';
+                    localStorage.setItem('sa-wgi-url', url);
+                    syncWgiUrl();
+                  } else {
+                    wgiUrlError = 'URL must start with http:// or https://';
+                  }
+                }} />
+                {#if wgiUrlError}
+                  <span class="text-[0.75rem] mt-1" style="color: #ff6b6b;">{wgiUrlError}</span>
+                {/if}
+              </div>
+              <div class="config-row">
+                <label class="config-label">Enable WGI Display</label>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked={scoringConfig.wgiEnabled} onchange={(e) => updateScoring('wgiEnabled', e.target.checked)} />
+                  <span class="toggle-track"></span>
+                </label>
               </div>
             </div>
 
@@ -2164,5 +2339,15 @@
     font-size: 0.65rem;
     color: var(--color-muted);
     margin-top: 1px;
+  }
+
+  /* ── Source Detail Panel ── */
+  .source-detail-panel {
+    border-color: rgba(120, 214, 255, 0.18);
+  }
+  .source-detail-scroll {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid var(--color-line);
   }
 </style>

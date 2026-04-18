@@ -10,6 +10,7 @@
     terrorism: "linear-gradient(90deg, rgba(167, 139, 250, 0.22), #a78bfa)",
     humanitarian: "linear-gradient(90deg, rgba(255, 178, 95, 0.22), #ffb25f)",
     infowar: "linear-gradient(90deg, rgba(120, 214, 255, 0.22), #78d6ff)",
+    governance: "linear-gradient(90deg, rgba(56, 189, 248, 0.22), #38bdf8)",
   };
   const barGradient = $derived(GRADIENTS[type] ?? GRADIENTS.civil);
   const displayMax = $derived(scoringConfig.componentDisplayMax ?? 100);

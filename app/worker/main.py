@@ -18,6 +18,8 @@ from email.utils import parsedate_to_datetime
 
 import httpx
 
+from app.scrapers.bluesky.fetcher import build_query as build_bluesky_query, fetch_posts as fetch_bluesky_posts
+from app.scrapers.x.fetcher import build_query as build_x_query, fetch_posts as fetch_x_posts
 from app.scrapers.common.classifier import classify
 from app.scrapers.common.geo import infer_geo
 from app.scrapers.google.fetcher import build_query, fetch_news
@@ -46,12 +48,16 @@ def make_id(source_id: str, title: str) -> str:
 
 
 def parse_timestamp(raw: str | None) -> str:
-    """Parse RFC 2822 date or return current time as ISO 8601."""
+    """Parse RFC 2822 or ISO 8601 date, or return current time as ISO 8601."""
     if not raw:
         return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     try:
-        dt = parsedate_to_datetime(raw)
-        # Ensure UTC
+        # Try ISO 8601 first (Bluesky uses this format)
+        if "T" in raw:
+            dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        else:
+            # Fall back to RFC 2822 (Google News)
+            dt = parsedate_to_datetime(raw)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
         return dt.isoformat().replace("+00:00", "Z")
@@ -150,6 +156,56 @@ _DRIVER_LABELS: dict[str, str] = {
     "censorship": "media censorship",
     "media": "media manipulation",
     "campaign": "coordinated campaign",
+    # War keywords (expanded)
+    "drone strike": "drone strike",
+    "drone attack": "drone attack",
+    "ballistic missile": "ballistic missile launch",
+    "cruise missile": "cruise missile strike",
+    "missile attack": "missile attack",
+    "missile strike": "missile strike",
+    "naval blockade": "naval blockade",
+    "strait closure": "strait closure",
+    "military retaliation": "military retaliation",
+    "retaliatory strike": "retaliatory strike",
+    "military operation": "military operation",
+    "kinetic strike": "kinetic strike",
+    "infrastructure strike": "infrastructure strike",
+    "troop mobilization": "troop mobilization",
+    "army mobilization": "army mobilization",
+    "military buildup": "military buildup",
+    # Military keywords (expanded)
+    "drone swarm": "drone swarm",
+    "unmanned aircraft": "unmanned aircraft operations",
+    "air defense": "air defense activation",
+    "interceptor": "interceptor deployment",
+    "naval deployment": "naval deployment",
+    "fleet deployment": "fleet deployment",
+    "combat readiness": "combat readiness",
+    "military drill": "military drill",
+    "military exercise": "military exercise",
+    # Civil keywords (expanded)
+    "martial law": "martial law",
+    "curfew": "curfew imposed",
+    "state of emergency": "state of emergency",
+    # Terrorism keywords (expanded)
+    "car bomb": "car bomb attack",
+    "suicide attack": "suicide attack",
+    "mass shooting": "mass shooting",
+    "lone wolf": "lone wolf attack",
+    "terrorist attack": "terrorist attack",
+    "bombing attack": "bombing attack",
+    # Humanitarian keywords (expanded)
+    "war crime": "war crimes",
+    "ethnic cleansing": "ethnic cleansing",
+    "genocide": "genocide",
+    "mass grave": "mass grave discovered",
+    "civilian casualties": "civilian casualties",
+    "infrastructure destroyed": "infrastructure destroyed",
+    # Narrative keywords (expanded)
+    "cyber attack": "cyber attack",
+    "cyberwarfare": "cyberwarfare",
+    "electronic warfare": "electronic warfare",
+    "deepfake": "deepfake campaign",
 }
 
 
@@ -203,6 +259,94 @@ def article_to_signal(article: dict, search: dict) -> dict:
     }
 
 
+def bluesky_post_to_signal(post: dict, search: dict) -> dict:
+    """Convert a normalized Bluesky post dict + its search config into a signal event."""
+    text = post.get("text", "")
+    title = text[:120]
+    source_id = search["id"]
+    event_id = make_id(source_id, text[:80])
+
+    classification = classify(title, text)
+    classification["drivers"] = humanize_drivers(classification.get("drivers", []))
+
+    geo = infer_geo(
+        place_hints=search.get("place_hints", []),
+        text=text,
+    )
+
+    author_info = post.get("author", {})
+    raw_ts = post.get("created_at") or post.get("indexed_at")
+
+    return {
+        "id": event_id,
+        "sourceId": source_id,
+        "sourceFamily": "bluesky",
+        "sourceName": "Bluesky",
+        "title": title,
+        "excerpt": text,
+        "url": post.get("url", ""),
+        "author": {
+            "name": author_info.get("display_name") or author_info.get("handle", "Unknown"),
+            "profileLocation": "",
+        },
+        "provenance": f"bluesky search: {search['label']}",
+        "engagement": {
+            "likes": post.get("likes", 0),
+            "reposts": post.get("reposts", 0),
+            "replies": post.get("replies", 0),
+            "quotes": post.get("quotes", 0),
+        },
+        "timestamp": parse_timestamp(raw_ts),
+        "geo": geo,
+        "classification": classification,
+        "corroborationCount": 1,
+    }
+
+
+def x_post_to_signal(post: dict, search: dict) -> dict:
+    """Convert a normalized X/Twitter post dict + its search config into a signal event."""
+    text = post.get("text", "")
+    title = text[:120]
+    source_id = search["id"]
+    event_id = make_id(source_id, text[:80])
+
+    classification = classify(title, text)
+    classification["drivers"] = humanize_drivers(classification.get("drivers", []))
+
+    geo = infer_geo(
+        place_hints=search.get("place_hints", []),
+        text=text,
+    )
+
+    author_info = post.get("author", {})
+    raw_ts = post.get("created_at")
+
+    return {
+        "id": event_id,
+        "sourceId": source_id,
+        "sourceFamily": "x",
+        "sourceName": "X / Twitter",
+        "title": title,
+        "excerpt": text,
+        "url": post.get("url", ""),
+        "author": {
+            "name": author_info.get("name") or author_info.get("username", "Unknown"),
+            "profileLocation": "",
+        },
+        "provenance": f"x search: {search['label']}",
+        "engagement": {
+            "likes": post.get("likes", 0),
+            "reposts": post.get("reposts", 0),
+            "replies": post.get("replies", 0),
+            "quotes": post.get("quotes", 0),
+        },
+        "timestamp": parse_timestamp(raw_ts),
+        "geo": geo,
+        "classification": classification,
+        "corroborationCount": 1,
+    }
+
+
 # ---------------------------------------------------------------------------
 # Location scoring — server-side port of frontend scoring.js
 # ---------------------------------------------------------------------------
@@ -231,6 +375,28 @@ def _unique(values: list) -> list:
     return result
 
 
+_DEFAULT_SCORING_CONFIG = {
+    "warMultiplier": 7.2,
+    "militaryMultiplier": 6.8,
+    "terrorismMultiplier": 6.6,
+    "civilMultiplier": 6.4,
+    "humanitarianMultiplier": 5.8,
+    "infowarMultiplier": 5.2,
+    "blendWeights": {
+        "war": 0.25,
+        "military": 0.20,
+        "civil": 0.18,
+        "terrorism": 0.15,
+        "humanitarian": 0.12,
+        "infowar": 0.10,
+    },
+    "corroborationBoost": 0.14,
+    "singleSourcePenalty": 0.92,
+    "confidenceBaseWeight": 0.72,
+    "confidenceCorrobWeight": 0.08,
+}
+
+
 def _signal_event_score(event: dict, ref_time: datetime) -> float:
     ts = datetime.fromisoformat(event["timestamp"].replace("Z", "+00:00"))
     hours_ago = _hours_between(ref_time, ts)
@@ -239,10 +405,19 @@ def _signal_event_score(event: dict, ref_time: datetime) -> float:
         event["classification"].get("confidencePenalty", 0),
         1.0 - event["geo"].get("confidence", 0.5),
     )
+    c = event["classification"]
+    total_weight = (
+        (c.get("warWeight", 0))
+        + (c.get("militaryWeight", 0))
+        + (c.get("civilWeight", 0))
+        + (c.get("terrorismWeight", 0))
+        + (c.get("humanitarianWeight", 0))
+        + (c.get("narrativeWeight", 0))
+    )
     return (
         _recency_weight(hours_ago)
-        * event["classification"].get("severity", 1)
-        * (event["classification"].get("civilWeight", 0) + event["classification"].get("militaryWeight", 0))
+        * c.get("severity", 1)
+        * total_weight
         * source_diversity_boost
         * confidence_penalty
     )
@@ -273,6 +448,7 @@ def compute_location_scores(
     signal_events: list[dict],
     reference_time: str | None = None,
     emphasis: str = "blend",
+    scoring_config: dict | None = None,
 ) -> list[dict]:
     """Compute location scores from signal events.
 
@@ -281,6 +457,9 @@ def compute_location_scores(
     """
     if not signal_events:
         return []
+
+    cfg = {**_DEFAULT_SCORING_CONFIG, **(scoring_config or {})}
+    bw = cfg["blendWeights"]
 
     ref_time = datetime.fromisoformat(
         (reference_time or datetime.now(timezone.utc).isoformat())
@@ -297,22 +476,37 @@ def compute_location_scores(
 
     scores = []
     for location_name, events in grouped.items():
-        # Civil and military components
-        civil_component = 0.0
+        # All six signal components (matching frontend scoring.js)
+        war_component = 0.0
         military_component = 0.0
+        civil_component = 0.0
+        terrorism_component = 0.0
+        humanitarian_component = 0.0
+        infowar_component = 0.0
         for e in events:
             ts = datetime.fromisoformat(e["timestamp"].replace("Z", "+00:00"))
             rw = _recency_weight(_hours_between(ref_time, ts))
-            civil_component += rw * e["classification"].get("civilWeight", 0) * 6.4
-            military_component += rw * e["classification"].get("militaryWeight", 0) * 6.8
+            c = e["classification"]
+            war_component += rw * c.get("warWeight", 0) * cfg["warMultiplier"]
+            military_component += rw * c.get("militaryWeight", 0) * cfg["militaryMultiplier"]
+            civil_component += rw * c.get("civilWeight", 0) * cfg["civilMultiplier"]
+            terrorism_component += rw * c.get("terrorismWeight", 0) * cfg["terrorismMultiplier"]
+            humanitarian_component += rw * c.get("humanitarianWeight", 0) * cfg["humanitarianMultiplier"]
+            infowar_component += rw * c.get("narrativeWeight", 0) * cfg["infowarMultiplier"]
 
-        # Base heat
-        if emphasis == "civil":
-            base_heat = civil_component
-        elif emphasis == "military":
-            base_heat = military_component
+        # Base heat — blended across all six components (matches frontend)
+        component_map = {
+            "war": war_component,
+            "military": military_component,
+            "civil": civil_component,
+            "terrorism": terrorism_component,
+            "humanitarian": humanitarian_component,
+            "infowar": infowar_component,
+        }
+        if emphasis in component_map:
+            base_heat = component_map[emphasis]
         else:
-            base_heat = civil_component * 0.56 + military_component * 0.44
+            base_heat = sum(component_map[k] * bw.get(k, 0) for k in component_map)
 
         # Corroboration
         corroboration = len(_unique([e.get("sourceFamily", "unknown") for e in events]))
@@ -327,10 +521,10 @@ def compute_location_scores(
             if 12 < _hours_between(ref_time, datetime.fromisoformat(e["timestamp"].replace("Z", "+00:00"))) <= 24
         ])
 
-        # Penalty for single-source uncorroborated
-        penalty = 0.82 if (any(e.get("corroborationCount", 1) < 2 for e in events) and corroboration == 1) else 1.0
+        # Penalty for single-source uncorroborated (less harsh than before)
+        penalty = cfg["singleSourcePenalty"] if (any(e.get("corroborationCount", 1) < 2 for e in events) and corroboration == 1) else 1.0
 
-        heat = _clamp(base_heat * (1 + corroboration * 0.14) * penalty, 0, 100)
+        heat = _clamp(base_heat * (1 + corroboration * cfg["corroborationBoost"]) * penalty, 0, 100)
         delta = _clamp(
             (velocity_recent - velocity_previous) * 6 + (4 if base_heat > 45 else 0),
             -40, 40,
@@ -345,12 +539,14 @@ def compute_location_scores(
 
         # Confidence
         avg_geo_confidence = sum(e["geo"].get("confidence", 0.5) for e in events) / max(len(events), 1)
-        confidence = avg_geo_confidence * (0.72 + corroboration * 0.08)
+        confidence = avg_geo_confidence * (cfg["confidenceBaseWeight"] + corroboration * cfg["confidenceCorrobWeight"])
 
-        # Trend (matches scoring.js)
+        # Trend (matches scoring.js — suppress when heat is negligible)
         recent_metric = velocity_recent * 10 + base_heat
         previous_metric = velocity_previous * 10 + base_heat * 0.6
-        if recent_metric - previous_metric > 8:
+        if heat < 1:
+            trend = "steady"
+        elif recent_metric - previous_metric > 8:
             trend = "warming"
         elif recent_metric - previous_metric < -5:
             trend = "cooling"
@@ -374,8 +570,12 @@ def compute_location_scores(
             "heat": round(heat, 1),
             "delta": round(delta, 1),
             "confidence": _clamp(round(confidence, 2), 0.12, 0.97),
-            "civilComponent": round(_clamp(civil_component, 0, 100), 1),
+            "warComponent": round(_clamp(war_component, 0, 100), 1),
             "militaryComponent": round(_clamp(military_component, 0, 100), 1),
+            "civilComponent": round(_clamp(civil_component, 0, 100), 1),
+            "terrorismComponent": round(_clamp(terrorism_component, 0, 100), 1),
+            "humanitarianComponent": round(_clamp(humanitarian_component, 0, 100), 1),
+            "infowarComponent": round(_clamp(infowar_component, 0, 100), 1),
             "trend": trend,
             "history": history,
             "sourceBreakdown": _dominant_source_families(events),
@@ -439,46 +639,96 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
     for search in searches:
         search_id = search.get("id", "unknown")
         search_label = search.get("label", search_id)
-        logger.info("Scraping search: %s (%s)", search_label, search_id)
+        platform = search.get("platform", "google")
+        logger.info("Scraping search: %s (%s) [platform=%s]", search_label, search_id, platform)
 
-        query = build_query(
-            search["topics"],
-            start_date=None,
-            end_date=None,
-            location=search.get("location"),
-        )
+        if platform == "bluesky":
+            # --- Bluesky source ---
+            bluesky_query = build_bluesky_query(search["topics"])
+            try:
+                posts = await fetch_bluesky_posts(bluesky_query, max_posts=search.get("max_articles", 15))
+            except Exception as exc:
+                logger.warning("Bluesky fetch failed for %s: %s", search_id, exc)
+                failures.append({"sourceId": search_id, "error": str(exc)})
+                continue
 
-        try:
-            articles = await fetch_news(
-                query,
-                max_articles=search.get("max_articles", 15),
+            source_catalog.append({
+                "id": search_id,
+                "label": search_label,
+                "source": "Bluesky",
+                "sourceFamily": "bluesky",
+                "sourceKind": "bluesky-search",
+                "url": "",
+                "itemCount": len(posts),
+            })
+
+            for post in posts:
+                signal = bluesky_post_to_signal(post, search)
+                all_signals.append(signal)
+
+            logger.info("Search %s bluesky complete: %d posts", search_id, len(posts))
+
+        elif platform == "x":
+            # --- X / Twitter source ---
+            x_query = build_x_query(search["topics"])
+            try:
+                posts = await fetch_x_posts(x_query, max_posts=search.get("max_articles", 15))
+            except Exception as exc:
+                logger.warning("X fetch failed for %s: %s", search_id, exc)
+                failures.append({"sourceId": search_id, "error": str(exc)})
+                continue
+
+            source_catalog.append({
+                "id": search_id,
+                "label": search_label,
+                "source": "X / Twitter",
+                "sourceFamily": "x",
+                "sourceKind": "x-search",
+                "url": "",
+                "itemCount": len(posts),
+            })
+
+            for post in posts:
+                signal = x_post_to_signal(post, search)
+                all_signals.append(signal)
+
+            logger.info("Search %s x complete: %d posts", search_id, len(posts))
+
+        else:
+            # --- Google News source (default) ---
+            query = build_query(
+                search["topics"],
+                start_date=None,
+                end_date=None,
+                location=search.get("location"),
             )
-        except Exception as exc:
-            logger.warning("Failed to fetch search %s: %s", search_id, exc)
-            failures.append({"sourceId": search_id, "error": str(exc)})
-            continue
 
-        source_catalog.append({
-            "id": search_id,
-            "label": search_label,
-            "source": "Google News",
-            "sourceFamily": "news",
-            "sourceKind": "google-news-rss",
-            "url": "",
-            "itemCount": len(articles),
-        })
+            try:
+                articles = await fetch_news(
+                    query,
+                    max_articles=search.get("max_articles", 15),
+                )
+            except Exception as exc:
+                logger.warning("Failed to fetch search %s: %s", search_id, exc)
+                failures.append({"sourceId": search_id, "error": str(exc)})
+                continue
 
-        for art in articles:
-            source_items.append({**art, "searchId": search_id})
-            signal = article_to_signal(art, search)
-            all_signals.append(signal)
+            source_catalog.append({
+                "id": search_id,
+                "label": search_label,
+                "source": "Google News",
+                "sourceFamily": "news",
+                "sourceKind": "google-news-rss",
+                "url": "",
+                "itemCount": len(articles),
+            })
 
-        logger.info(
-            "Search %s complete: %d articles, %d signals",
-            search_id,
-            len(articles),
-            len(articles),
-        )
+            for art in articles:
+                source_items.append({**art, "searchId": search_id})
+                signal = article_to_signal(art, search)
+                all_signals.append(signal)
+
+            logger.info("Search %s news complete: %d articles", search_id, len(articles))
 
     generated_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
@@ -497,8 +747,9 @@ async def run_scrape_cycle(client: httpx.AsyncClient, searches: list[dict]) -> d
         "failures": failures,
         "sourceStatus": {
             "rss": "missing",
-            "bluesky": "missing",
-            "news": "loaded" if all_signals else "empty",
+            "bluesky": "loaded" if any(s.get("sourceFamily") == "bluesky" for s in all_signals) else "missing",
+            "news": "loaded" if any(s.get("sourceFamily") == "news" for s in all_signals) else "empty",
+            "x": "loaded" if any(s.get("sourceFamily") == "x" for s in all_signals) else "missing",
         },
         "sourceItems": source_items,
         "signalEvents": all_signals,

@@ -1,5 +1,5 @@
 <script>
-  import { dataset, scoringConfig } from "../state.svelte.js";
+  import { dataset, scoringConfig, refreshDataset, syncScraperUrl } from "../state.svelte.js";
   import { DEFAULT_SCORING_CONFIG } from "../lib/scoring.js";
   let { onBack = () => {} } = $props();
 
@@ -94,6 +94,7 @@
 
   function saveScraperUrl() {
     localStorage.setItem(SCRAPER_STORAGE_KEY, scraperUrl);
+    syncScraperUrl();
     checkBackend();
   }
 
@@ -108,6 +109,7 @@
         fetchSchedule();
         fetchScoringConfig();
         fetchClassifierConfig();
+        fetchCredentials();
       }
     } catch {
       backendStatus = "offline";
@@ -139,9 +141,18 @@
         signal: AbortSignal.timeout(120000),
       });
       if (res.ok) {
-        const data = await res.json();
-        refreshMessage = `Refreshed — ${data.signalCount ?? 0} signals from ${data.sourceCount ?? 0} sources`;
-        await fetchBackendDataset();
+        const ds = await res.json();
+        // Update local admin state from the full dataset response
+        backendSources = ds.sourceCatalog ?? [];
+        backendStats = {
+          signals: ds.signalEvents?.length ?? 0,
+          sources: ds.sourceCatalog?.length ?? 0,
+          failures: ds.failures?.length ?? 0,
+          generatedAt: ds.generatedAt ? new Date(ds.generatedAt) : null,
+        };
+        // Push fresh data into the global dataset so the main app sees it
+        await refreshDataset(ds);
+        refreshMessage = `Refreshed — ${backendStats.signals} signals from ${backendStats.sources} sources`;
       } else {
         refreshMessage = `Refresh failed: HTTP ${res.status}`;
       }
@@ -154,12 +165,36 @@
 
   let searches = $state([]);
   let schedule = $state({ enabled: false, interval_minutes: 60 });
-  let addingSearch = $state(false);
+  let addingMode = $state(null); // null | "group" | "google" | "bluesky" | "x"
   let newLabel = $state("");
   let newTopics = $state("");
   let newLocation = $state("");
   let newPlaceHints = $state("");
   let newMaxArticles = $state(15);
+  let expandedGroups = $state(new Set());
+
+  const platformMeta = {
+    google: { name: "Google News", color: "#78d6ff", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" },
+    bluesky: { name: "Bluesky", color: "#49d4ba", icon: "M12 2C7.31 2 4.5 7.1 3.5 9.5c-1 2.5-.5 6.5 3 7 2.5.3 4-1 5-2.5.2-.3.35-.55.5-.75.15.2.3.45.5.75 1 1.5 2.5 2.8 5 2.5 3.5-.5 4-4.5 3-7C19.5 7.1 16.69 2 12 2z" },
+    x: { name: "X / Twitter", color: "#f0f4fb", icon: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" },
+  };
+
+  /** Group searches by their `group` field for display */
+  const searchGroups = $derived.by(() => {
+    const groups = new Map();
+    for (const s of searches) {
+      const g = s.group || s.id;
+      if (!groups.has(g)) groups.set(g, { group: g, label: s.label, location: s.location, topics: s.topics, max_articles: s.max_articles, place_hints: s.place_hints, sources: [] });
+      groups.get(g).sources.push(s);
+    }
+    return [...groups.values()];
+  });
+
+  function toggleGroup(group) {
+    const next = new Set(expandedGroups);
+    next.has(group) ? next.delete(group) : next.add(group);
+    expandedGroups = next;
+  }
 
   async function fetchSearches() {
     try {
@@ -184,8 +219,13 @@
     } catch {}
   }
 
+  function resetAddForm() {
+    addingMode = null;
+    newLabel = ""; newTopics = ""; newLocation = ""; newPlaceHints = ""; newMaxArticles = 15;
+  }
+
   async function addNewSearch() {
-    const search = {
+    const base = {
       label: newLabel.trim(),
       topics: newTopics.split(",").map(t => t.trim()).filter(Boolean),
       location: newLocation.trim() || null,
@@ -193,15 +233,31 @@
       max_articles: newMaxArticles,
     };
     try {
-      const res = await fetch(scraperUrl + "/searches", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(search),
-      });
+      let res;
+      if (addingMode === "group") {
+        // Create sources for ALL platforms
+        res = await fetch(scraperUrl + "/searches/group", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(base),
+        });
+      } else {
+        // Create a single platform source
+        res = await fetch(scraperUrl + "/searches", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...base, platform: addingMode }),
+        });
+      }
       if (res.ok) {
         await fetchSearches();
-        addingSearch = false;
-        newLabel = ""; newTopics = ""; newLocation = ""; newPlaceHints = ""; newMaxArticles = 15;
+        resetAddForm();
       }
+    } catch {}
+  }
+
+  async function deleteSearchGroup(group) {
+    try {
+      await fetch(scraperUrl + "/searches/group/" + encodeURIComponent(group), { method: "DELETE" });
+      await fetchSearches();
     } catch {}
   }
 
@@ -210,6 +266,59 @@
       await fetch(scraperUrl + "/searches/" + id, { method: "DELETE" });
       await fetchSearches();
     } catch {}
+  }
+
+  /* ── Source Credentials ── */
+  let credentials = $state(null);
+  let credsSaveMsg = $state("");
+  let credsKeyVisible = $state({});
+  // Editable credential values (separate from display to avoid overwriting masked values)
+  let credsEdit = $state({ bluesky: {}, x: {} });
+
+  async function fetchCredentials() {
+    try {
+      const res = await fetch(scraperUrl + "/config/credentials", { signal: AbortSignal.timeout(5000) });
+      if (res.ok) {
+        credentials = await res.json();
+        // Pre-fill non-secret fields for editing
+        credsEdit = {
+          bluesky: {
+            identifier: credentials.bluesky?.identifier || "",
+            app_password: "",
+            pds_url: credentials.bluesky?.pds_url || "https://bsky.social",
+          },
+          x: {
+            bearer_token: "",
+            api_base_url: credentials.x?.api_base_url || "https://api.x.com",
+          },
+        };
+      }
+    } catch {}
+  }
+
+  async function saveCredentials() {
+    // Only send fields that have non-empty values
+    const body = {};
+    for (const [platform, fields] of Object.entries(credsEdit)) {
+      const filtered = {};
+      for (const [key, value] of Object.entries(fields)) {
+        if (value && value.trim()) filtered[key] = value.trim();
+      }
+      if (Object.keys(filtered).length) body[platform] = filtered;
+    }
+    try {
+      const res = await fetch(scraperUrl + "/config/credentials", {
+        method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (res.ok) {
+        credsSaveMsg = "Credentials saved.";
+        await fetchCredentials();
+        setTimeout(() => { credsSaveMsg = ""; }, 3000);
+      }
+    } catch (e) {
+      credsSaveMsg = `Save failed: ${e.message}`;
+    }
   }
 
   /* ── Scoring Config ── */
@@ -315,6 +424,32 @@
   // Check backend on mount
   $effect(() => { checkBackend(); });
 
+  /* ── Env-var override warning for AI tab ── */
+  let envOverrides = $state(null); // null = not fetched, object = fetched flags
+
+  async function fetchEnvStatus() {
+    try {
+      const res = await fetch(scraperUrl + "/config/llm/env-status", { signal: AbortSignal.timeout(5000) });
+      if (res.ok) {
+        envOverrides = await res.json();
+      }
+    } catch {
+      envOverrides = null; // graceful degradation
+    }
+  }
+
+  // Fetch env status when AI tab is selected
+  $effect(() => {
+    if (activeTab === "ai") {
+      fetchEnvStatus();
+    }
+  });
+
+  const envOverrideKeys = $derived.by(() => {
+    if (!envOverrides) return [];
+    return Object.entries(envOverrides).filter(([, v]) => v).map(([k]) => k);
+  });
+
   /* ── AI / LLM Configuration (persisted to localStorage) ── */
   const AI_STORAGE_KEY = "sa-ai-config";
 
@@ -340,6 +475,7 @@
       enableSummarization: true,
       enableGeoExtraction: true,
       enableTrendAnalysis: false,
+      summaryPromptTemplate: "The user requested news on: {request_description}\n\n{question_block}Below are {article_count} article headlines and snippets. Write a concise, factual intelligence summary of the key events, organized by theme or chronology, and call out notable trends or disagreements between sources. Do not invent facts beyond what's in the snippets.\n\nARTICLES:\n{articles}",
       rateLimitRpm: 60,
       timeoutMs: 30000,
     };
@@ -350,12 +486,59 @@
   let aiTestMessage = $state("");
   let aiKeyVisible = $state(false);
 
-  function saveAiConfig() {
+  async function saveAiConfig() {
     localStorage.setItem(AI_STORAGE_KEY, JSON.stringify(aiConfig));
+    // Also persist feature toggles and system prompt to backend
+    try {
+      await fetch(scraperUrl + "/config/llm", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          endpoint: aiConfig.endpoint,
+          model: aiConfig.model,
+          temperature: aiConfig.temperature,
+          maxTokens: aiConfig.maxTokens,
+          apiKey: aiConfig.apiKey,
+          enableClassification: aiConfig.enableClassification,
+          enableSummarization: aiConfig.enableSummarization,
+          enableGeoExtraction: aiConfig.enableGeoExtraction,
+          enableTrendAnalysis: aiConfig.enableTrendAnalysis,
+          systemPrompt: aiConfig.systemPrompt,
+          rateLimitRpm: aiConfig.rateLimitRpm,
+          timeoutMs: aiConfig.timeoutMs,
+        }),
+      });
+    } catch { /* backend save is best-effort */ }
     aiTestStatus = "success";
     aiTestMessage = "Configuration saved.";
     setTimeout(() => { aiTestStatus = null; aiTestMessage = ""; }, 3000);
   }
+
+  async function loadAiConfigFromBackend() {
+    try {
+      const res = await fetch(scraperUrl + "/config/llm", { signal: AbortSignal.timeout(5000) });
+      if (res.ok) {
+        const backendCfg = await res.json();
+        // Backend is source of truth for feature toggles and system prompt
+        if (backendCfg.enableClassification !== undefined) aiConfig.enableClassification = backendCfg.enableClassification;
+        if (backendCfg.enableSummarization !== undefined) aiConfig.enableSummarization = backendCfg.enableSummarization;
+        if (backendCfg.enableGeoExtraction !== undefined) aiConfig.enableGeoExtraction = backendCfg.enableGeoExtraction;
+        if (backendCfg.enableTrendAnalysis !== undefined) aiConfig.enableTrendAnalysis = backendCfg.enableTrendAnalysis;
+        if (backendCfg.systemPrompt) aiConfig.systemPrompt = backendCfg.systemPrompt;
+        if (backendCfg.endpoint) aiConfig.endpoint = backendCfg.endpoint;
+        if (backendCfg.model) aiConfig.model = backendCfg.model;
+        if (backendCfg.temperature !== undefined) aiConfig.temperature = backendCfg.temperature;
+        if (backendCfg.maxTokens !== undefined) aiConfig.maxTokens = backendCfg.maxTokens;
+      }
+    } catch { /* ignore — local config is fallback */ }
+  }
+
+  // Load backend AI config when AI tab is selected
+  $effect(() => {
+    if (activeTab === "ai") {
+      loadAiConfigFromBackend();
+    }
+  });
 
   function resetAiConfig() {
     aiConfig = defaultAiConfig();
@@ -464,6 +647,108 @@
             </div>
           </div>
 
+          <!-- ── Source Credentials ── -->
+          <div class="info-card mb-4">
+            <h3 class="info-card-title">Source Credentials</h3>
+            <p class="m-0 mb-3 text-[0.68rem] text-muted">Configure API credentials for each data source. Google News requires no credentials.</p>
+
+            {#if credentials}
+            <div class="grid grid-cols-2 gap-4 max-[820px]:grid-cols-1">
+              <!-- Bluesky -->
+              <div style="border: 1px solid rgba(73,212,186,0.15); border-radius: 6px; padding: 12px;">
+                <div class="flex items-center gap-2 mb-2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#49d4ba"><path d={platformMeta.bluesky.icon} /></svg>
+                  <span class="text-[0.78rem] font-medium" style="color: #49d4ba;">Bluesky</span>
+                  {#if credentials.bluesky?.app_password_set}
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(73,212,186,0.12); color: #49d4ba;">configured</span>
+                  {:else}
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(255,117,87,0.12); color: #ff7557;">not set</span>
+                  {/if}
+                </div>
+                <div class="config-row">
+                  <label class="config-label">Identifier</label>
+                  <input type="text" class="config-input config-input-wide" bind:value={credsEdit.bluesky.identifier} placeholder="your-handle.bsky.social" />
+                </div>
+                <div class="config-row">
+                  <label class="config-label">App Password</label>
+                  <div class="flex items-center gap-1">
+                    <input
+                      type={credsKeyVisible.bluesky ? "text" : "password"}
+                      class="config-input config-input-wide"
+                      bind:value={credsEdit.bluesky.app_password}
+                      placeholder={credentials.bluesky?.app_password_set ? "(saved — leave blank to keep)" : "xxxx-xxxx-xxxx-xxxx"}
+                    />
+                    <button type="button" class="action-btn" style="padding: 5px 6px; min-width: unset;" onclick={() => credsKeyVisible = {...credsKeyVisible, bluesky: !credsKeyVisible.bluesky}}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        {#if credsKeyVisible.bluesky}
+                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/>
+                        {:else}
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                        {/if}
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="config-row">
+                  <label class="config-label">PDS URL</label>
+                  <input type="text" class="config-input config-input-wide" bind:value={credsEdit.bluesky.pds_url} placeholder="https://bsky.social" />
+                </div>
+              </div>
+
+              <!-- X / Twitter -->
+              <div style="border: 1px solid rgba(240,244,251,0.15); border-radius: 6px; padding: 12px;">
+                <div class="flex items-center gap-2 mb-2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f0f4fb"><path d={platformMeta.x.icon} /></svg>
+                  <span class="text-[0.78rem] font-medium" style="color: #f0f4fb;">X / Twitter</span>
+                  {#if credentials.x?.bearer_token_set}
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(240,244,251,0.12); color: #f0f4fb;">configured</span>
+                  {:else}
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded" style="background: rgba(255,117,87,0.12); color: #ff7557;">not set</span>
+                  {/if}
+                </div>
+                <div class="config-row">
+                  <label class="config-label">Bearer Token</label>
+                  <div class="flex items-center gap-1">
+                    <input
+                      type={credsKeyVisible.x ? "text" : "password"}
+                      class="config-input config-input-wide"
+                      bind:value={credsEdit.x.bearer_token}
+                      placeholder={credentials.x?.bearer_token_set ? "(saved — leave blank to keep)" : "AAAA..."}
+                    />
+                    <button type="button" class="action-btn" style="padding: 5px 6px; min-width: unset;" onclick={() => credsKeyVisible = {...credsKeyVisible, x: !credsKeyVisible.x}}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        {#if credsKeyVisible.x}
+                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/>
+                        {:else}
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                        {/if}
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="config-row">
+                  <label class="config-label">API Base URL</label>
+                  <input type="text" class="config-input config-input-wide" bind:value={credsEdit.x.api_base_url} placeholder="https://api.x.com" />
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 flex items-center gap-3">
+              <button type="button" class="admin-btn" onclick={saveCredentials} disabled={backendStatus !== 'online'}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save Credentials
+              </button>
+              {#if credsSaveMsg}
+                <span class="font-mono text-[0.65rem]" class:text-civil={!credsSaveMsg.includes('failed')} class:text-military={credsSaveMsg.includes('failed')}>{credsSaveMsg}</span>
+              {/if}
+            </div>
+            {:else if backendStatus === 'online'}
+              <p class="text-[0.72rem] text-muted">Loading credentials...</p>
+            {:else}
+              <p class="text-[0.72rem] text-muted">Connect backend to configure credentials.</p>
+            {/if}
+          </div>
+
           <!-- ── Stats Ribbon (from backend) ── -->
           <div class="grid grid-cols-4 gap-px bg-line mb-5 max-[820px]:grid-cols-2">
             <div class="stat-cell bg-bg">
@@ -511,45 +796,109 @@
           </div>
 
           <!-- ── Configured Searches ── -->
-          <div class="flex items-center gap-3 mb-3">
+          <div class="flex items-center gap-3 mb-3 flex-wrap">
             <span class="font-mono text-[0.65rem] tracking-[0.14em] uppercase text-muted">Configured Searches</span>
             <hr class="rule-thin flex-1" />
-            <button type="button" class="admin-btn" style="padding: 6px 14px;" onclick={() => addingSearch = !addingSearch} disabled={backendStatus !== 'online'}>
-              {addingSearch ? '✕ Cancel' : '+ Add Search'}
-            </button>
+            {#if addingMode}
+              <button type="button" class="admin-btn" style="padding: 6px 14px;" onclick={resetAddForm}>✕ Cancel</button>
+            {:else}
+              <button type="button" class="admin-btn" style="padding: 6px 14px;" onclick={() => addingMode = 'group'} disabled={backendStatus !== 'online'}>+ Search All</button>
+              {#each Object.entries(platformMeta) as [pid, plat]}
+                <button type="button" class="admin-btn" style="padding: 6px 14px; border-color: {plat.color}33; color: {plat.color};" onclick={() => addingMode = pid} disabled={backendStatus !== 'online'}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" opacity="0.7"><path d={plat.icon} /></svg>
+                  + {plat.name}
+                </button>
+              {/each}
+            {/if}
           </div>
 
-          {#if addingSearch}
-          <div class="info-card mb-4">
-            <h3 class="info-card-title">New Search</h3>
+          {#if addingMode}
+          {@const isGroup = addingMode === 'group'}
+          {@const formMeta = isGroup ? { name: 'All Platforms', color: '#f0f4fb' } : platformMeta[addingMode]}
+          <div class="info-card mb-4" style="border-color: {formMeta.color}22;">
+            <h3 class="info-card-title" style="color: {formMeta.color};">
+              {isGroup ? 'New Search (All Platforms)' : `New ${formMeta.name} Source`}
+            </h3>
+            <p class="m-0 mb-3 text-[0.68rem] text-muted">
+              {isGroup
+                ? 'Creates sources for all platforms (Google News, Bluesky, X) sharing the same keywords and location.'
+                : `Creates a single ${formMeta.name} source with the specified keywords.`}
+            </p>
             <div class="grid gap-2">
               <div class="config-row"><label class="config-label">Label</label><input type="text" class="config-input config-input-wide" bind:value={newLabel} placeholder="e.g. Sudan Conflict" /></div>
               <div class="config-row"><label class="config-label">Topics (comma-sep)</label><input type="text" class="config-input config-input-wide" bind:value={newTopics} placeholder="e.g. Sudan conflict, RSF Khartoum" /></div>
               <div class="config-row"><label class="config-label">Location</label><input type="text" class="config-input config-input-wide" bind:value={newLocation} placeholder="e.g. Sudan (optional)" /></div>
               <div class="config-row"><label class="config-label">Place Hints (comma-sep)</label><input type="text" class="config-input config-input-wide" bind:value={newPlaceHints} placeholder="e.g. Sudan, Khartoum" /></div>
-              <div class="config-row"><label class="config-label">Max Articles</label><input type="number" class="config-input" bind:value={newMaxArticles} min="5" max="50" /></div>
+              <div class="config-row"><label class="config-label">Max Results</label><input type="number" class="config-input" bind:value={newMaxArticles} min="5" max="50" /></div>
             </div>
             <div class="mt-3">
-              <button type="button" class="admin-btn" onclick={addNewSearch} disabled={!newLabel.trim() || !newTopics.trim()}>Add Search</button>
+              <button type="button" class="admin-btn" style="border-color: {formMeta.color}44; color: {formMeta.color};" onclick={addNewSearch} disabled={!newLabel.trim() || !newTopics.trim()}>
+                {isGroup ? 'Create Search Group' : `Add ${formMeta.name} Source`}
+              </button>
             </div>
           </div>
           {/if}
 
           <div class="admin-table-wrap mb-5">
             <table class="admin-table">
-              <thead><tr><th>Search</th><th>Topics</th><th>Location</th><th>Max</th><th></th></tr></thead>
+              <thead><tr><th style="width: 28%;">Search</th><th>Sources</th><th>Topics</th><th>Location</th><th>Max</th><th></th></tr></thead>
               <tbody>
-                {#each searches as search}
-                  <tr>
-                    <td><div class="flex flex-col"><span class="font-medium text-[0.82rem]">{search.label}</span><span class="font-mono text-[0.6rem] text-muted">{search.id}</span></div></td>
-                    <td class="font-mono text-[0.68rem] text-muted">{(search.topics || []).join(", ")}</td>
-                    <td class="text-[0.72rem]">{search.location || "—"}</td>
-                    <td class="tabular-nums">{search.max_articles}</td>
-                    <td><button type="button" class="action-btn action-danger" onclick={() => deleteSearch(search.id)}>Delete</button></td>
+                {#each searchGroups as grp}
+                  {@const isExpanded = expandedGroups.has(grp.group)}
+                  <!-- Group header row -->
+                  <tr class="cursor-pointer" style="border-left: 3px solid rgba(240,244,251,0.15);" onclick={() => toggleGroup(grp.group)}>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition: transform 150ms; transform: rotate({isExpanded ? 90 : 0}deg); opacity: 0.4;">
+                          <path d="M9 18l6-6-6-6" />
+                        </svg>
+                        <div class="flex flex-col">
+                          <span class="font-medium text-[0.82rem]">{grp.label}</span>
+                          <span class="font-mono text-[0.58rem] text-muted">{grp.group}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex items-center gap-1.5">
+                        {#each grp.sources as src}
+                          {@const plat = platformMeta[src.platform] || platformMeta.google}
+                          <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[0.62rem] font-medium" style="background: {plat.color}12; color: {plat.color}; border: 1px solid {plat.color}22;" title={src.id}>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d={plat.icon} /></svg>
+                            {plat.name}
+                          </span>
+                        {/each}
+                      </div>
+                    </td>
+                    <td class="font-mono text-[0.68rem] text-muted">{(grp.topics || []).join(", ")}</td>
+                    <td class="text-[0.72rem]">{grp.location || "—"}</td>
+                    <td class="tabular-nums">{grp.max_articles}</td>
+                    <td>
+                      <button type="button" class="action-btn action-danger" onclick={(e) => { e.stopPropagation(); deleteSearchGroup(grp.group); }} title="Delete entire search group">Delete</button>
+                    </td>
                   </tr>
+                  <!-- Expanded sub-sources -->
+                  {#if isExpanded}
+                    {#each grp.sources as src}
+                      {@const plat = platformMeta[src.platform] || platformMeta.google}
+                      <tr style="background: rgba(240,244,251,0.02); border-left: 3px solid {plat.color}33;">
+                        <td class="pl-8">
+                          <div class="flex items-center gap-2">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill={plat.color}><path d={plat.icon} /></svg>
+                            <span class="text-[0.76rem]" style="color: {plat.color};">{plat.name}</span>
+                          </div>
+                          <span class="font-mono text-[0.58rem] text-muted pl-5">{src.id}</span>
+                        </td>
+                        <td><span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[0.62rem] font-medium" style="background: {plat.color}12; color: {plat.color}; border: 1px solid {plat.color}22;">{plat.name}</span></td>
+                        <td class="font-mono text-[0.68rem] text-muted">{(src.topics || []).join(", ")}</td>
+                        <td class="text-[0.72rem]">{src.location || "—"}</td>
+                        <td class="tabular-nums">{src.max_articles}</td>
+                        <td><button type="button" class="action-btn action-danger" onclick={() => deleteSearch(src.id)} title="Remove this platform source only">Remove</button></td>
+                      </tr>
+                    {/each}
+                  {/if}
                 {/each}
-                {#if searches.length === 0}
-                  <tr><td colspan="5" class="text-center text-muted font-mono text-[0.72rem] py-6">{backendStatus === 'online' ? 'No searches configured' : 'Connect backend to manage'}</td></tr>
+                {#if searchGroups.length === 0}
+                  <tr><td colspan="6" class="text-center text-muted font-mono text-[0.72rem] py-6">{backendStatus === 'online' ? 'No searches configured' : 'Connect backend to manage'}</td></tr>
                 {/if}
               </tbody>
             </table>
@@ -625,6 +974,13 @@
         <div class="admin-section">
           <h2 class="admin-heading">AI / LLM Configuration</h2>
           <p class="admin-desc">Connect any OpenAI-compatible endpoint for signal classification, summarization, and threat analysis.</p>
+
+          {#if envOverrideKeys.length > 0}
+            <div class="env-warning-banner">
+              <span class="env-warning-icon">&#9888;</span>
+              <span>Environment variables detected (<strong>{envOverrideKeys.join(", ")}</strong>) that may override settings configured here. Contact your system administrator to update the deployment configuration.</span>
+            </div>
+          {/if}
 
           <div class="grid grid-cols-2 gap-4 max-[820px]:grid-cols-1">
             <!-- Endpoint & Auth -->
@@ -714,6 +1070,20 @@
                 rows="4"
                 bind:value={aiConfig.systemPrompt}
                 placeholder="System prompt for the AI analyst..."
+              ></textarea>
+            </div>
+
+            <!-- Summary Prompt Template -->
+            <div class="info-card" style="grid-column: 1 / -1;">
+              <h3 class="info-card-title">Summary Prompt Template</h3>
+              <p class="m-0 mb-2 text-[0.65rem] text-muted">
+                Template for article summarization. Available variables: {'{request_description}'}, {'{question_block}'}, {'{article_count}'}, {'{articles}'}
+              </p>
+              <textarea
+                class="config-textarea"
+                rows="6"
+                bind:value={aiConfig.summaryPromptTemplate}
+                placeholder="Below are {'{article_count}'} articles..."
               ></textarea>
             </div>
 
@@ -853,12 +1223,44 @@
                 <input type="number" class="config-input" value={scoringConfig.militaryMultiplier} step="0.1" min="0" max="20" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('militaryMultiplier', Number(e.target.value))} />
               </div>
               <div class="config-row">
-                <label class="config-label">Civil Blend Weight</label>
-                <input type="number" class="config-input" value={scoringConfig.blendCivil} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('blendCivil', Number(e.target.value))} />
+                <label class="config-label">War Multiplier</label>
+                <input type="number" class="config-input" value={scoringConfig.warMultiplier} step="0.1" min="0" max="20" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('warMultiplier', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Terrorism Multiplier</label>
+                <input type="number" class="config-input" value={scoringConfig.terrorismMultiplier} step="0.1" min="0" max="20" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('terrorismMultiplier', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Humanitarian Multiplier</label>
+                <input type="number" class="config-input" value={scoringConfig.humanitarianMultiplier} step="0.1" min="0" max="20" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('humanitarianMultiplier', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Infowar Multiplier</label>
+                <input type="number" class="config-input" value={scoringConfig.infowarMultiplier} step="0.1" min="0" max="20" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('infowarMultiplier', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">War Blend Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.blendWeights?.war ?? 0.25} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => { if (!scoringConfig.blendWeights) scoringConfig.blendWeights = {}; scoringConfig.blendWeights.war = Number(e.target.value); scoringConfigDirty = true; }} />
               </div>
               <div class="config-row">
                 <label class="config-label">Military Blend Weight</label>
-                <input type="number" class="config-input" value={scoringConfig.blendMilitary} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('blendMilitary', Number(e.target.value))} />
+                <input type="number" class="config-input" value={scoringConfig.blendWeights?.military ?? 0.20} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => { if (!scoringConfig.blendWeights) scoringConfig.blendWeights = {}; scoringConfig.blendWeights.military = Number(e.target.value); scoringConfigDirty = true; }} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Civil Blend Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.blendWeights?.civil ?? 0.18} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => { if (!scoringConfig.blendWeights) scoringConfig.blendWeights = {}; scoringConfig.blendWeights.civil = Number(e.target.value); scoringConfigDirty = true; }} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Terrorism Blend Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.blendWeights?.terrorism ?? 0.15} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => { if (!scoringConfig.blendWeights) scoringConfig.blendWeights = {}; scoringConfig.blendWeights.terrorism = Number(e.target.value); scoringConfigDirty = true; }} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Humanitarian Blend Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.blendWeights?.humanitarian ?? 0.12} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => { if (!scoringConfig.blendWeights) scoringConfig.blendWeights = {}; scoringConfig.blendWeights.humanitarian = Number(e.target.value); scoringConfigDirty = true; }} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Infowar Blend Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.blendWeights?.infowar ?? 0.10} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => { if (!scoringConfig.blendWeights) scoringConfig.blendWeights = {}; scoringConfig.blendWeights.infowar = Number(e.target.value); scoringConfigDirty = true; }} />
               </div>
               <div class="config-row">
                 <label class="config-label">Single-Source Penalty</label>
@@ -933,8 +1335,20 @@
                   <textarea class="config-textarea" rows="2" value={(classifierConfig.militaryKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('militaryKeywords', e.target.value)}></textarea>
                 </div>
                 <div>
+                  <label class="config-label mb-1 block">War Keywords</label>
+                  <textarea class="config-textarea" rows="2" value={(classifierConfig.warKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('warKeywords', e.target.value)}></textarea>
+                </div>
+                <div>
                   <label class="config-label mb-1 block">Civil Keywords</label>
                   <textarea class="config-textarea" rows="2" value={(classifierConfig.civilKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('civilKeywords', e.target.value)}></textarea>
+                </div>
+                <div>
+                  <label class="config-label mb-1 block">Terrorism Keywords</label>
+                  <textarea class="config-textarea" rows="2" value={(classifierConfig.terrorismKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('terrorismKeywords', e.target.value)}></textarea>
+                </div>
+                <div>
+                  <label class="config-label mb-1 block">Humanitarian Keywords</label>
+                  <textarea class="config-textarea" rows="2" value={(classifierConfig.humanitarianKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('humanitarianKeywords', e.target.value)}></textarea>
                 </div>
                 <div>
                   <label class="config-label mb-1 block">Narrative Keywords</label>
@@ -1117,6 +1531,27 @@
 {/if}
 
 <style>
+  /* ── Env Warning Banner ── */
+  .env-warning-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    background: rgba(255, 178, 95, 0.1);
+    border: 1px solid rgba(255, 178, 95, 0.35);
+    border-radius: 4px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #ffb25f;
+  }
+  .env-warning-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
   /* ── Admin Layout ── */
   .admin-layout {
     display: grid;

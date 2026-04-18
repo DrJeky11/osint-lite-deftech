@@ -4,6 +4,17 @@
   let { event } = $props();
 
   const authorName = $derived(event.author?.handle ? `@${event.author.handle}` : event.author?.name ?? event.sourceName);
+
+  /** Decode HTML entities that leak through from RSS feeds. */
+  function decodeEntities(str) {
+    if (!str || !str.includes("&")) return str;
+    const el = document.createElement("textarea");
+    el.innerHTML = str;
+    return el.value;
+  }
+
+  const title = $derived(decodeEntities(event.title));
+  const excerpt = $derived(decodeEntities(event.excerpt));
 </script>
 
 <article class="grid gap-1.5 py-3.5 border-t border-line first:pt-0 first:border-t-0">
@@ -15,12 +26,12 @@
     {#if event.url}
       <a href={event.url} target="_blank" rel="noreferrer"
         class="no-underline border-b border-[rgba(255,255,255,0.12)] hover:border-amber transition-colors"
-      >{event.title}</a>
+      >{title}</a>
     {:else}
-      {event.title}
+      {title}
     {/if}
   </h4>
-  <p class="m-0 text-evidence-body text-[0.82rem] leading-[1.55]">{event.excerpt}</p>
+  <p class="m-0 text-evidence-body text-[0.82rem] leading-[1.55]">{excerpt}</p>
   <footer class="text-muted font-mono text-[0.58rem] tracking-[0.1em] uppercase">
     {authorName} &middot; {event.geo.name} &middot; {Math.round(event.geo.confidence * 100)}% &middot; {event.classification.signalType}
   </footer>

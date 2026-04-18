@@ -1,9 +1,12 @@
 <script>
+  import { scoringConfig } from "../state.svelte.js";
+
   let { history = [] } = $props();
 
   function computePath(data) {
     if (!data.length) return { polyline: "", area: "", lastPoint: null };
-    const maxValue = Math.max(...data, 1);
+    const refMax = scoringConfig.sparklineReferenceMax ?? 100;
+    const maxValue = Math.max(...data, refMax);
     const points = data.map((value, index) => ({
       x: index * (240 / Math.max(data.length - 1, 1)),
       y: 68 - (value / maxValue) * 54

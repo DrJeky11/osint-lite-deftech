@@ -23,6 +23,10 @@ services:
       dockerfile: app/worker/Dockerfile
     environment:
       - API_BASE_URL=http://api:8000
+      - BLUESKY_IDENTIFIER=${BLUESKY_IDENTIFIER:-}
+      - BLUESKY_APP_PASSWORD=${BLUESKY_APP_PASSWORD:-}
+      - BLUESKY_PDS_URL=${BLUESKY_PDS_URL:-}
+      - X_BEARER_TOKEN=${X_BEARER_TOKEN:-}
     depends_on:
       api:
         condition: service_healthy

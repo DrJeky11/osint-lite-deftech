@@ -15,6 +15,15 @@ logger = logging.getLogger("summarizer")
 
 LLM_CONFIG_PATH = Path(__file__).parent / "llm_config.json"
 
+DEFAULT_SUMMARY_PROMPT_TEMPLATE = (
+    "The user requested news on: {request_description}\n\n"
+    "{question_block}Below are {article_count} article headlines and snippets. "
+    "Write a concise, factual intelligence summary of the key events, organized by theme "
+    "or chronology, and call out notable trends or disagreements between sources. "
+    "Do not invent facts beyond what's in the snippets.\n\n"
+    "ARTICLES:\n{articles}"
+)
+
 
 def _get_llm_config() -> dict:
     """Read LLM config, falling back to env vars."""
@@ -65,15 +74,19 @@ async def summarize(
         if question else ""
     )
 
-    prompt = (
-        f"The user requested news on: {request_description}\n\n"
-        f"{question_block}"
-        f"Below are {len(articles)} article headlines and snippets. "
-        f"Write a concise, factual summary of the key events, organized by theme "
-        f"or chronology, and call out notable trends or disagreements between sources. "
-        f"Do not invent facts beyond what's in the snippets.\n\n"
-        f"ARTICLES:\n{formatted}"
+    template = cfg.get("summaryPromptTemplate", "") or DEFAULT_SUMMARY_PROMPT_TEMPLATE
+    prompt = template.format(
+        request_description=request_description,
+        question_block=question_block,
+        article_count=len(articles),
+        articles=formatted,
     )
+
+    system_prompt = cfg.get("systemPrompt", "")
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": prompt})
 
     try:
         async with httpx.AsyncClient(timeout=60) as client:
@@ -85,7 +98,7 @@ async def summarize(
                 },
                 json={
                     "model": model,
-                    "messages": [{"role": "user", "content": prompt}],
+                    "messages": messages,
                     "temperature": cfg.get("temperature", 0.3),
                     "max_tokens": cfg.get("maxTokens", 4096),
                 },
@@ -94,5 +107,5 @@ async def summarize(
             data = resp.json()
             return data["choices"][0]["message"]["content"]
     except Exception as e:
-        logger.error("LLM call failed: %s", e)
-        return f"LLM summarization failed: {e}"
+        logger.error("LLM call failed: %s", e, exc_info=True)
+        return "Summary unavailable — the LLM service returned an error. Check your AI configuration in Admin settings."

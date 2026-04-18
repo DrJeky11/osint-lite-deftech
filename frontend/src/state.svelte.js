@@ -1,17 +1,48 @@
 import { dataset as staticDataset } from "./generated/osint-data.js";
 import { computeLocationScores, DEFAULT_SCORING_CONFIG } from "./lib/scoring.js";
 
-const SCRAPER_URL = typeof localStorage !== 'undefined'
-  ? (localStorage.getItem("sa-scraper-config") || "http://localhost:8000")
-  : "http://localhost:8000";
+const SCRAPER_STORAGE_KEY = "sa-scraper-config";
+
+function _readScraperUrl() {
+  return typeof localStorage !== 'undefined'
+    ? (localStorage.getItem(SCRAPER_STORAGE_KEY) || "http://localhost:8000")
+    : "http://localhost:8000";
+}
+
+/** Reactive scraper URL state. Use scraperUrl.value to read. */
+export const scraperUrl = $state({ value: _readScraperUrl() });
+
+/** Call after the admin page saves a new scraper URL to localStorage. */
+export function syncScraperUrl() {
+  scraperUrl.value = _readScraperUrl();
+}
 
 export const dataset = $state({ ...staticDataset });
 
 export const scoringConfig = $state({ ...DEFAULT_SCORING_CONFIG });
 
+/**
+ * Re-fetch the full dataset from the backend and update global state.
+ * Can be called after an admin refresh to push fresh data to the whole app.
+ * Optionally accepts a pre-fetched dataset object to skip the network call.
+ */
+export async function refreshDataset(prefetched) {
+  try {
+    if (prefetched) {
+      Object.assign(dataset, prefetched);
+      return;
+    }
+    const res = await fetch(scraperUrl.value + "/dataset", { signal: AbortSignal.timeout(10000) });
+    if (res.ok) {
+      const live = await res.json();
+      if (live) Object.assign(dataset, live);
+    }
+  } catch { /* ignore — stale data is better than crashing */ }
+}
+
 // Try to fetch live data and scoring config from backend on load
 if (typeof window !== 'undefined') {
-  fetch(SCRAPER_URL + "/dataset", { signal: AbortSignal.timeout(5000) })
+  fetch(scraperUrl.value + "/dataset", { signal: AbortSignal.timeout(5000) })
     .then(res => res.ok ? res.json() : null)
     .then(live => {
       if (live && live.signalEvents?.length) {
@@ -20,7 +51,7 @@ if (typeof window !== 'undefined') {
     })
     .catch(() => {});
 
-  fetch(SCRAPER_URL + "/config/scoring", { signal: AbortSignal.timeout(5000) })
+  fetch(scraperUrl.value + "/config/scoring", { signal: AbortSignal.timeout(5000) })
     .then(res => res.ok ? res.json() : null)
     .then(cfg => {
       if (cfg) Object.assign(scoringConfig, cfg);

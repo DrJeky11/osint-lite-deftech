@@ -2,6 +2,10 @@
 
 Searches are persisted to searches.json so they can be managed at runtime
 via the /searches CRUD endpoints.
+
+Each search has a ``group`` field that ties platform-specific sources
+together.  The "Add Search" UI creates one source per platform sharing
+the same group slug.
 """
 
 import json
@@ -10,9 +14,11 @@ from pathlib import Path
 
 SEARCHES_PATH = Path(__file__).parent / "searches.json"
 
-_DEFAULT_CATALOG = [
+# Supported platform values for the "platform" field
+SUPPORTED_PLATFORMS = ["google", "bluesky", "x"]
+
+_SEARCH_TEMPLATES = [
     {
-        "id": "news-sudan-conflict",
         "label": "Sudan Conflict",
         "topics": ["Sudan conflict", "RSF Khartoum"],
         "location": "Sudan",
@@ -20,7 +26,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-myanmar-crisis",
         "label": "Myanmar Crisis",
         "topics": ["Myanmar civil war", "Myanmar junta"],
         "location": "Myanmar",
@@ -28,7 +33,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-haiti-security",
         "label": "Haiti Security",
         "topics": ["Haiti gang violence", "Haiti crisis"],
         "location": "Haiti",
@@ -36,7 +40,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-ukraine-war",
         "label": "Ukraine War",
         "topics": ["Ukraine war", "Ukraine front lines"],
         "location": "Ukraine",
@@ -44,7 +47,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-yemen-conflict",
         "label": "Yemen Conflict",
         "topics": ["Yemen Houthi", "Yemen conflict"],
         "location": "Yemen",
@@ -52,7 +54,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-israel-palestine",
         "label": "Israel-Palestine",
         "topics": ["Israel Gaza", "West Bank conflict"],
         "location": "Israel",
@@ -60,7 +61,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-iran-tensions",
         "label": "Iran Tensions",
         "topics": ["Iran nuclear", "Iran sanctions"],
         "location": "Iran",
@@ -68,7 +68,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-taiwan-strait",
         "label": "Taiwan Strait",
         "topics": ["Taiwan China military", "Taiwan strait"],
         "location": "Taiwan",
@@ -76,7 +75,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-sahel-instability",
         "label": "Sahel Instability",
         "topics": ["Mali coup", "Sahel insurgency", "Burkina Faso"],
         "location": None,
@@ -84,7 +82,6 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
     {
-        "id": "news-drc-conflict",
         "label": "DRC Conflict",
         "topics": ["Congo M23", "DRC conflict"],
         "location": "Congo",
@@ -92,6 +89,30 @@ _DEFAULT_CATALOG = [
         "max_articles": 15,
     },
 ]
+
+
+def _make_slug(label: str) -> str:
+    return label.lower().replace(" ", "-")
+
+
+def _build_default_catalog() -> list[dict]:
+    """Generate one source entry per platform per search template."""
+    catalog = []
+    for tmpl in _SEARCH_TEMPLATES:
+        slug = _make_slug(tmpl["label"])
+        group = f"search-{slug}"
+        for platform in SUPPORTED_PLATFORMS:
+            entry = {
+                **tmpl,
+                "id": f"{platform}-{slug}",
+                "group": group,
+                "platform": platform,
+            }
+            catalog.append(entry)
+    return catalog
+
+
+_DEFAULT_CATALOG = _build_default_catalog()
 
 # In-memory cache loaded once at import time
 _searches: list[dict] = []
@@ -118,22 +139,52 @@ def get_searches() -> list[dict]:
 
 
 def add_search(search: dict) -> dict:
-    """Add a new search, assign an ID if not provided, save, return it."""
+    """Add a single search source entry."""
+    platform = search.get("platform", "google")
+    if platform not in SUPPORTED_PLATFORMS:
+        platform = "google"
+        search["platform"] = platform
     if "id" not in search:
-        search["id"] = f"news-{uuid.uuid4().hex[:8]}"
+        slug = _make_slug(search.get("label", uuid.uuid4().hex[:8]))
+        search["id"] = f"{platform}-{slug}"
+    if "group" not in search:
+        slug = _make_slug(search.get("label", uuid.uuid4().hex[:8]))
+        search["group"] = f"search-{slug}"
     _searches.append(search)
     save_searches()
     return search
 
 
-def update_search(search_id: str, data: dict) -> dict | None:
-    """Update an existing search by ID, save, return updated or None."""
-    for i, s in enumerate(_searches):
-        if s["id"] == search_id:
-            _searches[i] = {**s, **data, "id": search_id}
-            save_searches()
-            return _searches[i]
-    return None
+def add_search_group(
+    label: str,
+    topics: list[str],
+    location: str | None = None,
+    place_hints: list[str] | None = None,
+    max_articles: int = 15,
+    platforms: list[str] | None = None,
+) -> list[dict]:
+    """Create one source per platform sharing a group ID. Returns all created sources."""
+    slug = _make_slug(label)
+    group = f"search-{slug}"
+    use_platforms = platforms or list(SUPPORTED_PLATFORMS)
+    created = []
+    for platform in use_platforms:
+        if platform not in SUPPORTED_PLATFORMS:
+            continue
+        entry = {
+            "id": f"{platform}-{slug}",
+            "group": group,
+            "platform": platform,
+            "label": label,
+            "topics": list(topics),
+            "location": location,
+            "place_hints": list(place_hints or []),
+            "max_articles": max_articles,
+        }
+        _searches.append(entry)
+        created.append(entry)
+    save_searches()
+    return created
 
 
 def delete_search(search_id: str) -> bool:
@@ -144,6 +195,27 @@ def delete_search(search_id: str) -> bool:
             save_searches()
             return True
     return False
+
+
+def delete_search_group(group: str) -> int:
+    """Delete all sources belonging to a group. Returns count deleted."""
+    before = len(_searches)
+    _searches[:] = [s for s in _searches if s.get("group") != group]
+    after = len(_searches)
+    deleted = before - after
+    if deleted:
+        save_searches()
+    return deleted
+
+
+def update_search(search_id: str, data: dict) -> dict | None:
+    """Update an existing search by ID, save, return updated or None."""
+    for i, s in enumerate(_searches):
+        if s["id"] == search_id:
+            _searches[i] = {**s, **data, "id": search_id}
+            save_searches()
+            return _searches[i]
+    return None
 
 
 # Load on import

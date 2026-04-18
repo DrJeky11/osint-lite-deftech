@@ -6,47 +6,77 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Signal Atlas</title>
+    <title>Signal Atlas | OSINT Watchfloor</title>
     <meta
       name="description"
-      content="Global OSINT instability watchfloor blending civil unrest and military risk into an interactive heatmap."
+      content="A global OSINT watchfloor for tracking civil unrest and military stress across live reporting, official feeds, and social collection."
     />
     <link rel="icon" href="./src/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
     <div class="app-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">OSINT Watchfloor</p>
+      <header class="masthead">
+        <div class="brand-block">
+          <p class="eyebrow">Open-source watchfloor</p>
           <h1>Signal Atlas</h1>
         </div>
-        <div class="topbar-meta">
-          <p id="last-updated">Refreshing…</p>
-          <p class="muted">Live RSS catalog</p>
+        <div class="masthead-status" aria-live="polite">
+          <p class="status-line">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="last-updated">Refreshing snapshot...</span>
+          </p>
+          <p id="source-summary" class="muted">Loading source mix...</p>
         </div>
       </header>
 
       <main class="workspace">
-        <section class="map-column">
+        <section class="stage-panel">
+          <div class="stage-copy">
+            <p class="eyebrow">Global instability monitor</p>
+            <h2>See where civil unrest and force stress are rising before the feed backlog hides it.</h2>
+            <p class="stage-intro">
+              Signal Atlas blends live reporting, official advisories, and social collection into a rotating watchfloor tuned for rapid triage.
+            </p>
+          </div>
+
+          <section class="stage-metrics" aria-label="Watchfloor summary">
+            <div class="metric-stack">
+              <span class="metric-kicker">Active theaters</span>
+              <strong id="metric-hotspots">0</strong>
+            </div>
+            <div class="metric-stack">
+              <span class="metric-kicker">Signals in view</span>
+              <strong id="metric-signals">0</strong>
+            </div>
+            <div class="metric-stack">
+              <span class="metric-kicker">Sources live</span>
+              <strong id="metric-sources">0</strong>
+            </div>
+            <div class="metric-stack">
+              <span class="metric-kicker">Watch window</span>
+              <strong id="metric-window">24h</strong>
+            </div>
+          </section>
+
           <div class="map-stage">
             <div class="map-overlay">
               <div>
-                <p class="eyebrow">Global Instability Heatmap</p>
-                <h2>Where open-source signals are heating up fastest</h2>
+                <p class="eyebrow">Orbital view</p>
+                <h3>Global signal surface</h3>
               </div>
-              <div class="legend">
+              <div class="legend" aria-hidden="true">
                 <span class="legend-label">Low</span>
-                <div class="legend-ramp"></div>
+                <span class="legend-ramp"></span>
                 <span class="legend-label">High</span>
               </div>
             </div>
-            <canvas id="map-canvas" aria-label="Instability heatmap globe"></canvas>
+            <canvas id="map-canvas" aria-label="Interactive globe showing instability hotspots"></canvas>
           </div>
 
-          <section class="control-strip">
+          <section class="control-dock">
             <label>
-              View
+              Projection
               <select id="projection-select">
                 <option value="globe">Globe</option>
                 <option value="flat">Flat map</option>
@@ -75,26 +105,34 @@
                 <option value="military">Military instability</option>
               </select>
             </label>
-            <label>
+            <label class="range-field">
               Confidence floor
-              <input id="confidence-range" type="range" min="35" max="90" value="50" />
+              <div class="range-wrap">
+                <input id="confidence-range" type="range" min="35" max="90" value="50" />
+                <output id="confidence-output" for="confidence-range">50%</output>
+              </div>
             </label>
           </section>
 
           <section class="hotspot-bar">
             <div class="section-heading">
-              <p class="eyebrow">Emerging Hotspots</p>
-              <p class="muted">Click any region on the map or from this list.</p>
+              <div>
+                <p class="eyebrow">Priority theaters</p>
+                <p class="muted">Select a region from the list or directly from the globe.</p>
+              </div>
             </div>
             <div id="hotspot-list" class="hotspot-list"></div>
           </section>
         </section>
 
-        <aside class="detail-column">
+        <aside class="inspector">
           <section class="detail-summary">
-            <p class="eyebrow">Selected Location</p>
+            <p class="eyebrow">Selected theater</p>
             <div class="detail-headline">
-              <h3 id="detail-name">Loading…</h3>
+              <div>
+                <h3 id="detail-name">Loading...</h3>
+                <p id="detail-brief" class="detail-brief">Building current assessment...</p>
+              </div>
               <span id="trend-pill" class="trend-pill">steady</span>
             </div>
             <div class="score-row">
@@ -128,31 +166,37 @@
               </div>
             </div>
             <div class="sparkline-block">
-              <p class="metric-label">Trend</p>
+              <p class="metric-label">Heat trend</p>
               <svg id="sparkline" viewBox="0 0 240 72" aria-hidden="true"></svg>
             </div>
           </section>
 
           <section class="drivers-section">
             <div class="section-heading">
-              <p class="eyebrow">Top Drivers</p>
-              <p class="muted">Signals contributing most to the current heat.</p>
+              <div>
+                <p class="eyebrow">Top drivers</p>
+                <p class="muted">Primary pressure signals shaping the current score.</p>
+              </div>
             </div>
             <ul id="driver-list" class="tag-list"></ul>
           </section>
 
           <section class="evidence-section">
             <div class="section-heading">
-              <p class="eyebrow">Evidence Bundle</p>
-              <p class="muted">Cross-source corroboration and primary context.</p>
+              <div>
+                <p class="eyebrow">Evidence bundle</p>
+                <p class="muted">Cross-source reporting that supports the selected theater.</p>
+              </div>
             </div>
             <div id="evidence-list" class="evidence-list"></div>
           </section>
 
           <section class="actions-section">
             <div class="section-heading">
-              <p class="eyebrow">Next-Step OSINT Actions</p>
-              <p class="muted">Suggested analyst follow-on based on the active signal mix.</p>
+              <div>
+                <p class="eyebrow">Next-step collection</p>
+                <p class="muted">Follow-on OSINT tasks generated from the active signal mix.</p>
+              </div>
             </div>
             <ul id="action-list" class="action-list"></ul>
           </section>

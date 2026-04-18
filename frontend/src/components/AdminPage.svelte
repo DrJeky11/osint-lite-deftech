@@ -1,5 +1,6 @@
 <script>
-  import { dataset } from "../state.svelte.js";
+  import { dataset, scoringConfig } from "../state.svelte.js";
+  import { DEFAULT_SCORING_CONFIG } from "../lib/scoring.js";
   let { onBack = () => {} } = $props();
 
   let activeTab = $state("sources");
@@ -105,6 +106,8 @@
         fetchBackendDataset();
         fetchSearches();
         fetchSchedule();
+        fetchScoringConfig();
+        fetchClassifierConfig();
       }
     } catch {
       backendStatus = "offline";
@@ -207,6 +210,106 @@
       await fetch(scraperUrl + "/searches/" + id, { method: "DELETE" });
       await fetchSearches();
     } catch {}
+  }
+
+  /* ── Scoring Config ── */
+  let scoringConfigDirty = $state(false);
+  let scoringSaveMsg = $state("");
+
+  async function fetchScoringConfig() {
+    try {
+      const res = await fetch(scraperUrl + "/config/scoring", { signal: AbortSignal.timeout(5000) });
+      if (res.ok) {
+        const cfg = await res.json();
+        Object.assign(scoringConfig, cfg);
+        scoringConfigDirty = false;
+      }
+    } catch {}
+  }
+
+  async function saveScoringConfig() {
+    try {
+      const res = await fetch(scraperUrl + "/config/scoring", {
+        method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...scoringConfig }),
+      });
+      if (res.ok) {
+        const cfg = await res.json();
+        Object.assign(scoringConfig, cfg);
+        scoringConfigDirty = false;
+        scoringSaveMsg = "Scoring config saved.";
+        setTimeout(() => { scoringSaveMsg = ""; }, 3000);
+      }
+    } catch (e) {
+      scoringSaveMsg = `Save failed: ${e.message}`;
+    }
+  }
+
+  async function resetScoringConfig() {
+    try {
+      const res = await fetch(scraperUrl + "/config/scoring/reset", { method: "POST" });
+      if (res.ok) {
+        const cfg = await res.json();
+        Object.assign(scoringConfig, cfg);
+        scoringConfigDirty = false;
+        scoringSaveMsg = "Reset to defaults.";
+        setTimeout(() => { scoringSaveMsg = ""; }, 3000);
+      }
+    } catch {}
+  }
+
+  function updateScoring(key, value) {
+    scoringConfig[key] = value;
+    scoringConfigDirty = true;
+  }
+
+  /* ── Classifier Config ── */
+  let classifierConfig = $state(null);
+  let classifierDirty = $state(false);
+  let classifierSaveMsg = $state("");
+
+  async function fetchClassifierConfig() {
+    try {
+      const res = await fetch(scraperUrl + "/config/classifier", { signal: AbortSignal.timeout(5000) });
+      if (res.ok) {
+        classifierConfig = await res.json();
+        classifierDirty = false;
+      }
+    } catch {}
+  }
+
+  async function saveClassifierConfig() {
+    try {
+      const res = await fetch(scraperUrl + "/config/classifier", {
+        method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(classifierConfig),
+      });
+      if (res.ok) {
+        classifierConfig = await res.json();
+        classifierDirty = false;
+        classifierSaveMsg = "Classifier config saved.";
+        setTimeout(() => { classifierSaveMsg = ""; }, 3000);
+      }
+    } catch (e) {
+      classifierSaveMsg = `Save failed: ${e.message}`;
+    }
+  }
+
+  async function resetClassifierConfig() {
+    try {
+      const res = await fetch(scraperUrl + "/config/classifier/reset", { method: "POST" });
+      if (res.ok) {
+        classifierConfig = await res.json();
+        classifierDirty = false;
+        classifierSaveMsg = "Reset to defaults.";
+        setTimeout(() => { classifierSaveMsg = ""; }, 3000);
+      }
+    } catch {}
+  }
+
+  function updateClassifierKeywords(key, value) {
+    classifierConfig[key] = value.split(",").map(s => s.trim()).filter(Boolean);
+    classifierDirty = true;
   }
 
   // Check backend on mount
@@ -727,89 +830,142 @@
       {:else if activeTab === "config"}
         <div class="admin-section">
           <h2 class="admin-heading">Configuration</h2>
-          <p class="admin-desc">Adjust scoring parameters, refresh intervals, and display preferences.</p>
+          <p class="admin-desc">Adjust scoring parameters, classifier keywords, and display preferences. Changes take effect on the next data refresh.</p>
 
           <div class="grid grid-cols-2 gap-4 max-[820px]:grid-cols-1">
+            <!-- Scoring Model -->
             <div class="info-card">
               <h3 class="info-card-title">Scoring Model</h3>
               <div class="config-row">
                 <label class="config-label">Recency Decay (hours)</label>
-                <input type="number" class="config-input" value="16" disabled />
+                <input type="number" class="config-input" value={scoringConfig.recencyDecayHours} step="1" min="1" max="72" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('recencyDecayHours', Number(e.target.value))} />
               </div>
               <div class="config-row">
                 <label class="config-label">Corroboration Boost</label>
-                <input type="number" class="config-input" value="0.12" step="0.01" disabled />
+                <input type="number" class="config-input" value={scoringConfig.corroborationBoost} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('corroborationBoost', Number(e.target.value))} />
               </div>
               <div class="config-row">
-                <label class="config-label">Civil Weight (blend)</label>
-                <input type="number" class="config-input" value="0.56" step="0.01" disabled />
+                <label class="config-label">Civil Multiplier</label>
+                <input type="number" class="config-input" value={scoringConfig.civilMultiplier} step="0.1" min="0" max="20" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('civilMultiplier', Number(e.target.value))} />
               </div>
               <div class="config-row">
-                <label class="config-label">Military Weight (blend)</label>
-                <input type="number" class="config-input" value="0.44" step="0.01" disabled />
+                <label class="config-label">Military Multiplier</label>
+                <input type="number" class="config-input" value={scoringConfig.militaryMultiplier} step="0.1" min="0" max="20" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('militaryMultiplier', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Civil Blend Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.blendCivil} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('blendCivil', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Military Blend Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.blendMilitary} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('blendMilitary', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Single-Source Penalty</label>
+                <input type="number" class="config-input" value={scoringConfig.singleSourcePenalty} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('singleSourcePenalty', Number(e.target.value))} />
               </div>
             </div>
 
+            <!-- Thresholds & Confidence -->
             <div class="info-card">
-              <h3 class="info-card-title">Refresh Schedule</h3>
-              <div class="config-row">
-                <label class="config-label">RSS Refresh Interval</label>
-                <input type="text" class="config-input" value="Manual" disabled />
-              </div>
-              <div class="config-row">
-                <label class="config-label">Bluesky Refresh Interval</label>
-                <input type="text" class="config-input" value="Manual" disabled />
-              </div>
-              <div class="config-row">
-                <label class="config-label">Auto-rebuild on Refresh</label>
-                <input type="text" class="config-input" value="Yes" disabled />
-              </div>
-            </div>
-
-            <div class="info-card">
-              <h3 class="info-card-title">Classification</h3>
-              <div class="config-row">
-                <label class="config-label">Confidence Floor</label>
-                <input type="number" class="config-input" value="0.18" step="0.01" disabled />
-              </div>
-              <div class="config-row">
-                <label class="config-label">City Roll-up Threshold</label>
-                <input type="number" class="config-input" value="0.68" step="0.01" disabled />
-              </div>
+              <h3 class="info-card-title">Thresholds & Confidence</h3>
               <div class="config-row">
                 <label class="config-label">Warming Delta Threshold</label>
-                <input type="number" class="config-input" value="8" disabled />
+                <input type="number" class="config-input" value={scoringConfig.warmingThreshold} step="1" min="1" max="50" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('warmingThreshold', Number(e.target.value))} />
               </div>
               <div class="config-row">
                 <label class="config-label">Cooling Delta Threshold</label>
-                <input type="number" class="config-input" value="-5" disabled />
+                <input type="number" class="config-input" value={scoringConfig.coolingThreshold} step="1" min="-50" max="0" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('coolingThreshold', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Confidence Floor</label>
+                <input type="number" class="config-input" value={scoringConfig.confidenceFloor} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('confidenceFloor', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Confidence Ceiling</label>
+                <input type="number" class="config-input" value={scoringConfig.confidenceCeiling} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('confidenceCeiling', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Confidence Base Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.confidenceBaseWeight} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('confidenceBaseWeight', Number(e.target.value))} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Confidence Corrob. Weight</label>
+                <input type="number" class="config-input" value={scoringConfig.confidenceCorrobWeight} step="0.01" min="0" max="1" disabled={backendStatus !== 'online'} oninput={(e) => updateScoring('confidenceCorrobWeight', Number(e.target.value))} />
               </div>
             </div>
 
+            <!-- Classifier: Keyword Weight & De-escalation -->
+            {#if classifierConfig}
             <div class="info-card">
-              <h3 class="info-card-title">Map Defaults</h3>
+              <h3 class="info-card-title">Classifier Tuning</h3>
               <div class="config-row">
-                <label class="config-label">Default Projection</label>
-                <input type="text" class="config-input" value="Globe" disabled />
+                <label class="config-label">Keyword Weight</label>
+                <input type="number" class="config-input" value={classifierConfig.keywordWeight} step="0.05" min="0.05" max="1" oninput={(e) => { classifierConfig.keywordWeight = Number(e.target.value); classifierDirty = true; }} />
               </div>
               <div class="config-row">
-                <label class="config-label">Default Time Window</label>
-                <input type="text" class="config-input" value="24h" disabled />
+                <label class="config-label">De-escalation Dampening</label>
+                <input type="number" class="config-input" value={classifierConfig.deescalationDampening} step="0.05" min="0" max="1" oninput={(e) => { classifierConfig.deescalationDampening = Number(e.target.value); classifierDirty = true; }} />
               </div>
               <div class="config-row">
-                <label class="config-label">Heatmap Enabled</label>
-                <input type="text" class="config-input" value="Yes" disabled />
+                <label class="config-label">Max Severity</label>
+                <input type="number" class="config-input" value={classifierConfig.maxSeverity} step="1" min="1" max="10" oninput={(e) => { classifierConfig.maxSeverity = Number(e.target.value); classifierDirty = true; }} />
+              </div>
+              <div class="config-row">
+                <label class="config-label">Max Weight</label>
+                <input type="number" class="config-input" value={classifierConfig.maxWeight} step="0.1" min="0.1" max="5" oninput={(e) => { classifierConfig.maxWeight = Number(e.target.value); classifierDirty = true; }} />
               </div>
             </div>
+            {/if}
+
+            <!-- Classifier: Keyword Lists -->
+            {#if classifierConfig}
+            <div class="info-card">
+              <h3 class="info-card-title">Keyword Lists</h3>
+              <p class="m-0 mb-2 text-[0.65rem] text-muted">Comma-separated. Changes apply on next data refresh.</p>
+              <div class="grid gap-3">
+                <div>
+                  <label class="config-label mb-1 block">De-escalation Keywords</label>
+                  <textarea class="config-textarea" rows="2" value={(classifierConfig.deescalationKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('deescalationKeywords', e.target.value)}></textarea>
+                </div>
+                <div>
+                  <label class="config-label mb-1 block">Military Keywords</label>
+                  <textarea class="config-textarea" rows="2" value={(classifierConfig.militaryKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('militaryKeywords', e.target.value)}></textarea>
+                </div>
+                <div>
+                  <label class="config-label mb-1 block">Civil Keywords</label>
+                  <textarea class="config-textarea" rows="2" value={(classifierConfig.civilKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('civilKeywords', e.target.value)}></textarea>
+                </div>
+                <div>
+                  <label class="config-label mb-1 block">Narrative Keywords</label>
+                  <textarea class="config-textarea" rows="2" value={(classifierConfig.narrativeKeywords ?? []).join(", ")} oninput={(e) => updateClassifierKeywords('narrativeKeywords', e.target.value)}></textarea>
+                </div>
+              </div>
+            </div>
+            {/if}
           </div>
 
-          <div class="mt-4">
-            <button type="button" class="admin-btn" disabled>Save Configuration</button>
+          <div class="mt-4 flex items-center gap-3">
+            <button type="button" class="admin-btn" disabled={backendStatus !== 'online' || (!scoringConfigDirty && !classifierDirty)} onclick={() => { if (scoringConfigDirty) saveScoringConfig(); if (classifierDirty) saveClassifierConfig(); }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Save Configuration
+            </button>
+            <button type="button" class="admin-btn admin-btn-secondary" disabled={backendStatus !== 'online'} onclick={() => { resetScoringConfig(); resetClassifierConfig(); }}>
+              Reset to Defaults
+            </button>
+            {#if scoringSaveMsg}
+              <span class="font-mono text-[0.65rem] text-[#49d4ba]">{scoringSaveMsg}</span>
+            {/if}
+            {#if classifierSaveMsg}
+              <span class="font-mono text-[0.65rem] text-[#49d4ba]">{classifierSaveMsg}</span>
+            {/if}
           </div>
 
+          {#if backendStatus !== 'online'}
           <p class="m-0 mt-3 font-mono text-[0.6rem] text-muted tracking-[0.06em]">
-            Configuration editing will be available when the backend API is connected.
+            Connect the backend to edit configuration.
           </p>
+          {/if}
         </div>
 
       <!-- ═══════ ACTIVITY LOG ═══════ -->

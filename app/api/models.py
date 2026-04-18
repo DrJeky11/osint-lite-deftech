@@ -32,3 +32,8 @@ class NewsResponse(BaseModel):
     article_count: int
     articles: list[Article]
     summary: str
+
+
+class ScheduleConfig(BaseModel):
+    enabled: bool = False
+    interval_minutes: int = 60  # 15, 30, 60, 120, 360, 720, 1440

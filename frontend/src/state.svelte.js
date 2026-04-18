@@ -1,7 +1,32 @@
-import { dataset } from "./generated/osint-data.js";
-import { computeLocationScores } from "./lib/scoring.js";
+import { dataset as staticDataset } from "./generated/osint-data.js";
+import { computeLocationScores, DEFAULT_SCORING_CONFIG } from "./lib/scoring.js";
 
-export { dataset };
+const SCRAPER_URL = typeof localStorage !== 'undefined'
+  ? (localStorage.getItem("sa-scraper-config") || "http://localhost:8000")
+  : "http://localhost:8000";
+
+export const dataset = $state({ ...staticDataset });
+
+export const scoringConfig = $state({ ...DEFAULT_SCORING_CONFIG });
+
+// Try to fetch live data and scoring config from backend on load
+if (typeof window !== 'undefined') {
+  fetch(SCRAPER_URL + "/dataset", { signal: AbortSignal.timeout(5000) })
+    .then(res => res.ok ? res.json() : null)
+    .then(live => {
+      if (live && live.signalEvents?.length) {
+        Object.assign(dataset, live);
+      }
+    })
+    .catch(() => {});
+
+  fetch(SCRAPER_URL + "/config/scoring", { signal: AbortSignal.timeout(5000) })
+    .then(res => res.ok ? res.json() : null)
+    .then(cfg => {
+      if (cfg) Object.assign(scoringConfig, cfg);
+    })
+    .catch(() => {});
+}
 
 export const filters = $state({
   projection: "globe",
@@ -30,7 +55,8 @@ export function getFilteredSignalEvents() {
 export function getVisibleScores() {
   return computeLocationScores(getFilteredSignalEvents(), {
     referenceTime: dataset.generatedAt,
-    emphasis: filters.emphasis
+    emphasis: filters.emphasis,
+    scoringConfig,
   }).filter((score) => score.confidence >= filters.confidenceFloor);
 }
 

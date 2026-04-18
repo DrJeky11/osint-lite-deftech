@@ -30,10 +30,12 @@ from app.scrapers.rss.fetcher import fetch_feed as fetch_rss_feed
 from app.scrapers.bluesky.fetcher import build_query as build_bluesky_query, fetch_posts as fetch_bluesky_posts
 from app.scrapers.x.fetcher import build_query as build_x_query, fetch_posts as fetch_x_posts
 from app.scrapers.common.classifier import load_config as load_classifier_config, save_config as save_classifier_config, DEFAULT_CONFIG as DEFAULT_CLASSIFIER_CONFIG
+from app.api.tools import router as tools_router
 
 logger = logging.getLogger("osint-api")
 
 app = FastAPI(title="OSINT Watchfloor API", version="0.3.0")
+app.include_router(tools_router)
 
 app.add_middleware(
     CORSMiddleware,

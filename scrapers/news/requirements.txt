@@ -2,6 +2,6 @@ fastapi
 uvicorn[standard]
 httpx
 feedparser
-anthropic
+groq
 pydantic>=2
 python-dotenv

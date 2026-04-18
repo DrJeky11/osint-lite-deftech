@@ -8,9 +8,20 @@
     "refresh:bluesky": "node ./scripts/refresh-bluesky.mjs",
     "refresh:live": "npm run refresh:rss && npm run refresh:bluesky",
     "generate:data": "node ./scripts/generate-data.mjs",
-    "build": "npm run generate:data && node ./scripts/build.mjs",
+    "build": "npm run generate:data && vite build",
     "build:live": "npm run refresh:live && npm run build",
+    "preview": "vite preview",
     "test": "node --test",
-    "dev": "python3 -m http.server 4173"
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
+    "@tailwindcss/vite": "^4.2.2",
+    "svelte": "^5.55.4",
+    "tailwindcss": "^4.2.2",
+    "vite": "^8.0.8"
+  },
+  "dependencies": {
+    "maplibre-gl": "^5.23.0"
   }
 }

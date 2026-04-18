@@ -296,20 +296,33 @@ a {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-#map-canvas {
+#map-container {
   width: 100%;
   height: 100%;
-  display: block;
-  cursor: grab;
+  position: absolute;
+  inset: 0;
 }
 
-#map-canvas:active {
-  cursor: grabbing;
+#map-container .maplibregl-canvas {
+  outline: none;
+}
+
+.maplibregl-ctrl-attrib {
+  display: none !important;
+}
+
+.maplibregl-ctrl-group {
+  background: rgba(3, 8, 15, 0.8) !important;
+  border: 1px solid rgba(120, 214, 255, 0.16) !important;
+}
+
+.maplibregl-ctrl-group button {
+  filter: invert(1) brightness(1.4);
 }
 
 .control-dock {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 14px;
   margin-top: 18px;
   padding: 16px;
@@ -321,6 +334,20 @@ a {
   gap: 8px;
   color: #d4e1ee;
   font-size: 0.92rem;
+}
+
+.toggle-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.toggle-field input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cyan);
+  cursor: pointer;
 }
 
 .control-dock select,

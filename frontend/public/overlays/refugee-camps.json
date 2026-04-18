@@ -1,0 +1,1079 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Major Refugee and IDP Camps Worldwide",
+    "description": "Curated dataset of approximately 90 of the world's largest and most significant refugee and IDP camps and settlements.",
+    "source": "Compiled from UNHCR, IOM, and humanitarian reporting",
+    "generated": "2026-04-18",
+    "note": "Population figures are approximate and based on best available estimates."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [40.3088, 0.0578] },
+      "properties": {
+        "name": "Dadaab (Hagadera)",
+        "country": "Kenya",
+        "population": 110000,
+        "type": "Refugee Camp",
+        "crisis": "Somali conflict and drought"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [40.3422, 0.1100] },
+      "properties": {
+        "name": "Dadaab (Ifo)",
+        "country": "Kenya",
+        "population": 95000,
+        "type": "Refugee Camp",
+        "crisis": "Somali conflict and drought"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [40.3600, -0.0100] },
+      "properties": {
+        "name": "Dadaab (Dagahaley)",
+        "country": "Kenya",
+        "population": 88000,
+        "type": "Refugee Camp",
+        "crisis": "Somali conflict and drought"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.8614, 3.7186] },
+      "properties": {
+        "name": "Kakuma",
+        "country": "Kenya",
+        "population": 210000,
+        "type": "Refugee Camp",
+        "crisis": "South Sudan and regional conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.8900, 3.6800] },
+      "properties": {
+        "name": "Kalobeyei Settlement",
+        "country": "Kenya",
+        "population": 60000,
+        "type": "Settlement",
+        "crisis": "South Sudan and regional conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.3700, 3.3700] },
+      "properties": {
+        "name": "Bidi Bidi",
+        "country": "Uganda",
+        "population": 270000,
+        "type": "Settlement",
+        "crisis": "South Sudan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.1500, 3.2000] },
+      "properties": {
+        "name": "Rhino Camp",
+        "country": "Uganda",
+        "population": 190000,
+        "type": "Settlement",
+        "crisis": "South Sudan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.0500, 3.5500] },
+      "properties": {
+        "name": "Palorinya",
+        "country": "Uganda",
+        "population": 125000,
+        "type": "Settlement",
+        "crisis": "South Sudan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.3900, 3.0500] },
+      "properties": {
+        "name": "Imvepi",
+        "country": "Uganda",
+        "population": 70000,
+        "type": "Settlement",
+        "crisis": "South Sudan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.4400, 0.1200] },
+      "properties": {
+        "name": "Kyangwali",
+        "country": "Uganda",
+        "population": 125000,
+        "type": "Settlement",
+        "crisis": "DRC and regional conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.0800, -0.9200] },
+      "properties": {
+        "name": "Nakivale",
+        "country": "Uganda",
+        "population": 165000,
+        "type": "Settlement",
+        "crisis": "DRC, Burundi, and regional conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.0800, 1.6800] },
+      "properties": {
+        "name": "Kyaka II",
+        "country": "Uganda",
+        "population": 135000,
+        "type": "Settlement",
+        "crisis": "DRC conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.3300, -4.2100] },
+      "properties": {
+        "name": "Nyarugusu",
+        "country": "Tanzania",
+        "population": 130000,
+        "type": "Refugee Camp",
+        "crisis": "DRC and Burundi conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.2600, -3.5700] },
+      "properties": {
+        "name": "Nduta",
+        "country": "Tanzania",
+        "population": 78000,
+        "type": "Refugee Camp",
+        "crisis": "Burundi conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.4600, -2.1300] },
+      "properties": {
+        "name": "Mahama",
+        "country": "Rwanda",
+        "population": 60000,
+        "type": "Refugee Camp",
+        "crisis": "Burundi and DRC conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.5600, 8.2500] },
+      "properties": {
+        "name": "Gambella (Pugnido)",
+        "country": "Ethiopia",
+        "population": 70000,
+        "type": "Refugee Camp",
+        "crisis": "South Sudan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.2800, 8.0500] },
+      "properties": {
+        "name": "Gambella (Kule)",
+        "country": "Ethiopia",
+        "population": 52000,
+        "type": "Refugee Camp",
+        "crisis": "South Sudan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.3100, 8.1200] },
+      "properties": {
+        "name": "Gambella (Tierkidi)",
+        "country": "Ethiopia",
+        "population": 58000,
+        "type": "Refugee Camp",
+        "crisis": "South Sudan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.3800, 7.9200] },
+      "properties": {
+        "name": "Gambella (Jewi)",
+        "country": "Ethiopia",
+        "population": 62000,
+        "type": "Refugee Camp",
+        "crisis": "South Sudan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.5600, 5.9400] },
+      "properties": {
+        "name": "Shire (Mai Aini)",
+        "country": "Ethiopia",
+        "population": 22000,
+        "type": "Refugee Camp",
+        "crisis": "Eritrean refugees and Tigray conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [39.4700, 13.5000] },
+      "properties": {
+        "name": "Mekelle IDP Sites",
+        "country": "Ethiopia",
+        "population": 450000,
+        "type": "IDP Camp",
+        "crisis": "Tigray conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.3500, 13.4500] },
+      "properties": {
+        "name": "Kalma",
+        "country": "Sudan",
+        "population": 160000,
+        "type": "IDP Camp",
+        "crisis": "Darfur conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.1700, 13.6200] },
+      "properties": {
+        "name": "Otash",
+        "country": "Sudan",
+        "population": 70000,
+        "type": "IDP Camp",
+        "crisis": "Darfur conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [22.4500, 13.7500] },
+      "properties": {
+        "name": "Abu Shouk",
+        "country": "Sudan",
+        "population": 55000,
+        "type": "IDP Camp",
+        "crisis": "Darfur conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [22.4200, 13.6800] },
+      "properties": {
+        "name": "El Salam",
+        "country": "Sudan",
+        "population": 48000,
+        "type": "IDP Camp",
+        "crisis": "Darfur conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.8800, 11.7900] },
+      "properties": {
+        "name": "Garsila IDP Camp",
+        "country": "Sudan",
+        "population": 40000,
+        "type": "IDP Camp",
+        "crisis": "Darfur conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [37.2200, 19.6200] },
+      "properties": {
+        "name": "Port Sudan Area Camps",
+        "country": "Sudan",
+        "population": 300000,
+        "type": "IDP Camp",
+        "crisis": "Sudan civil war (2023-)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [33.4000, 13.5300] },
+      "properties": {
+        "name": "Wad Madani Area IDP Sites",
+        "country": "Sudan",
+        "population": 250000,
+        "type": "IDP Camp",
+        "crisis": "Sudan civil war (2023-)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [32.5500, 15.6000] },
+      "properties": {
+        "name": "Khartoum Displacement Sites",
+        "country": "Sudan",
+        "population": 500000,
+        "type": "IDP Camp",
+        "crisis": "Sudan civil war (2023-)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [14.2300, 10.6100] },
+      "properties": {
+        "name": "Minawao",
+        "country": "Cameroon",
+        "population": 75000,
+        "type": "Refugee Camp",
+        "crisis": "Boko Haram / Nigeria conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.6100, 13.3100] },
+      "properties": {
+        "name": "Diffa (Sayam Forage)",
+        "country": "Niger",
+        "population": 40000,
+        "type": "Refugee Camp",
+        "crisis": "Boko Haram / Nigeria conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.7000, 13.4500] },
+      "properties": {
+        "name": "Diffa (Kabelawa)",
+        "country": "Niger",
+        "population": 30000,
+        "type": "Refugee Camp",
+        "crisis": "Boko Haram / Nigeria conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [2.1300, 14.8800] },
+      "properties": {
+        "name": "Niamey Transit Camps",
+        "country": "Niger",
+        "population": 15000,
+        "type": "Refugee Camp",
+        "crisis": "Sahel regional conflict and migration"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.1500, 11.8500] },
+      "properties": {
+        "name": "Maiduguri IDP Camps",
+        "country": "Nigeria",
+        "population": 250000,
+        "type": "IDP Camp",
+        "crisis": "Boko Haram insurgency"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.6800, 10.2900] },
+      "properties": {
+        "name": "Yola IDP Camps",
+        "country": "Nigeria",
+        "population": 80000,
+        "type": "IDP Camp",
+        "crisis": "Boko Haram insurgency"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.3280, 32.2928] },
+      "properties": {
+        "name": "Zaatari",
+        "country": "Jordan",
+        "population": 80000,
+        "type": "Refugee Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.6390, 31.8320] },
+      "properties": {
+        "name": "Azraq",
+        "country": "Jordan",
+        "population": 42000,
+        "type": "Refugee Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.1900, 32.3400] },
+      "properties": {
+        "name": "Emirati-Jordanian Camp (Mrajeeb Al Fhood)",
+        "country": "Jordan",
+        "population": 7500,
+        "type": "Refugee Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.0400, 33.8700] },
+      "properties": {
+        "name": "Bekaa Valley Informal Settlements",
+        "country": "Lebanon",
+        "population": 350000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.8400, 34.4400] },
+      "properties": {
+        "name": "Tripoli Area Settlements",
+        "country": "Lebanon",
+        "population": 150000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.5100, 33.8900] },
+      "properties": {
+        "name": "Beirut Urban Refugees",
+        "country": "Lebanon",
+        "population": 250000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.2300, 33.2700] },
+      "properties": {
+        "name": "Sidon / Tyre Area Settlements",
+        "country": "Lebanon",
+        "population": 120000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war and Palestinian refugees"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [43.0000, 36.7600] },
+      "properties": {
+        "name": "Domiz",
+        "country": "Iraq",
+        "population": 33000,
+        "type": "Refugee Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.1200, 36.2100] },
+      "properties": {
+        "name": "Qushtapa",
+        "country": "Iraq",
+        "population": 8000,
+        "type": "Refugee Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.3500, 36.1900] },
+      "properties": {
+        "name": "Darashakran",
+        "country": "Iraq",
+        "population": 12000,
+        "type": "Refugee Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.0100, 36.3900] },
+      "properties": {
+        "name": "Kawergosk",
+        "country": "Iraq",
+        "population": 10000,
+        "type": "Refugee Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.3800, 36.6500] },
+      "properties": {
+        "name": "Basirma",
+        "country": "Iraq",
+        "population": 5000,
+        "type": "Refugee Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [43.7300, 35.4700] },
+      "properties": {
+        "name": "Jeddah IDP Camp",
+        "country": "Iraq",
+        "population": 15000,
+        "type": "IDP Camp",
+        "crisis": "ISIS / Mosul aftermath"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [37.0100, 34.5600] },
+      "properties": {
+        "name": "Gaziantep Urban Refugees",
+        "country": "Turkey",
+        "population": 450000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.1600, 36.2000] },
+      "properties": {
+        "name": "Hatay / Antakya Area",
+        "country": "Turkey",
+        "population": 350000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.3300, 37.0000] },
+      "properties": {
+        "name": "Adana Area Settlements",
+        "country": "Turkey",
+        "population": 250000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [37.3800, 37.3600] },
+      "properties": {
+        "name": "Sanliurfa Area Settlements",
+        "country": "Turkey",
+        "population": 420000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.0200, 41.0100] },
+      "properties": {
+        "name": "Istanbul Urban Refugees",
+        "country": "Turkey",
+        "population": 550000,
+        "type": "Settlement",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [40.9000, 36.6300] },
+      "properties": {
+        "name": "Al-Hol",
+        "country": "Syria",
+        "population": 55000,
+        "type": "IDP Camp",
+        "crisis": "Syrian civil war / ISIS aftermath"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [38.7700, 34.8000] },
+      "properties": {
+        "name": "Rukban",
+        "country": "Syria",
+        "population": 12000,
+        "type": "IDP Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.7500, 36.5200] },
+      "properties": {
+        "name": "Idlib IDP Camps (Atmeh area)",
+        "country": "Syria",
+        "population": 800000,
+        "type": "IDP Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.5100, 36.8000] },
+      "properties": {
+        "name": "Afrin Area IDP Camps",
+        "country": "Syria",
+        "population": 120000,
+        "type": "IDP Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.6100, 36.2200] },
+      "properties": {
+        "name": "Dana / Sarmada IDP Sites",
+        "country": "Syria",
+        "population": 200000,
+        "type": "IDP Camp",
+        "crisis": "Syrian civil war"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [92.1300, 21.1900] },
+      "properties": {
+        "name": "Kutupalong-Balukhali",
+        "country": "Bangladesh",
+        "population": 635000,
+        "type": "Refugee Camp",
+        "crisis": "Rohingya crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [92.1100, 21.1700] },
+      "properties": {
+        "name": "Nayapara",
+        "country": "Bangladesh",
+        "population": 27000,
+        "type": "Refugee Camp",
+        "crisis": "Rohingya crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [92.0600, 21.2500] },
+      "properties": {
+        "name": "Camp 2W (Kutupalong RC)",
+        "country": "Bangladesh",
+        "population": 30000,
+        "type": "Refugee Camp",
+        "crisis": "Rohingya crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [92.2300, 21.4500] },
+      "properties": {
+        "name": "Teknaf Area Camps",
+        "country": "Bangladesh",
+        "population": 95000,
+        "type": "Refugee Camp",
+        "crisis": "Rohingya crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [91.8000, 21.4300] },
+      "properties": {
+        "name": "Bhasan Char",
+        "country": "Bangladesh",
+        "population": 30000,
+        "type": "Settlement",
+        "crisis": "Rohingya crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [71.7500, 34.0200] },
+      "properties": {
+        "name": "Peshawar Area Afghan Settlements",
+        "country": "Pakistan",
+        "population": 350000,
+        "type": "Settlement",
+        "crisis": "Afghan conflict and Taliban takeover"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [66.9800, 30.1800] },
+      "properties": {
+        "name": "Quetta Area Afghan Settlements",
+        "country": "Pakistan",
+        "population": 280000,
+        "type": "Settlement",
+        "crisis": "Afghan conflict and Taliban takeover"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [70.2700, 33.7200] },
+      "properties": {
+        "name": "Kurram / Torkham Border Transit",
+        "country": "Pakistan",
+        "population": 45000,
+        "type": "Refugee Camp",
+        "crisis": "Afghan conflict and Taliban takeover"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [69.1700, 34.5300] },
+      "properties": {
+        "name": "Kabul IDP Sites",
+        "country": "Afghanistan",
+        "population": 400000,
+        "type": "IDP Camp",
+        "crisis": "Afghan conflict and economic crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [62.2000, 34.3500] },
+      "properties": {
+        "name": "Herat IDP Sites",
+        "country": "Afghanistan",
+        "population": 150000,
+        "type": "IDP Camp",
+        "crisis": "Afghan conflict and earthquake displacement"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.5600, 39.1000] },
+      "properties": {
+        "name": "Moria / Mavrovouni (Lesbos)",
+        "country": "Greece",
+        "population": 5000,
+        "type": "Reception Center",
+        "crisis": "Mediterranean migration crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.7200, 37.7300] },
+      "properties": {
+        "name": "Samos Reception Center",
+        "country": "Greece",
+        "population": 3000,
+        "type": "Reception Center",
+        "crisis": "Mediterranean migration crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.1400, 38.3700] },
+      "properties": {
+        "name": "Chios Reception Center",
+        "country": "Greece",
+        "population": 2000,
+        "type": "Reception Center",
+        "crisis": "Mediterranean migration crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.6000, 38.0100] },
+      "properties": {
+        "name": "Athens Urban Refugees (Eleonas/Skaramangas)",
+        "country": "Greece",
+        "population": 8000,
+        "type": "Reception Center",
+        "crisis": "Mediterranean migration crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.4900, 37.0600] },
+      "properties": {
+        "name": "Lampedusa Reception Center",
+        "country": "Italy",
+        "population": 4000,
+        "type": "Reception Center",
+        "crisis": "Mediterranean migration crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-77.7300, 8.5100] },
+      "properties": {
+        "name": "Darien Gap (Lajas Blancas)",
+        "country": "Panama",
+        "population": 15000,
+        "type": "Reception Center",
+        "crisis": "Venezuelan and mixed migration crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-77.1000, 7.7700] },
+      "properties": {
+        "name": "Darien Gap (San Vicente)",
+        "country": "Panama",
+        "population": 10000,
+        "type": "Reception Center",
+        "crisis": "Venezuelan and mixed migration crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-76.6500, 7.1100] },
+      "properties": {
+        "name": "Necocli Transit Area",
+        "country": "Colombia",
+        "population": 12000,
+        "type": "Settlement",
+        "crisis": "Venezuelan and mixed migration crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-72.5100, 7.8900] },
+      "properties": {
+        "name": "Cucuta Border Settlements",
+        "country": "Colombia",
+        "population": 100000,
+        "type": "Settlement",
+        "crisis": "Venezuelan refugee crisis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.3500, 1.6700] },
+      "properties": {
+        "name": "Bunia IDP Sites",
+        "country": "DRC",
+        "population": 200000,
+        "type": "IDP Camp",
+        "crisis": "Ituri conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.2300, -1.6700] },
+      "properties": {
+        "name": "Goma Area IDP Camps (Mugunga)",
+        "country": "DRC",
+        "population": 300000,
+        "type": "IDP Camp",
+        "crisis": "M23 and eastern DRC conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.0500, -1.5100] },
+      "properties": {
+        "name": "Sake IDP Sites",
+        "country": "DRC",
+        "population": 120000,
+        "type": "IDP Camp",
+        "crisis": "M23 and eastern DRC conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.8700, -2.4900] },
+      "properties": {
+        "name": "Bukavu Area IDP Sites",
+        "country": "DRC",
+        "population": 100000,
+        "type": "IDP Camp",
+        "crisis": "South Kivu conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.0400, -1.6800] },
+      "properties": {
+        "name": "Kanyaruchinya IDP Camp",
+        "country": "DRC",
+        "population": 180000,
+        "type": "IDP Camp",
+        "crisis": "M23 and eastern DRC conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [92.8600, 20.5000] },
+      "properties": {
+        "name": "Rakhine State IDP Camps (Sittwe)",
+        "country": "Myanmar",
+        "population": 120000,
+        "type": "IDP Camp",
+        "crisis": "Rakhine conflict and Rohingya persecution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [97.6000, 18.4000] },
+      "properties": {
+        "name": "Mae La",
+        "country": "Thailand",
+        "population": 35000,
+        "type": "Refugee Camp",
+        "crisis": "Myanmar ethnic conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [98.5100, 16.7200] },
+      "properties": {
+        "name": "Umpiem Mai",
+        "country": "Thailand",
+        "population": 12000,
+        "type": "Refugee Camp",
+        "crisis": "Myanmar ethnic conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [97.8500, 17.6000] },
+      "properties": {
+        "name": "Nu Po",
+        "country": "Thailand",
+        "population": 11000,
+        "type": "Refugee Camp",
+        "crisis": "Myanmar ethnic conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.9500, 48.4600] },
+      "properties": {
+        "name": "Dnipro Displacement Centers",
+        "country": "Ukraine",
+        "population": 300000,
+        "type": "IDP Camp",
+        "crisis": "Russian invasion of Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.0300, 49.8400] },
+      "properties": {
+        "name": "Lviv Displacement Centers",
+        "country": "Ukraine",
+        "population": 250000,
+        "type": "IDP Camp",
+        "crisis": "Russian invasion of Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.1400, 47.8400] },
+      "properties": {
+        "name": "Zaporizhzhia Displacement Centers",
+        "country": "Ukraine",
+        "population": 200000,
+        "type": "IDP Camp",
+        "crisis": "Russian invasion of Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.2500, 50.0000] },
+      "properties": {
+        "name": "Kharkiv Displacement Sites",
+        "country": "Ukraine",
+        "population": 180000,
+        "type": "IDP Camp",
+        "crisis": "Russian invasion of Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.5200, 50.4500] },
+      "properties": {
+        "name": "Kyiv Displacement Centers",
+        "country": "Ukraine",
+        "population": 350000,
+        "type": "IDP Camp",
+        "crisis": "Russian invasion of Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [45.3400, 2.0500] },
+      "properties": {
+        "name": "Mogadishu IDP Settlements",
+        "country": "Somalia",
+        "population": 650000,
+        "type": "IDP Camp",
+        "crisis": "Somali conflict and drought"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [43.6500, 2.1100] },
+      "properties": {
+        "name": "Baidoa IDP Settlements",
+        "country": "Somalia",
+        "population": 400000,
+        "type": "IDP Camp",
+        "crisis": "Somali conflict and drought"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.0800, 9.5600] },
+      "properties": {
+        "name": "Hargeisa IDP Sites",
+        "country": "Somalia",
+        "population": 80000,
+        "type": "IDP Camp",
+        "crisis": "Drought and clan conflict"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [42.7400, 0.3500] },
+      "properties": {
+        "name": "Dollo Ado Camps",
+        "country": "Ethiopia",
+        "population": 215000,
+        "type": "Refugee Camp",
+        "crisis": "Somali conflict and drought"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.8200, -1.2900] },
+      "properties": {
+        "name": "Nairobi Urban Refugees",
+        "country": "Kenya",
+        "population": 100000,
+        "type": "Settlement",
+        "crisis": "Regional conflicts"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.8800, -1.9500] },
+      "properties": {
+        "name": "Kigeme",
+        "country": "Rwanda",
+        "population": 20000,
+        "type": "Refugee Camp",
+        "crisis": "DRC conflict"
+      }
+    }
+  ]
+}

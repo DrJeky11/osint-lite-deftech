@@ -57,21 +57,23 @@ body {
   overflow-x: hidden;
 }
 
-/* Subtle scan-line texture */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(120, 214, 255, 0.012) 2px,
-      rgba(120, 214, 255, 0.012) 4px
-    );
-  z-index: 9999;
+/* Subtle scan-line texture — desktop only to avoid mobile touch/perf issues */
+@media (hover: hover) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(120, 214, 255, 0.012) 2px,
+        rgba(120, 214, 255, 0.012) 4px
+      );
+    z-index: 9999;
+  }
 }
 
 a {
@@ -175,6 +177,37 @@ a {
   filter: invert(1) brightness(1.4);
 }
 
+/* Hover popup styling */
+.sa-popup .maplibregl-popup-content {
+  background: rgba(6, 12, 22, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(120, 214, 255, 0.16);
+  border-radius: 0;
+  padding: 12px 14px;
+  color: #f0f4fb;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.sa-popup .maplibregl-popup-tip {
+  border-top-color: rgba(6, 12, 22, 0.95);
+}
+
+.sa-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: rgba(6, 12, 22, 0.95);
+}
+
+.sa-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: rgba(6, 12, 22, 0.95);
+}
+
+.sa-popup.maplibregl-popup-anchor-left .maplibregl-popup-tip {
+  border-right-color: rgba(6, 12, 22, 0.95);
+}
+
+.sa-popup.maplibregl-popup-anchor-right .maplibregl-popup-tip {
+  border-left-color: rgba(6, 12, 22, 0.95);
+}
+
 /* ------------------------------------------------------------------ */
 /* Keyframe animations                                                 */
 /* ------------------------------------------------------------------ */
@@ -240,5 +273,192 @@ a {
 
   .section-heading p {
     margin: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* ── Mobile Shell ──                                                  */
+/* ------------------------------------------------------------------ */
+
+/* Bottom Tab Bar */
+
+.mobile-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: #0a0e14;
+  border-top: 1px solid #1e2a3a;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.mobile-tab-bar button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 16px;
+  background: none;
+  border: none;
+  color: #5a6a7a;
+  font-family: var(--font-mono, 'SF Mono', monospace);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-tab-bar button.active {
+  color: #78d6ff;
+}
+
+.mobile-tab-bar button svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.5;
+}
+
+/* Bottom Sheet */
+
+.mobile-bottom-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0d1117;
+  border-top: 1px solid #1e2a3a;
+  border-radius: 16px 16px 0 0;
+  z-index: 1100;
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  touch-action: none;
+  max-height: 85vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.mobile-bottom-sheet .drag-handle {
+  width: 36px;
+  height: 4px;
+  background: #2a3a4a;
+  border-radius: 2px;
+  margin: 8px auto 12px;
+}
+
+.mobile-bottom-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1099;
+  transition: opacity 0.3s;
+}
+
+/* Mobile Content Area */
+
+.mobile-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile Map Overrides */
+
+.mobile-map-container {
+  width: 100vw;
+  height: 100%;
+  position: relative;
+}
+
+.mobile-map-container .map-wrap {
+  height: 100% !important;
+  min-height: unset !important;
+}
+
+/* Hide scan-line effects on mobile for performance */
+@media (max-width: 768px) {
+  .scan-line,
+  .sweep-line {
+    display: none !important;
+  }
+}
+
+/* Mobile Controls FAB */
+
+.mobile-fab {
+  position: fixed;
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0d1117;
+  border: 1px solid #1e2a3a;
+  color: #78d6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.mobile-fab:active {
+  transform: scale(0.92);
+  background: #141c26;
+}
+
+/* Touch Target Optimization */
+
+@media (max-width: 768px) {
+  /* Ensure all interactive elements meet 44px touch targets */
+  .mobile-content button,
+  .mobile-content select,
+  .mobile-content input[type="range"] {
+    min-height: 44px;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) {
+    .hotspot-chip:hover {
+      background: inherit;
+    }
+  }
+
+  /* Prevent text selection during swipe */
+  .mobile-bottom-sheet {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Smooth momentum scrolling */
+  .mobile-content {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Mobile Typography Adjustments */
+
+@media (max-width: 768px) {
+  .headline-editorial {
+    font-size: clamp(0.95rem, 3.5vw, 1.2rem) !important;
+    line-height: 1.4 !important;
+  }
+
+  .section-flag {
+    font-size: 0.55rem !important;
   }
 }

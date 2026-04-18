@@ -7,6 +7,11 @@
   import ControlDock from "./components/ControlDock.svelte";
   import HotspotList from "./components/HotspotList.svelte";
   import Inspector from "./components/Inspector.svelte";
+  import OverlayPanel from "./components/OverlayPanel.svelte";
+  import MobileShell from "./components/MobileShell.svelte";
+
+  let innerWidth = $state(0);
+  let isMobile = $derived(innerWidth < 768);
 
   let mapStage;
   let visibleScores = $state([]);
@@ -34,8 +39,16 @@
   function handleHotspotSelect(scoreId) {
     mapStage?.selectHotspot(scoreId);
   }
+
+  function handleOverlayToggle(id, visible) {
+    mapStage?.handleOverlayToggle(id, visible);
+  }
+
 </script>
 
+<svelte:window bind:innerWidth />
+
+{#if !isMobile}
 <div class="w-[min(1560px,calc(100vw-32px))] mx-auto py-5 pb-8 animate-[shell-in_720ms_ease_both]">
 
   <!-- ═══ NAMEPLATE ═══ -->
@@ -73,6 +86,11 @@
         <ControlDock onFilterChange={handleFilterChange} onProjectionChange={handleProjectionChange} />
       </div>
 
+      <!-- Overlay Layers -->
+      <div class="mt-4">
+        <OverlayPanel onToggle={handleOverlayToggle} />
+      </div>
+
       <!-- Priority Theaters -->
       <div class="mt-6">
         <div class="flex items-center gap-3 mb-3">
@@ -99,3 +117,6 @@
     Signal Atlas &middot; Open-source intelligence watchfloor &middot; All data derived from public sources
   </p>
 </div>
+{:else}
+<MobileShell />
+{/if}

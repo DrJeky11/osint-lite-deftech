@@ -1,0 +1,635 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [111.003, 30.823] },
+      "properties": { "name": "Three Gorges Dam", "country": "CHN", "fuelType": "Hydro", "capacityMw": 22500, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-54.589, -25.408] },
+      "properties": { "name": "Itaipu Dam", "country": "BRA", "fuelType": "Hydro", "capacityMw": 14000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [100.42, 25.29] },
+      "properties": { "name": "Xiluodu Dam", "country": "CHN", "fuelType": "Hydro", "capacityMw": 13860, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-62.97, 7.77] },
+      "properties": { "name": "Guri Dam", "country": "VEN", "fuelType": "Hydro", "capacityMw": 10235, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [104.29, 28.27] },
+      "properties": { "name": "Xiangjiaba Dam", "country": "CHN", "fuelType": "Hydro", "capacityMw": 6448, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-118.08, 47.95] },
+      "properties": { "name": "Grand Coulee Dam", "country": "USA", "fuelType": "Hydro", "capacityMw": 6809, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [32.878, 23.97] },
+      "properties": { "name": "Aswan High Dam", "country": "EGY", "fuelType": "Hydro", "capacityMw": 2100, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [48.25, 53.44] },
+      "properties": { "name": "Zhigulyovsk Hydroelectric (Volga)", "country": "RUS", "fuelType": "Hydro", "capacityMw": 2541, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [104.29, 26.37] },
+      "properties": { "name": "Baihetan Dam", "country": "CHN", "fuelType": "Hydro", "capacityMw": 16000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [91.78, 29.48] },
+      "properties": { "name": "Wudongde Dam", "country": "CHN", "fuelType": "Hydro", "capacityMw": 10200, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.28, -2.48] },
+      "properties": { "name": "Inga Falls (Inga I & II)", "country": "COD", "fuelType": "Hydro", "capacityMw": 1775, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [55.52, -19.00] },
+      "properties": { "name": "Merowe Dam", "country": "SDN", "fuelType": "Hydro", "capacityMw": 1250, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [88.26, 26.85] },
+      "properties": { "name": "Teesta III Hydroelectric", "country": "IND", "fuelType": "Hydro", "capacityMw": 1200, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-49.63, -20.67] },
+      "properties": { "name": "Ilha Solteira Dam", "country": "BRA", "fuelType": "Hydro", "capacityMw": 3444, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-51.63, -24.07] },
+      "properties": { "name": "Salto Santiago Dam", "country": "BRA", "fuelType": "Hydro", "capacityMw": 1420, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.933, 51.805] },
+      "properties": { "name": "Sizewell B Nuclear Power Station", "country": "GBR", "fuelType": "Nuclear", "capacityMw": 1198, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-76.41, 43.52] },
+      "properties": { "name": "Nine Mile Point Nuclear Station", "country": "USA", "fuelType": "Nuclear", "capacityMw": 1965, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-81.35, 41.60] },
+      "properties": { "name": "Perry Nuclear Power Plant", "country": "USA", "fuelType": "Nuclear", "capacityMw": 1261, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-82.90, 29.96] },
+      "properties": { "name": "Crystal River Nuclear Plant", "country": "USA", "fuelType": "Nuclear", "capacityMw": 860, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [2.88, 44.33] },
+      "properties": { "name": "Gravelines Nuclear Power Station", "country": "FRA", "fuelType": "Nuclear", "capacityMw": 5460, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [126.42, 35.41] },
+      "properties": { "name": "Hanbit (Yeonggwang) Nuclear", "country": "KOR", "fuelType": "Nuclear", "capacityMw": 5875, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [129.38, 35.46] },
+      "properties": { "name": "Kori Nuclear Power Plant", "country": "KOR", "fuelType": "Nuclear", "capacityMw": 5233, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [140.61, 37.42] },
+      "properties": { "name": "Kashiwazaki-Kariwa Nuclear", "country": "JPN", "fuelType": "Nuclear", "capacityMw": 7965, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.56, 33.22] },
+      "properties": { "name": "Virgil C. Summer Nuclear Station", "country": "USA", "fuelType": "Nuclear", "capacityMw": 1000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-83.09, 33.14] },
+      "properties": { "name": "Vogtle Electric Generating Plant", "country": "USA", "fuelType": "Nuclear", "capacityMw": 4600, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [0.93, 50.91] },
+      "properties": { "name": "Dungeness B Nuclear Power Station", "country": "GBR", "fuelType": "Nuclear", "capacityMw": 1040, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [18.17, 57.42] },
+      "properties": { "name": "Ringhals Nuclear Power Plant", "country": "SWE", "fuelType": "Nuclear", "capacityMw": 3956, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [6.95, 51.32] },
+      "properties": { "name": "Biblis Nuclear Power Plant", "country": "DEU", "fuelType": "Nuclear", "capacityMw": 2407, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [121.12, 30.44] },
+      "properties": { "name": "Qinshan Nuclear Power Plant", "country": "CHN", "fuelType": "Nuclear", "capacityMw": 3270, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.55, 46.38] },
+      "properties": { "name": "South Ukraine Nuclear Power Plant", "country": "UKR", "fuelType": "Nuclear", "capacityMw": 3000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [34.59, 51.32] },
+      "properties": { "name": "Kursk Nuclear Power Plant", "country": "RUS", "fuelType": "Nuclear", "capacityMw": 4000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [80.17, 9.97] },
+      "properties": { "name": "Kudankulam Nuclear Power Plant", "country": "IND", "fuelType": "Nuclear", "capacityMw": 2000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [116.67, 39.77] },
+      "properties": { "name": "Tuoketuo Power Station", "country": "CHN", "fuelType": "Coal", "capacityMw": 6720, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [112.47, 33.07] },
+      "properties": { "name": "Dangjin Thermal Power Station", "country": "KOR", "fuelType": "Coal", "capacityMw": 6040, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [126.75, 36.98] },
+      "properties": { "name": "Taean Power Station", "country": "KOR", "fuelType": "Coal", "capacityMw": 6100, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [112.90, 40.05] },
+      "properties": { "name": "Datong No. 2 Power Station", "country": "CHN", "fuelType": "Coal", "capacityMw": 6000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [113.72, 34.21] },
+      "properties": { "name": "Waigaoqiao Power Station", "country": "CHN", "fuelType": "Coal", "capacityMw": 5000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [82.15, 22.35] },
+      "properties": { "name": "Vindhyachal Super Thermal Power Station", "country": "IND", "fuelType": "Coal", "capacityMw": 4760, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [82.74, 24.11] },
+      "properties": { "name": "Singrauli Super Thermal Power Station", "country": "IND", "fuelType": "Coal", "capacityMw": 2980, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [79.69, 11.73] },
+      "properties": { "name": "Neyveli Lignite Power Station", "country": "IND", "fuelType": "Coal", "capacityMw": 2740, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [83.55, 23.63] },
+      "properties": { "name": "Mundra Thermal Power Station", "country": "IND", "fuelType": "Coal", "capacityMw": 4620, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-87.00, 38.95] },
+      "properties": { "name": "Gibson Generating Station", "country": "USA", "fuelType": "Coal", "capacityMw": 3345, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-81.75, 39.37] },
+      "properties": { "name": "John E. Amos Plant", "country": "USA", "fuelType": "Coal", "capacityMw": 2932, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-97.26, 31.21] },
+      "properties": { "name": "Limestone Electric Generating Station", "country": "USA", "fuelType": "Coal", "capacityMw": 1852, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [14.32, 51.85] },
+      "properties": { "name": "Jaenschwalde Power Station", "country": "DEU", "fuelType": "Coal", "capacityMw": 3000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [6.67, 50.93] },
+      "properties": { "name": "Niederaussem Power Station", "country": "DEU", "fuelType": "Coal", "capacityMw": 3864, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [19.28, 51.26] },
+      "properties": { "name": "Belchatow Power Station", "country": "POL", "fuelType": "Coal", "capacityMw": 5354, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [20.08, 50.06] },
+      "properties": { "name": "Kozienice Power Station", "country": "POL", "fuelType": "Coal", "capacityMw": 4116, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.69, -26.77] },
+      "properties": { "name": "Kendal Power Station", "country": "ZAF", "fuelType": "Coal", "capacityMw": 4116, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.25, -26.08] },
+      "properties": { "name": "Medupi Power Station", "country": "ZAF", "fuelType": "Coal", "capacityMw": 4764, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.18, -26.55] },
+      "properties": { "name": "Kusile Power Station", "country": "ZAF", "fuelType": "Coal", "capacityMw": 4800, "status": "Construction" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [150.76, -32.39] },
+      "properties": { "name": "Bayswater Power Station", "country": "AUS", "fuelType": "Coal", "capacityMw": 2640, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [40.68, 52.05] },
+      "properties": { "name": "Surgut-2 GRES", "country": "RUS", "fuelType": "Gas", "capacityMw": 5597, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-95.63, 29.76] },
+      "properties": { "name": "W.A. Parish Generating Station", "country": "USA", "fuelType": "Gas", "capacityMw": 3975, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-118.56, 34.30] },
+      "properties": { "name": "Scattergood Generating Station", "country": "USA", "fuelType": "Gas", "capacityMw": 803, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-74.07, 40.76] },
+      "properties": { "name": "Ravenswood Generating Station", "country": "USA", "fuelType": "Gas", "capacityMw": 2480, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [51.52, 25.99] },
+      "properties": { "name": "Ras Laffan IWPP", "country": "QAT", "fuelType": "Gas", "capacityMw": 2730, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [54.66, 24.52] },
+      "properties": { "name": "Taweelah Power Station", "country": "ARE", "fuelType": "Gas", "capacityMw": 5600, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [48.08, 29.06] },
+      "properties": { "name": "Sabiya Power Station", "country": "KWT", "fuelType": "Gas", "capacityMw": 5220, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [39.18, 21.42] },
+      "properties": { "name": "Shoaiba Power Plant", "country": "SAU", "fuelType": "Gas", "capacityMw": 5600, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [55.37, 25.39] },
+      "properties": { "name": "Jebel Ali Power Station", "country": "ARE", "fuelType": "Gas", "capacityMw": 8695, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [73.08, 40.52] },
+      "properties": { "name": "Nyagan GRES", "country": "RUS", "fuelType": "Gas", "capacityMw": 2520, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-87.91, 30.43] },
+      "properties": { "name": "Crist Generating Plant", "country": "USA", "fuelType": "Gas", "capacityMw": 1048, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.63, 28.42] },
+      "properties": { "name": "Cape Canaveral Next Gen Clean Energy Center", "country": "USA", "fuelType": "Gas", "capacityMw": 1277, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.96, 40.97] },
+      "properties": { "name": "Hamitabat Natural Gas Power Plant", "country": "TUR", "fuelType": "Gas", "capacityMw": 1217, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [52.61, 32.91] },
+      "properties": { "name": "Shahid Rajaee Power Plant", "country": "IRN", "fuelType": "Gas", "capacityMw": 2086, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [44.37, 33.27] },
+      "properties": { "name": "Bismayah Combined Cycle Power Plant", "country": "IRQ", "fuelType": "Gas", "capacityMw": 4500, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31.11, 30.08] },
+      "properties": { "name": "Beni Suef Power Plant", "country": "EGY", "fuelType": "Gas", "capacityMw": 4800, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-0.26, 51.39] },
+      "properties": { "name": "South Humber Bank Power Station", "country": "GBR", "fuelType": "Gas", "capacityMw": 1285, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [50.06, 26.24] },
+      "properties": { "name": "Qurayyah Combined Cycle Power Plant", "country": "SAU", "fuelType": "Gas", "capacityMw": 3927, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [39.08, 21.38] },
+      "properties": { "name": "Shoaiba Oil-Fired Power Plant", "country": "SAU", "fuelType": "Oil", "capacityMw": 4100, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [56.28, 23.65] },
+      "properties": { "name": "Sohar IWPP (Oil-Gas)", "country": "OMN", "fuelType": "Oil", "capacityMw": 1000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [134.15, 34.18] },
+      "properties": { "name": "Sakaide Power Station", "country": "JPN", "fuelType": "Oil", "capacityMw": 1500, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-66.14, 18.45] },
+      "properties": { "name": "Aguirre Power Plant", "country": "USA", "fuelType": "Oil", "capacityMw": 900, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-157.87, 21.31] },
+      "properties": { "name": "Kahe Generating Station", "country": "USA", "fuelType": "Oil", "capacityMw": 651, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [35.49, 33.95] },
+      "properties": { "name": "Zouk Mosbeh Power Station", "country": "LBN", "fuelType": "Oil", "capacityMw": 607, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [103.72, 1.27] },
+      "properties": { "name": "Jurong Island Power Station", "country": "SGP", "fuelType": "Oil", "capacityMw": 1200, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-17.16, 28.07] },
+      "properties": { "name": "Granadilla Power Station", "country": "ESP", "fuelType": "Oil", "capacityMw": 553, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.68, 6.13] },
+      "properties": { "name": "Lome Thermal Power Station", "country": "TGO", "fuelType": "Oil", "capacityMw": 500, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [97.52, 27.52] },
+      "properties": { "name": "Longyangxia Solar Park", "country": "CHN", "fuelType": "Solar", "capacityMw": 850, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [71.92, 26.95] },
+      "properties": { "name": "Bhadla Solar Park", "country": "IND", "fuelType": "Solar", "capacityMw": 2245, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [78.25, 15.86] },
+      "properties": { "name": "Kurnool Ultra Mega Solar Park", "country": "IND", "fuelType": "Solar", "capacityMw": 1000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [76.09, 11.58] },
+      "properties": { "name": "Pavagada Solar Park", "country": "IND", "fuelType": "Solar", "capacityMw": 2050, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-115.81, 35.79] },
+      "properties": { "name": "Ivanpah Solar Electric Generating System", "country": "USA", "fuelType": "Solar", "capacityMw": 392, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-117.37, 35.02] },
+      "properties": { "name": "Solar Star", "country": "USA", "fuelType": "Solar", "capacityMw": 579, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-114.95, 32.95] },
+      "properties": { "name": "Desert Sunlight Solar Farm", "country": "USA", "fuelType": "Solar", "capacityMw": 550, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-115.38, 36.04] },
+      "properties": { "name": "Copper Mountain Solar Facility", "country": "USA", "fuelType": "Solar", "capacityMw": 802, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [55.16, 24.78] },
+      "properties": { "name": "Mohammed bin Rashid Al Maktoum Solar Park", "country": "ARE", "fuelType": "Solar", "capacityMw": 5000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [40.46, 29.12] },
+      "properties": { "name": "Sakaka Solar Project", "country": "SAU", "fuelType": "Solar", "capacityMw": 300, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.97, 31.00] },
+      "properties": { "name": "Noor-Ouarzazate Solar Complex", "country": "MAR", "fuelType": "Solar", "capacityMw": 580, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [100.36, 40.73] },
+      "properties": { "name": "Tengger Desert Solar Park", "country": "CHN", "fuelType": "Solar", "capacityMw": 1547, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [7.59, 55.71] },
+      "properties": { "name": "Horns Rev 3 Offshore Wind Farm", "country": "DNK", "fuelType": "Wind", "capacityMw": 407, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.62, 52.48] },
+      "properties": { "name": "East Anglia One Offshore Wind Farm", "country": "GBR", "fuelType": "Wind", "capacityMw": 714, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.79, 53.81] },
+      "properties": { "name": "Hornsea One Offshore Wind Farm", "country": "GBR", "fuelType": "Wind", "capacityMw": 1218, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1.80, 53.95] },
+      "properties": { "name": "Hornsea Two Offshore Wind Farm", "country": "GBR", "fuelType": "Wind", "capacityMw": 1386, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-97.35, 32.25] },
+      "properties": { "name": "Roscoe Wind Farm", "country": "USA", "fuelType": "Wind", "capacityMw": 782, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-100.45, 41.70] },
+      "properties": { "name": "Traverse Wind Energy Center", "country": "USA", "fuelType": "Wind", "capacityMw": 998, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-96.42, 36.68] },
+      "properties": { "name": "Western Trail Wind", "country": "USA", "fuelType": "Wind", "capacityMw": 367, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.47, 40.73] },
+      "properties": { "name": "Gansu Wind Farm (Jiuquan)", "country": "CHN", "fuelType": "Wind", "capacityMw": 7965, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [71.57, 51.17] },
+      "properties": { "name": "Yereymentau Wind Farm", "country": "KAZ", "fuelType": "Wind", "capacityMw": 1000, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-41.95, -2.42] },
+      "properties": { "name": "Alto Sertao Wind Complex", "country": "BRA", "fuelType": "Wind", "capacityMw": 800, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [3.58, 51.65] },
+      "properties": { "name": "Borssele Offshore Wind Farm", "country": "NLD", "fuelType": "Wind", "capacityMw": 1500, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.15, 54.55] },
+      "properties": { "name": "Baltic Eagle Offshore Wind Farm", "country": "DEU", "fuelType": "Wind", "capacityMw": 476, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-122.72, 38.78] },
+      "properties": { "name": "The Geysers", "country": "USA", "fuelType": "Geothermal", "capacityMw": 1517, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-21.33, 64.05] },
+      "properties": { "name": "Hellisheidi Geothermal Power Station", "country": "ISL", "fuelType": "Geothermal", "capacityMw": 303, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [36.29, -0.89] },
+      "properties": { "name": "Olkaria Geothermal Power Station", "country": "KEN", "fuelType": "Geothermal", "capacityMw": 791, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [110.34, -7.54] },
+      "properties": { "name": "Wayang Windu Geothermal Power Station", "country": "IDN", "fuelType": "Geothermal", "capacityMw": 400, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [130.83, 33.08] },
+      "properties": { "name": "Hatchobaru Geothermal Power Station", "country": "JPN", "fuelType": "Geothermal", "capacityMw": 112, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.56, 14.11] },
+      "properties": { "name": "Makban Geothermal Power Plant", "country": "PHL", "fuelType": "Geothermal", "capacityMw": 458, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-103.72, 19.47] },
+      "properties": { "name": "Cerro Prieto Geothermal Power Station", "country": "MEX", "fuelType": "Geothermal", "capacityMw": 720, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [174.77, -38.52] },
+      "properties": { "name": "Kawerau Geothermal Power Station", "country": "NZL", "fuelType": "Geothermal", "capacityMw": 240, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.45, 55.68] },
+      "properties": { "name": "Amager Resource Center (Copenhill)", "country": "DNK", "fuelType": "Biomass", "capacityMw": 495, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-1.16, 53.76] },
+      "properties": { "name": "Drax Power Station (Biomass Units)", "country": "GBR", "fuelType": "Biomass", "capacityMw": 2595, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.47, 60.48] },
+      "properties": { "name": "Alholmens Kraft Biomass Plant", "country": "FIN", "fuelType": "Biomass", "capacityMw": 240, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-47.87, -15.78] },
+      "properties": { "name": "Sao Simao Biomass Power Plant", "country": "BRA", "fuelType": "Biomass", "capacityMw": 260, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [10.44, 63.42] },
+      "properties": { "name": "Bio-El Fredrikstad Biomass Plant", "country": "NOR", "fuelType": "Biomass", "capacityMw": 135, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30.72, 46.62] },
+      "properties": { "name": "Zaporizhzhia Nuclear Power Plant", "country": "UKR", "fuelType": "Nuclear", "capacityMw": 5700, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-96.05, 30.05] },
+      "properties": { "name": "South Texas Project Nuclear", "country": "USA", "fuelType": "Nuclear", "capacityMw": 2708, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [3.53, 50.53] },
+      "properties": { "name": "Chooz Nuclear Power Plant", "country": "FRA", "fuelType": "Nuclear", "capacityMw": 2860, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.95, 21.43] },
+      "properties": { "name": "Yangjiang Nuclear Power Station", "country": "CHN", "fuelType": "Nuclear", "capacityMw": 6520, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [116.95, 23.25] },
+      "properties": { "name": "Daya Bay Nuclear Power Station", "country": "CHN", "fuelType": "Nuclear", "capacityMw": 1968, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.40, 44.14] },
+      "properties": { "name": "Krsko Nuclear Power Plant", "country": "SVN", "fuelType": "Nuclear", "capacityMw": 696, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [115.07, 34.75] },
+      "properties": { "name": "Zouxian Power Station", "country": "CHN", "fuelType": "Coal", "capacityMw": 4540, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [80.75, 25.23] },
+      "properties": { "name": "Sasan Ultra Mega Power Plant", "country": "IND", "fuelType": "Coal", "capacityMw": 3960, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [150.02, -33.98] },
+      "properties": { "name": "Eraring Power Station", "country": "AUS", "fuelType": "Coal", "capacityMw": 2880, "status": "Operating" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-89.83, 37.21] },
+      "properties": { "name": "Labadie Energy Center", "country": "USA", "fuelType": "Coal", "capacityMw": 2372, "status": "Operating" }
+    }
+  ]
+}

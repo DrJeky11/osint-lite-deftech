@@ -1,7 +1,13 @@
 """Simple gazetteer-based geo inference for OSINT signal events."""
 
+import logging
 import re
+from collections import OrderedDict
 from typing import Optional
+
+import httpx
+
+logger = logging.getLogger(__name__)
 
 # Dictionary of known locations: name -> geo info
 # Covers major conflict/instability zones
@@ -135,19 +141,50 @@ UNKNOWN_GEO = {
     "confidence": 0.18,
 }
 
+# ---------------------------------------------------------------------------
+# Nominatim LRU cache (bounded OrderedDict, max 512 entries)
+# ---------------------------------------------------------------------------
+_NOMINATIM_CACHE_MAX = 512
+_nominatim_cache: OrderedDict[str, dict] = OrderedDict()
 
-def infer_geo(place_hints: list[str], text: str = "") -> dict:
-    """Match place hints (and optionally article text) against the gazetteer.
+NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
+NOMINATIM_HEADERS = {"User-Agent": "osint-lite-deftech/1.0"}
+NOMINATIM_TIMEOUT = 3.0  # seconds
 
-    Returns the best-matching geo dict with a confidence that reflects
-    match quality rather than a fixed per-entry value.
+
+def _cache_get(key: str) -> Optional[dict]:
+    """Retrieve from Nominatim cache, returning None on miss."""
+    if key in _nominatim_cache:
+        _nominatim_cache.move_to_end(key)
+        return _nominatim_cache[key]
+    return None
+
+
+def _cache_put(key: str, value: dict) -> None:
+    """Store in Nominatim cache, evicting oldest if over capacity."""
+    _nominatim_cache[key] = value
+    _nominatim_cache.move_to_end(key)
+    while len(_nominatim_cache) > _NOMINATIM_CACHE_MAX:
+        _nominatim_cache.popitem(last=False)
+
+
+# ---------------------------------------------------------------------------
+# Shared gazetteer lookup helper
+# ---------------------------------------------------------------------------
+
+def _gazetteer_lookup(
+    place_hints: list[str], text: str = ""
+) -> tuple[Optional[dict], str, int]:
+    """Scan place_hints and text against the GAZETTEER.
+
+    Returns (best_entry_or_None, match_source, text_match_count).
     """
     best: Optional[dict] = None
     best_confidence = 0.0
-    match_source = "none"  # "hint" or "text"
-    text_match_count = 0   # how many gazetteer keys appear in the text
+    match_source = "none"
+    text_match_count = 0
 
-    # First try explicit place hints (high confidence — admin configured these)
+    # First try explicit place hints
     for hint in place_hints:
         key = hint.lower().strip()
         if key in GAZETTEER:
@@ -177,29 +214,23 @@ def infer_geo(place_hints: list[str], text: str = "") -> dict:
                     best_confidence = entry["confidence"]
                     match_source = "text"
 
-    if best is None:
-        return dict(UNKNOWN_GEO)
+    return best, match_source, text_match_count
 
-    # Compute a dynamic confidence based on match quality:
-    # - Base: the gazetteer entry's confidence (resolution-dependent)
-    # - Boost for hint match (admin explicitly configured this search for this place)
-    # - Boost for multiple geo mentions in text (corroborating evidence)
-    # - Penalty for text-only match (weaker signal)
+
+def _build_result(best: dict, match_source: str, text_match_count: int, text: str) -> dict:
+    """Build the final geo result dict from a gazetteer match."""
     base = best["confidence"]
     if match_source == "hint":
-        # Hint match: boost slightly, cap at 0.96
         conf = min(base + 0.08, 0.96)
     else:
-        # Text-only: start lower, boost for multiple geo references
         conf = base * 0.85
         if text_match_count >= 3:
             conf += 0.08
         elif text_match_count >= 2:
             conf += 0.04
 
-    # Add small jitter from text length hash so cards don't all show identical %
     if text:
-        jitter = ((len(text) * 7) % 11 - 5) * 0.01  # -0.05 to +0.05
+        jitter = ((len(text) * 7) % 11 - 5) * 0.01
         conf += jitter
 
     conf = round(max(0.15, min(0.96, conf)), 2)
@@ -213,3 +244,166 @@ def infer_geo(place_hints: list[str], text: str = "") -> dict:
         "resolution": best["resolution"],
         "confidence": conf,
     }
+
+
+# ---------------------------------------------------------------------------
+# Nominatim helpers
+# ---------------------------------------------------------------------------
+
+def _parse_nominatim_response(data: list[dict]) -> Optional[dict]:
+    """Parse a Nominatim JSON response list into a geo dict, or None."""
+    if not data:
+        return None
+
+    result = data[0]
+    address = result.get("address", {})
+
+    name = result.get("display_name", "Unknown").split(",")[0].strip()
+    country = address.get("country", "Unknown")
+
+    if address.get("city"):
+        resolution = "city"
+    elif address.get("state"):
+        resolution = "region"
+    else:
+        resolution = "country"
+
+    return {
+        "locationId": name.lower().replace(" ", "-"),
+        "name": name,
+        "country": country,
+        "lat": float(result["lat"]),
+        "lon": float(result["lon"]),
+        "resolution": resolution,
+        "confidence": 0.65,
+    }
+
+
+def _build_nominatim_query(place_hints: list[str], text: str) -> Optional[str]:
+    """Construct a query string for Nominatim from hints or text.
+
+    Returns None if no usable query can be formed.
+    """
+    # Try the first non-empty hint
+    for hint in place_hints:
+        hint = hint.strip()
+        if hint:
+            return hint
+
+    # Fall back to text: find the longest capitalized multi-word sequence
+    if text:
+        matches = re.findall(r'(?:[A-Z][a-z]+(?:\s+|$)){1,5}', text)
+        if matches:
+            # Pick the longest match (most likely a place name)
+            best = max(matches, key=len).strip()
+            if best:
+                return best
+
+        # Last resort: first 100 chars of text
+        snippet = text[:100].strip()
+        if snippet:
+            return snippet
+
+    return None
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
+def infer_geo(place_hints: list[str], text: str = "") -> dict:
+    """Match place hints (and optionally article text) against the gazetteer,
+    falling back to Nominatim when the gazetteer has no match.
+
+    Returns the best-matching geo dict with a confidence that reflects
+    match quality rather than a fixed per-entry value.
+    """
+    best, match_source, text_match_count = _gazetteer_lookup(place_hints, text)
+
+    if best is not None:
+        return _build_result(best, match_source, text_match_count, text)
+
+    # -- Nominatim fallback (sync) --
+    query = _build_nominatim_query(place_hints, text)
+    if query is None:
+        return dict(UNKNOWN_GEO)
+
+    cache_key = query.lower().strip()
+    cached = _cache_get(cache_key)
+    if cached is not None:
+        return dict(cached)
+
+    try:
+        with httpx.Client(
+            headers=NOMINATIM_HEADERS,
+            timeout=NOMINATIM_TIMEOUT,
+        ) as client:
+            resp = client.get(
+                NOMINATIM_URL,
+                params={"q": query, "format": "json", "limit": 1, "addressdetails": 1},
+            )
+            resp.raise_for_status()
+            data = resp.json()
+    except Exception:
+        logger.warning("Nominatim geocoding failed for query %r", query, exc_info=True)
+        return dict(UNKNOWN_GEO)
+
+    result = _parse_nominatim_response(data)
+    if result is None:
+        logger.warning("Nominatim returned no results for query %r", query)
+        _cache_put(cache_key, dict(UNKNOWN_GEO))
+        return dict(UNKNOWN_GEO)
+
+    _cache_put(cache_key, result)
+    return dict(result)
+
+
+async def infer_geo_async(place_hints: list[str], text: str = "") -> dict:
+    """Async geo inference with Nominatim fallback.
+
+    First tries the static GAZETTEER (same logic as ``infer_geo``).
+    If no match, falls back to the OpenStreetMap Nominatim geocoding API.
+    Results from Nominatim are cached (up to 512 entries) to avoid repeat
+    API calls.
+    """
+    best, match_source, text_match_count = _gazetteer_lookup(place_hints, text)
+
+    if best is not None:
+        return _build_result(best, match_source, text_match_count, text)
+
+    # -- Nominatim fallback --
+    query = _build_nominatim_query(place_hints, text)
+    if query is None:
+        return dict(UNKNOWN_GEO)
+
+    cache_key = query.lower().strip()
+
+    # Check cache
+    cached = _cache_get(cache_key)
+    if cached is not None:
+        return dict(cached)
+
+    # Call Nominatim
+    try:
+        async with httpx.AsyncClient(
+            headers=NOMINATIM_HEADERS,
+            timeout=NOMINATIM_TIMEOUT,
+        ) as client:
+            resp = await client.get(
+                NOMINATIM_URL,
+                params={"q": query, "format": "json", "limit": 1, "addressdetails": 1},
+            )
+            resp.raise_for_status()
+            data = resp.json()
+    except Exception:
+        logger.warning("Nominatim geocoding failed for query %r", query, exc_info=True)
+        return dict(UNKNOWN_GEO)
+
+    result = _parse_nominatim_response(data)
+    if result is None:
+        logger.warning("Nominatim returned no results for query %r", query)
+        _cache_put(cache_key, dict(UNKNOWN_GEO))
+        return dict(UNKNOWN_GEO)
+
+    _cache_put(cache_key, result)
+    return dict(result)

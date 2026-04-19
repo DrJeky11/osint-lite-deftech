@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import maplibregl from "maplibre-gl";
-  import { filters, selection, getFilteredSignalEvents, getVisibleScores, ensureValidSelection } from "../state.svelte.js";
+  import { filters, selection, dataset, getFilteredSignalEvents, getVisibleScores, ensureValidSelection } from "../state.svelte.js";
   import { scoresToGeoJSON, signalEventsToGeoJSON, countryFillGeoJSON, resolveCountryName } from "../lib/geojson.js";
   import {
     OVERLAY_REGISTRY,
@@ -23,6 +23,15 @@
   let overlayPrefs = loadOverlayPreferences();
   let hoverPopup = null;
   let countriesGeoJSON = null;
+
+  // Re-render map when the dataset changes (e.g. async fetch completes after map init)
+  $effect(() => {
+    // Touch reactive properties to subscribe to changes
+    dataset.signalEvents;
+    dataset.generatedAt;
+    // Only update if map is already initialized
+    if (loaded) updateMapData();
+  });
 
   onMount(() => {
     if (!container) {
